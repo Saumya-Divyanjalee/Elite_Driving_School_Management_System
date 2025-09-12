@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="697.0" prefWidth="1219.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm.elite_driving_school_management_system.controller.LessonSchedulingController">
+    <children>
+        <VBox layoutX="-32.0" layoutY="-2.0" prefHeight="714.0" prefWidth="1389.0" spacing="15.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="-15.0" AnchorPane.leftAnchor="-12.0" AnchorPane.rightAnchor="-158.0" AnchorPane.topAnchor="-2.0">
+
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: black;" text="Lesson Scheduling" textFill="#273c75">
+                <VBox.margin>
+                    <Insets bottom="20.0" left="190.0" right="5.0" top="10.0" />
+                </VBox.margin></Label>
+
+            <GridPane hgap="10" minHeight="80.0" prefHeight="200.0" prefWidth="80.0" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" minWidth="150.0" />
+                    <ColumnConstraints maxWidth="200.0" minWidth="300.0" prefWidth="200.0" />
+                    <ColumnConstraints minWidth="150.0" />
+                    <ColumnConstraints minWidth="150.0" />
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints /><RowConstraints /><RowConstraints /><RowConstraints />
+                    <RowConstraints /><RowConstraints /><RowConstraints /><RowConstraints />
+                    <RowConstraints /><RowConstraints /><RowConstraints /><RowConstraints />
+                    <RowConstraints /><RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                </rowConstraints>
+
+                <VBox.margin>
+                    <Insets bottom="5.0" />
+                </VBox.margin>
+
+                <children>
+                    <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Lesson ID :" textFill="black" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label fx:id="lbllessonID" style="-fx-font-weight: bold;" text="1" textFill="black" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Name :" textFill="black" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="txtName" promptText="Car" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Start Time : " textFill="black" GridPane.rowIndex="2" />
+                    <TextField fx:id="txtstarttime" promptText="08.00a.m" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label text="Instructor ID :" GridPane.columnIndex="2">
+                        <font>
+                            <Font name="System Bold" size="12.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="lblInstructorID" text="1" GridPane.columnIndex="3" />
+                    <Label style="-fx-font-weight: bold;" text="Student ID : " GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    <Label style="-fx-font-weight: bold;" text=" " GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                    <Label fx:id="lblStudentID" text="1" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    <Label layoutX="59.0" layoutY="78.0" prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="End Time :" textFill="black" GridPane.rowIndex="3" />
+                    <TextField fx:id="txtendtime" promptText="10.30a.m" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Label style="-fx-font-weight: bold;" text="Course ID : " GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               <Label text="Date :" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Label>
+               <Label fx:id="lblcourseID" text="1" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+               <DatePicker fx:id="datepicker" prefHeight="26.0" prefWidth="217.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                </children>
+            </GridPane>
+
+            <HBox alignment="CENTER" prefHeight="21.0" prefWidth="1228.0" spacing="10">
+                <Button fx:id="btnSave" onAction="#saveOnAction" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" text="Save">
+                    <font>
+                        <Font size="15.0" />
+                    </font></Button>
+                <Button fx:id="btnUpdate" onAction="#updateOnAction" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;" text="Update">
+                    <font>
+                        <Font size="15.0" />
+                    </font></Button>
+                <Button fx:id="btnDelete" onAction="#deleteOnAction" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" text="Delete">
+                    <font>
+                        <Font size="15.0" />
+                    </font></Button>
+                <Button fx:id="btnReset" onAction="#resetOnAction" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-font-weight: bold;" text="Reset">
+                    <font>
+                        <Font size="15.0" />
+                    </font></Button>
+                <Button fx:id="btnMail" mnemonicParsing="false" onAction="#mailOnAction" prefHeight="48.0" prefWidth="71.0" style="-fx-background-color: #ffffff;">
+                    <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/icons8-email-50.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+
+            <TableView fx:id="tblLesson" onMouseClicked="#onClickTable" prefHeight="342.0" prefWidth="1322.0" style="-fx-border-color: lightgray;">
+                <columns>
+                    <TableColumn fx:id="collessonID" prefWidth="95.99999761581421" text="Lesson ID" />
+                    <TableColumn fx:id="colName" prefWidth="411.1999282836914" text="Name" />
+                    <TableColumn fx:id="colStartTime" prefWidth="164.00003051757812" text="Start Time" />
+                    <TableColumn fx:id="colEndTime" prefWidth="199.2000732421875" text="End Time" />
+                    <TableColumn fx:id="colInstructorID" prefWidth="152.0" text="Instructor ID" />
+                    <TableColumn fx:id="colStudentID" prefWidth="160.7999267578125" text="Student ID" />
+                    <TableColumn fx:id="colCourseID" prefWidth="148.800048828125" text="Course ID" />
+               <TableColumn fx:id="colEndTime" prefWidth="199.2000732421875" text="End Time" />
+                </columns>
+
+                <VBox.margin>
+                    <Insets left="35.0" />
+                </VBox.margin>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>
