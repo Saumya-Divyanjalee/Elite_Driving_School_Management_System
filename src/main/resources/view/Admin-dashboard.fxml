@@ -88,6 +88,6 @@
             <Insets left="20.0" />
          </VBox.margin></Button>
    </VBox>
-   <AnchorPane fx:id="ancpanal" layoutX="290.4" prefHeight="709.0" prefWidth="663.0" style="-fx-background-color: #130f40;" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
+   <AnchorPane fx:id="ancMainContainer" layoutX="290.4" prefHeight="709.0" prefWidth="663.0" style="-fx-background-color: #130f40;" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
 
 </AnchorPane>
