@@ -28,6 +28,9 @@ public class PaymentController {
     private Button btnUpdate;
 
     @FXML
+    private TableColumn<?, ?> colAmount;
+
+    @FXML
     private TableColumn<?, ?> colCourseID;
 
     @FXML
@@ -35,9 +38,6 @@ public class PaymentController {
 
     @FXML
     private TableColumn<?, ?> colDescription;
-
-    @FXML
-    private TableColumn<?, ?> colName;
 
     @FXML
     private TableColumn<?, ?> colPaymentID;
@@ -70,10 +70,10 @@ public class PaymentController {
     private TableView<?> tblPayment;
 
     @FXML
-    private TextField txtDescription;
+    private TextField txtAmount;
 
     @FXML
-    private TextField txtName;
+    private TextField txtDescription;
 
     @FXML
     private TextField txtTime;

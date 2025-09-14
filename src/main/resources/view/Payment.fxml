@@ -74,8 +74,8 @@
                     <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Payment ID :" textFill="black" GridPane.rowIndex="3" />
                     <Label fx:id="lblPaymentID" style="-fx-font-weight: bold;" text="1" textFill="black" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          
-                    <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Name :" textFill="black" GridPane.rowIndex="4" />
-                    <TextField fx:id="txtName" promptText="Exam Fees" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Amount :" textFill="black" GridPane.rowIndex="4" />
+                    <TextField fx:id="txtAmount" promptText="50000.00" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          
                     <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Description :" textFill="black" GridPane.rowIndex="5" />
                     <TextField fx:id="txtDescription" promptText="practical driving test" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -137,7 +137,7 @@
             <TableView fx:id="tblPayment" onMouseClicked="#onClickTable" prefHeight="339.0" prefWidth="1350.0" style="-fx-border-color: lightgray;">
                 <columns>
                     <TableColumn fx:id="colPaymentID" prefWidth="82.39998769760132" text="Payment ID" />
-                    <TableColumn fx:id="colName" prefWidth="215.20000457763672" text="Name" />
+                    <TableColumn fx:id="colAmount" prefWidth="215.20000457763672" text="Amount" />
                     <TableColumn fx:id="colDescription" prefWidth="232.80001831054688" text="Description" />
                     <TableColumn fx:id="colTime" prefWidth="230.4000244140625" text="Time" />
                     <TableColumn fx:id="colDate" prefWidth="166.4000244140625" text="Date" />
