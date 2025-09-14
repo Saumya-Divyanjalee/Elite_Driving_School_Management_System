@@ -10,9 +10,9 @@ import lombok.*;
 
 
 public class CourseDTO {
-    private int courseId;
-    private int lessonId;
-    private int studentId;
+    private String courseId;
+    private String lessonId;
+    private String studentId;
     private String InstructorId;
     private String courseName;
     private String timePeriod;

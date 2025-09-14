@@ -11,11 +11,11 @@ import java.util.Date;
 @ToString
 
 public class LessonTM {
-    private int lessonId;
+    private String lessonId;
     private String lessonName;
-    private Date startTime;
-    private Date endTime;
-    private int instructorId;
-    private int studentId;
-    private int courseId;
+    private String startTime;
+    private String endTime;
+    private String instructorId;
+    private String studentId;
+    private String courseId;
 }

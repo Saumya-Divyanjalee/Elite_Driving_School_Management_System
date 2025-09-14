@@ -2,8 +2,8 @@ package lk.ijse.orm.elite_driving_school_management_system.tm;
 
 import lombok.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+
+import java.util.Date;
 
 
 @AllArgsConstructor
@@ -13,14 +13,14 @@ import java.time.LocalTime;
 @ToString
 
 public class PaymentTM {
-    private int paymentId;
+    private String paymentId;
     private double amount;
     private String description;
-    private LocalDate date;
-    private LocalTime time;
-    private int studentId;
-    private int courseId;
-    private int userId;
+    private Date date;
+    private String time;
+    private String studentId;
+    private String courseId;
+    private String userId;
 
 
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.orm.elite_driving_school_management_system.tm.CourseTM;
 
 public class CourseController {
 
@@ -27,7 +28,7 @@ public class CourseController {
     private Button btnUpdate;
 
     @FXML
-    private TableColumn<?, ?> colCourseID;
+    private TableColumn<CourseTM,String> colCourseID;
 
     @FXML
     private TableColumn<?, ?> colCourseName;

@@ -11,16 +11,16 @@ import java.util.Date;
 @ToString
 
 public class StudentDTO {
-    private int studentId;
+    private String studentId;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
     private String age;
     private Date dob;
-    private int courseId;
-    private int lessonId;
-    private int paymentId;
+    private String courseId;
+    private String lessonId;
+    private String paymentId;
 
 
 }
