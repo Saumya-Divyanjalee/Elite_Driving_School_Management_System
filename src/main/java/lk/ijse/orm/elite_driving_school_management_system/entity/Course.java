@@ -12,10 +12,10 @@ import  java.util.List;
 
 @Entity
 @Table(name ="course_table")
-public class Course {
+public class Course implements SuperEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int courseId;
+    private String courseId;
     private String courseName;
     private String timePeriod;
 

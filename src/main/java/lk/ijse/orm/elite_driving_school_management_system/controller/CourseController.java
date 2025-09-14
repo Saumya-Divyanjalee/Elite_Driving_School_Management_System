@@ -2,15 +2,20 @@ package lk.ijse.orm.elite_driving_school_management_system.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.orm.elite_driving_school_management_system.tm.CourseTM;
 
-public class CourseController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CourseController implements Initializable {
 
     @FXML
     private Button btnDelete;
@@ -31,19 +36,19 @@ public class CourseController {
     private TableColumn<CourseTM,String> colCourseID;
 
     @FXML
-    private TableColumn<?, ?> colCourseName;
+    private TableColumn<CourseTM,String> colCourseName;
 
     @FXML
-    private TableColumn<?, ?> colInstructorID;
+    private TableColumn<CourseTM,String> colInstructorID;
 
     @FXML
-    private TableColumn<?, ?> colLessonID;
+    private TableColumn<CourseTM,String> colLessonID;
 
     @FXML
-    private TableColumn<?, ?> colStudentID;
+    private TableColumn<CourseTM,String> colStudentID;
 
     @FXML
-    private TableColumn<?, ?> colTimePeriod;
+    private TableColumn<CourseTM,String> colTimePeriod;
 
     @FXML
     private Label lblCourseID;
@@ -58,7 +63,7 @@ public class CourseController {
     private Label lblStudentID;
 
     @FXML
-    private TableView<?> tblCourse;
+    private TableView<CourseTM> tblCourse;
 
     @FXML
     private TextField txtCourseName;
@@ -66,15 +71,37 @@ public class CourseController {
     @FXML
     private TextField txtTimePeriod;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        colCourseID.setCellValueFactory(new PropertyValueFactory<>("courseID"));
+        colCourseName.setCellValueFactory(new PropertyValueFactory<>("courseName"));
+        colTimePeriod.setCellValueFactory(new PropertyValueFactory<>("timePeriod"));
+        colLessonID.setCellValueFactory(new PropertyValueFactory<>("lessonID"));
+        colInstructorID.setCellValueFactory(new PropertyValueFactory<>("instructorID"));
+        colStudentID.setCellValueFactory(new PropertyValueFactory<>("studentID"));
+
+        try{
+            resetPage();
+        }
+    }
+
+
+    private  void resetPage(){
+        loadNextId();
+        loadTableData();
+    }
+
+    private void loadNextId(){
+        String nextId = "
+    }
+
     @FXML
     void deleteOnAction(ActionEvent event) {
 
     }
 
-    @FXML
-    void mailOnAction(ActionEvent event) {
 
-    }
 
     @FXML
     void onClickTable(MouseEvent event) {
