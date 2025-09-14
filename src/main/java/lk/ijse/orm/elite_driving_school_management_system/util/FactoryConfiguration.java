@@ -11,13 +11,13 @@ public class FactoryConfiguration {
 
     private FactoryConfiguration() {
         Configuration configuration = new Configuration()
-                .addAnnotatedClass(Admin.class)
+
                 .addAnnotatedClass(Student.class)
                 .addAnnotatedClass(Course.class)
                 .addAnnotatedClass(Instructor.class)
                 .addAnnotatedClass(Lesson.class)
-                .addAnnotatedClass(Payment.class)
-                .addAnnotatedClass(Receptionist.class);
+                .addAnnotatedClass(Payment.class);
+
         sessionFactory = configuration.buildSessionFactory();
     }
     public static FactoryConfiguration getInstance() {

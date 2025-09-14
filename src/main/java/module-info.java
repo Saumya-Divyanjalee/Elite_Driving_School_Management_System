@@ -11,6 +11,6 @@ module lk.ijse.orm.elite_driving_school_management_system {
     opens lk.ijse.orm.elite_driving_school_management_system to javafx.fxml;
     opens lk.ijse.orm.elite_driving_school_management_system.controller to javafx.base;
     opens lk.ijse.orm.elite_driving_school_management_system.config to jakarta.persistence;
-    opens
+
     exports lk.ijse.orm.elite_driving_school_management_system;
 }

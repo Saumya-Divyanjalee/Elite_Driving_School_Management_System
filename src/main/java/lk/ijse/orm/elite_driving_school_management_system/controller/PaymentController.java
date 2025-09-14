@@ -28,9 +28,6 @@ public class PaymentController {
     private Button btnUpdate;
 
     @FXML
-    private TableColumn<?, ?> colAdminID;
-
-    @FXML
     private TableColumn<?, ?> colCourseID;
 
     @FXML
@@ -46,28 +43,25 @@ public class PaymentController {
     private TableColumn<?, ?> colPaymentID;
 
     @FXML
-    private TableColumn<?, ?> colReceptionistID;
-
-    @FXML
     private TableColumn<?, ?> colStudentID;
 
     @FXML
     private TableColumn<?, ?> colTime;
 
     @FXML
-    private DatePicker datepicker;
+    private TableColumn<?, ?> colUserID;
 
     @FXML
-    private Label lblAdminID;
+    private DatePicker datepicker;
 
     @FXML
     private Label lblPaymentID;
 
     @FXML
-    private Label lblReceptionistID;
+    private Label lblStudentID;
 
     @FXML
-    private Label lblStudentID;
+    private Label lblUserId;
 
     @FXML
     private Label lblcourseID;

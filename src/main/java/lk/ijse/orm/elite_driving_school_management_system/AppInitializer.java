@@ -16,7 +16,7 @@ public class AppInitializer extends Application {
         launch(args);
     }
     public void start(Stage primaryStage) throws Exception {
-        URL resource = this.getClass().getResource("view/LoginForm.fxml");
+        URL resource = this.getClass().getResource("view/Login.fxml");
         Parent load = FXMLLoader.load(resource);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("Elite Driving School System");

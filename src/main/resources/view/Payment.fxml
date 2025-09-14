@@ -29,7 +29,7 @@
                 <VBox.margin>
                     <Insets bottom="20.0" left="190.0" right="5.0" top="10.0" />
                 </VBox.margin></Label>
-
+         
             <GridPane hgap="10" minHeight="80.0" prefHeight="200.0" prefWidth="80.0" vgap="10">
                 <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" minWidth="150.0" />
@@ -39,12 +39,22 @@
                <ColumnConstraints minWidth="150.0" />
                <ColumnConstraints minWidth="150.0" />
                 </columnConstraints>
-
+         
                 <rowConstraints>
-                    <RowConstraints /><RowConstraints /><RowConstraints /><RowConstraints />
-                    <RowConstraints /><RowConstraints /><RowConstraints /><RowConstraints />
-                    <RowConstraints /><RowConstraints /><RowConstraints /><RowConstraints />
-                    <RowConstraints /><RowConstraints />
+                    <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+                    <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+                    <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+                    <RowConstraints />
+               <RowConstraints />
                     <RowConstraints />
                     <RowConstraints />
                     <RowConstraints />
@@ -59,22 +69,22 @@
                 <VBox.margin>
                     <Insets bottom="5.0" />
                 </VBox.margin>
-
+         
                 <children>
                     <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Payment ID :" textFill="black" GridPane.rowIndex="3" />
                     <Label fx:id="lblPaymentID" style="-fx-font-weight: bold;" text="1" textFill="black" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
+         
                     <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Name :" textFill="black" GridPane.rowIndex="4" />
                     <TextField fx:id="txtName" promptText="Exam Fees" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-
+         
                     <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Description :" textFill="black" GridPane.rowIndex="5" />
                     <TextField fx:id="txtDescription" promptText="practical driving test" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    <Label text="Admin ID : " GridPane.columnIndex="2" GridPane.rowIndex="3">
+                    <Label text="User ID : " GridPane.columnIndex="2" GridPane.rowIndex="3">
                         <font>
                             <Font name="System Bold" size="12.0" />
                         </font>
                     </Label>
-                    <Label fx:id="lblAdminID" text="1" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                    <Label fx:id="lblUserId" text="1" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                     <Label style="-fx-font-weight: bold;" text="Student ID : " GridPane.columnIndex="2" GridPane.rowIndex="4" />
                     <Label style="-fx-font-weight: bold;" text=" " GridPane.columnIndex="2" GridPane.rowIndex="5" />
                     <Label fx:id="lblStudentID" text="1" GridPane.columnIndex="3" GridPane.rowIndex="4" />
@@ -88,12 +98,11 @@
                     </Label>
                     <Label fx:id="lblcourseID" text="1" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                     <DatePicker fx:id="datepicker" prefHeight="26.0" prefWidth="217.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-               <Label text="Receptionist ID :" GridPane.columnIndex="4" GridPane.rowIndex="3">
+               <Label GridPane.columnIndex="4" GridPane.rowIndex="3">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
-               <Label fx:id="lblReceptionistID" text="1" GridPane.columnIndex="5" GridPane.rowIndex="3" />
                 </children>
             </GridPane>
 
@@ -134,8 +143,7 @@
                     <TableColumn fx:id="colDate" prefWidth="166.4000244140625" text="Date" />
                     <TableColumn fx:id="colStudentID" prefWidth="98.39990234375" text="Student ID" />
                     <TableColumn fx:id="colCourseID" minWidth="0.0" prefWidth="106.400146484375" text="Course ID" />
-               <TableColumn fx:id="colAdminID" prefWidth="78.39990234375" text="Admin ID" />
-               <TableColumn fx:id="colReceptionistID" prefWidth="118.400146484375" text="Receptionist ID" />
+               <TableColumn fx:id="colUserID" prefWidth="118.400146484375" text="User ID" />
                 </columns>
 
                 <VBox.margin>
