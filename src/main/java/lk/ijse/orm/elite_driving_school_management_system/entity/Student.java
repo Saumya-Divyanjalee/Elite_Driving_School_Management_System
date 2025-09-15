@@ -48,4 +48,7 @@ public class Student {
     cascade = CascadeType.ALL)
     private List<Payment> payments;
 
+    @ManyToMany(mappedBy = "student")
+    private List<Course> courses;
+
 }

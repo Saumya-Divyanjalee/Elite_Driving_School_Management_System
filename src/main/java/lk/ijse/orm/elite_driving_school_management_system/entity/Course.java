@@ -28,5 +28,12 @@ public class Course implements SuperEntity {
             cascade = CascadeType.ALL)
     private List<Lesson>lesson;
 
+    @ManyToMany
+    @JoinTable(
+            name = "associate",
+            joinColumns = @JoinColumn("hello"),
+    inverseJoinColumns = @JoinColumn("test")
+    )
+    private List<Student>student;
 
 }

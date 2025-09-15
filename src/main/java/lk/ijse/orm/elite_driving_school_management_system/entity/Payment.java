@@ -35,4 +35,6 @@ public class Payment {
     @JoinColumn(name = "student_id")
     private Student student;
 
+
+
 }
