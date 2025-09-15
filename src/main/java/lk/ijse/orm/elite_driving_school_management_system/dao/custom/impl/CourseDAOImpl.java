@@ -1,47 +1,51 @@
 package lk.ijse.orm.elite_driving_school_management_system.dao.custom.impl;
 
-import jakarta.persistence.Id;
+
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.CourseDAO;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Course;
-import lk.ijse.orm.elite_driving_school_management_system.util.FactoryConfiguration;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.Queue;
+
 
 public class CourseDAOImpl implements CourseDAO {
 
 
     @Override
     public void delete(String pk, Session session) {
+        session.detach(session.load(Course.class, pk));
 
     }
 
     @Override
     public List<Course> findAll(Session session) {
-        return List.of();
+        return session.createQuery("from Course").list();
     }
 
     @Override
     public Optional<Course> findById(String pk, Session session) {
-        return Optional.empty();
+         try{
+             return Optional.of(session.get(Course.class, pk));
+         }catch (Exception e){
+             return Optional.empty();
+         }
     }
 
     @Override
     public Optional<String> getLastPk(Session session) {
-        return Optional.empty();
+         List<Course> list = session.createQuery("select courseId from course order by courseId desc").list();
+         return list.isEmpty()?Optional.empty():Optional.of(list.get(0).getCourseId());
     }
 
     @Override
     public void save(Course course, Session session) {
+        session.save(course);
 
     }
 
     @Override
     public void update(Course course, Session session) {
+        session.update(course);
 
     }
 }

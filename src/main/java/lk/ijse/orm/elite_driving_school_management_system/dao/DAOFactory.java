@@ -9,16 +9,8 @@ public class DAOFactory  {
        return (daoFactory == null) ? new DAOFactory() : daoFactory;
     }
 
-    public enum DAOTypes{
-        COURSE,
-        INSTRUCTOR,
-        LESSON,
-        PAYMENT,
-        STUDENT,
-        QUERY
-    }
 
-    public <T>T getDAO(DAOTypes daoType) {
+    public <T extends SuperDAO>T getDAO(DAOTypes daoType) {
         switch (daoType) {
             case COURSE:
                 return (T) new CourseDAOImpl();

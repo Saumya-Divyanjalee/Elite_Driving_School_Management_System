@@ -3,11 +3,7 @@ package lk.ijse.orm.elite_driving_school_management_system.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.orm.elite_driving_school_management_system.tm.CourseTM;
@@ -83,6 +79,10 @@ public class CourseController implements Initializable {
 
         try{
             resetPage();
+        }catch (Exception e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"Oops!... Something went wrong").show();
+
         }
     }
 
@@ -91,6 +91,7 @@ public class CourseController implements Initializable {
         loadNextId();
         loadTableData();
     }
+
 
     private void loadNextId(){
         String nextId = "

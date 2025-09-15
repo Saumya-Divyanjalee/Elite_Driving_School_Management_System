@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+
 
 @Entity
 @Table(name = "lesson_table")
@@ -17,7 +17,7 @@ public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,name = "lesson_id")
-    private int lessonId;
+    private String lessonId;
 
     @Column(nullable = false,name = "lesson_name")
     private String lessonName;
@@ -27,6 +27,18 @@ public class Lesson {
 
     @Column(nullable = false, name = "end_time")
     private LocalDateTime endTime;
+
+    @ManyToOne
+    @JoinColumn(name = "instructor_id")
+    private Instructor instructor;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
 
 

@@ -8,21 +8,24 @@ import  java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+
 
 @Entity
 @Table(name ="course_table")
 public class Course implements SuperEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false,unique = true,name = "course_id")
     private String courseId;
+
+    @Column(nullable = false, name = "course_name")
     private String courseName;
+
+    @Column(nullable = false, name ="time_period")
     private String timePeriod;
 
-    @OneToMany(
-            mappedBy = "course",
-            cascade = CascadeType.ALL
-    )
+    @OneToMany(mappedBy = "course",
+            cascade = CascadeType.ALL)
     private List<Lesson>lesson;
 
 
