@@ -6,6 +6,7 @@ module lk.ijse.orm.elite_driving_school_management_system {
     requires static lombok;
     requires jakarta.persistence;
     requires java.naming;
+    requires jbcrypt;
 
 
     opens lk.ijse.orm.elite_driving_school_management_system to javafx.fxml;

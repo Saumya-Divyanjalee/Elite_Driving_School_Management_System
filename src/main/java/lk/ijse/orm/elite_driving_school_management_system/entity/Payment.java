@@ -17,7 +17,7 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name ="payment_id")
-    private String id;
+    private long id;
 
     @Column(nullable = false,name ="amount")
     private double amount;

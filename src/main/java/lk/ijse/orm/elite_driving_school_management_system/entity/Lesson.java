@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +18,7 @@ public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,name = "lesson_id")
-    private String lessonId;
+    private long lessonId;
 
     @Column(nullable = false,name = "lesson_name")
     private String lessonName;
@@ -36,9 +37,8 @@ public class Lesson {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+    @ManyToMany(mappedBy = "lessons")
+    private List<Student> students;
 
 
 

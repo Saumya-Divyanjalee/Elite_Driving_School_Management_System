@@ -1,51 +1,61 @@
 package lk.ijse.orm.elite_driving_school_management_system.dao.custom.impl;
 
-
+import lk.ijse.orm.elite_driving_school_management_system.config.FactoryConfiguration;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.CourseDAO;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Course;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 public class CourseDAOImpl implements CourseDAO {
 
-
     @Override
-    public void delete(String pk, Session session) {
-        session.detach(session.load(Course.class, pk));
+    public void delete(Integer id, Session session) {
+        Course course = session.get(Course.class, id);
+        if(course!=null){
+            session.delete(course);
+        }
 
     }
 
     @Override
     public List<Course> findAll(Session session) {
-        return session.createQuery("from Course").list();
+         Query<Course> query = session.createQuery("FROM Course", Course.class);
+         return new ArrayList<>(query.list());
     }
 
     @Override
-    public Optional<Course> findById(String pk, Session session) {
-         try{
-             return Optional.of(session.get(Course.class, pk));
-         }catch (Exception e){
-             return Optional.empty();
-         }
+    public Optional<Course> findById(Integer id, Session session) {
+         Course course = session.get(Course.class, id);
+         return Optional.ofNullable(course);
     }
 
     @Override
     public Optional<String> getLastPk(Session session) {
-         List<Course> list = session.createQuery("select courseId from course order by courseId desc").list();
-         return list.isEmpty()?Optional.empty():Optional.of(list.get(0).getCourseId());
+       Query<Integer> query = session.createQuery("SELECT c.courseId FROM Course c ORDER BY c.courseId DESC ",Integer.class
+       ).setMaxResults(1);
+
+       List<Integer> list = query.list();
+       if(list.isEmpty()){
+           return Optional.empty();
+       }
+       return Optional.of(String.valueOf(list.get(0)));
     }
 
     @Override
     public void save(Course course, Session session) {
-        session.save(course);
+        session.persist(course);
 
     }
 
     @Override
     public void update(Course course, Session session) {
-        session.update(course);
+        session.merge(course);
 
     }
 }

@@ -17,7 +17,7 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
-    private String studentId;
+    private long studentId;
 
     @Column(nullable = false,name = "first_name")
     private String firstName;
@@ -40,7 +40,7 @@ public class Student {
     @Column(nullable = false, name = "dob")
     private Date dob;
 
-    @OneToMany(mappedBy = "student",
+    @OneToMany(mappedBy = "students",
     cascade = CascadeType.ALL)
     private List<Lesson> lessons;
 
@@ -48,7 +48,7 @@ public class Student {
     cascade = CascadeType.ALL)
     private List<Payment> payments;
 
-    @ManyToMany(mappedBy = "student")
+    @ManyToMany(mappedBy = "students")
     private List<Course> courses;
 
 }
