@@ -11,11 +11,11 @@ import lombok.*;
 
 public class CourseDTO {
     private long courseId;
+    private String courseName;
+    private String timePeriod;
     private String lessonId;
     private String studentId;
     private String InstructorId;
-    private String courseName;
-    private String timePeriod;
 
 
 

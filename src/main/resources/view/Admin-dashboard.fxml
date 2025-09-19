@@ -73,13 +73,6 @@
          <VBox.margin>
             <Insets left="20.0" />
          </VBox.margin></Button>
-      <Button fx:id="secureId" onAction="#secureOnAction" style="-fx-background-color: #81ecec; -fx-text-fill: #130f40; -fx-background-radius: 10; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 40;" text="Secure Data Management">
-         <font>
-            <Font size="14.0" />
-         </font>
-         <VBox.margin>
-            <Insets left="20.0" />
-         </VBox.margin></Button>
       <Button fx:id="logoutId" onAction="#logoutOnAction" style="-fx-background-color: #ff4d4d; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 40;" text="Log out">
          <font>
             <Font size="14.0" />

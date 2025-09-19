@@ -6,9 +6,6 @@ import lk.ijse.orm.elite_driving_school_management_system.entity.Student;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAOImpl implements StudentDAO {
@@ -82,8 +79,10 @@ public class StudentDAOImpl implements StudentDAO {
         }
     }
 
-    @Override
-    public Student getNextId() throws SQLException, ClassNotFoundException {
-        return null;
+    public Long getNextId() {
+        try (Session session = FactoryConfiguration.getInstance().getSession()) {
+            Long maxId = (Long) session.createQuery("SELECT MAX(s.studentId) FROM Student s").uniqueResult();
+            return (maxId == null) ? 1L : maxId + 1;
+        }
     }
 }

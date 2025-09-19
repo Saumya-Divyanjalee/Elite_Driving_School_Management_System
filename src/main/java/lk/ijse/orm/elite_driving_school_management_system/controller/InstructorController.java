@@ -95,7 +95,7 @@ public class InstructorController implements Initializable {
         colLessonID.setCellValueFactory(new PropertyValueFactory<>("lessonId"));
 
         try{
-            loadTableData();
+//            loadTableData();
             loadNextId();
             resetPage();
         }catch (Exception e){
@@ -104,9 +104,9 @@ public class InstructorController implements Initializable {
         }
     }
 
-    private void loadTableData()throws Exception{
-        List<InstructorDTO> instructorList = instructorBO.
-    }
+//    private void loadTableData()throws Exception{
+//        List<InstructorDTO> instructorList = instructorBO.
+//    }
     private void loadNextId(){}
     private void resetPage(){}
 
