@@ -34,6 +34,6 @@ public class Course implements SuperEntity {
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
-    private List<Student>students;
+    private List<Student>student;
 
 }

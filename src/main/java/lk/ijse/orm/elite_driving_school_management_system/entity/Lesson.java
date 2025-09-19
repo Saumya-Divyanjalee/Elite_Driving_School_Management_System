@@ -33,12 +33,13 @@ public class Lesson implements SuperEntity {
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "course_id")
     private Course course;
 
-    @ManyToMany(mappedBy = "lessons")
-    private List<Student> students;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
 
 
 
