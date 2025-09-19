@@ -16,24 +16,18 @@ import java.util.Optional;
 
 public class CourseBOImpl implements CourseBO {
 
-    private final CourseDAO courseDAO =
-            DAOFactory.getInstance().getDAO(DAOTypes.COURSE);
+    private final CourseDAO courseDAO = (CourseDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.COURSE);
 
     @Override
-    public boolean saveCourse(CourseDTO dto) throws Exception {
+    public boolean saveCourse(Course course) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction tx = session.beginTransaction();
         try {
-            Course course = new Course();
-            course.setCourseId(Integer.parseInt(String.valueOf(dto.getCourseId())));
-            course.setCourseName(dto.getCourseName());
-            course.setTimePeriod(dto.getTimePeriod());
-
             courseDAO.save(course, session);
-            transaction.commit();
+            tx.commit();
             return true;
         } catch (Exception e) {
-            transaction.rollback();
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -41,20 +35,15 @@ public class CourseBOImpl implements CourseBO {
     }
 
     @Override
-    public boolean updateCourse(CourseDTO dto) throws Exception {
+    public boolean updateCourse(Course course) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction tx = session.beginTransaction();
         try {
-            Course course = new Course();
-            course.setCourseId(Integer.parseInt(String.valueOf(dto.getCourseId())));
-            course.setCourseName(dto.getCourseName());
-            course.setTimePeriod(dto.getTimePeriod());
-
             courseDAO.update(course, session);
-            transaction.commit();
+            tx.commit();
             return true;
         } catch (Exception e) {
-            transaction.rollback();
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -62,15 +51,15 @@ public class CourseBOImpl implements CourseBO {
     }
 
     @Override
-    public boolean deleteCourse(Integer id) throws Exception {
+    public boolean deleteCourse(String id) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction tx = session.beginTransaction();
         try {
-            courseDAO.delete(Long.valueOf(id), session);
-            transaction.commit();
+            courseDAO.delete(id, session);
+            tx.commit();
             return true;
         } catch (Exception e) {
-            transaction.rollback();
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -78,44 +67,20 @@ public class CourseBOImpl implements CourseBO {
     }
 
     @Override
-    public List<CourseDTO> getAllCourses() throws Exception {
+    public Course findCourseById(String id) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
         try {
-            List<Course> courses = courseDAO.findAll(session);
-            List<CourseDTO> dtos = new ArrayList<>();
-            for (Course c : courses) {
-                dtos.add(new CourseDTO(
-                        c.getCourseId(),
-                        c.getCourseName(),
-                        c.getTimePeriod()
-                ));
-            }
-            return dtos;
+            return courseDAO.findById(id, session);
         } finally {
             session.close();
         }
     }
 
     @Override
-    public Optional<CourseDTO> findCourseById(Integer id) throws Exception {
+    public List<Course> findAllCourses() throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
         try {
-            Optional<Course> courseOpt = courseDAO.findById(Long.valueOf(id), session);
-            return courseOpt.map(c -> new CourseDTO(
-                    c.getCourseId(),
-                    c.getCourseName(),
-                    c.getTimePeriod()
-            ));
-        } finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public Optional<String> getLastCourseId() throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        try {
-            return courseDAO.getLastPk(session);
+            return courseDAO.findAll(session);
         } finally {
             session.close();
         }

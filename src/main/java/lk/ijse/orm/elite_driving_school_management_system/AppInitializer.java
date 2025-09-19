@@ -9,14 +9,15 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class AppInitializer extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    public void start(Stage primaryStage) throws Exception {
-        URL resource = this.getClass().getResource("view/Login.fxml");
+    public void start(Stage primaryStage) throws IOException {
+        URL resource = this.getClass().getResource("/view/Login.fxml");
         Parent load = FXMLLoader.load(resource);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("Elite Driving School System");

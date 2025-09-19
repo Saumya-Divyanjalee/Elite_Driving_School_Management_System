@@ -13,7 +13,7 @@ import java.util.Date;
 @ToString
 
 public class PaymentTM {
-    private String paymentId;
+    private long paymentId;
     private double amount;
     private String description;
     private Date date;

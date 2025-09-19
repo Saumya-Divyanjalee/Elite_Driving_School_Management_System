@@ -36,10 +36,10 @@
                     <ColumnConstraints maxWidth="200.0" minWidth="300.0" prefWidth="200.0" />
                     <ColumnConstraints minWidth="150.0" />
                     <ColumnConstraints minWidth="200.0" />
-               <ColumnConstraints minWidth="150.0" />
-               <ColumnConstraints minWidth="100.0" />
-               <ColumnConstraints minWidth="150.0" />
-               <ColumnConstraints minWidth="150.0" />
+                    <ColumnConstraints minWidth="150.0" />
+                    <ColumnConstraints minWidth="100.0" />
+                    <ColumnConstraints minWidth="150.0" />
+                    <ColumnConstraints minWidth="150.0" />
                 </columnConstraints>
 
                 <rowConstraints>
@@ -53,10 +53,10 @@
                     <RowConstraints />
                     <RowConstraints />
                     <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-               <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-               <RowConstraints />
-               <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-               <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
                 </rowConstraints>
 
                 <VBox.margin>
@@ -88,19 +88,19 @@
                             <Font name="System Bold" size="12.0" />
                         </font>
                     </Label>
-               <Label layoutX="59.0" layoutY="114.0" prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="DOB : " textFill="black" GridPane.rowIndex="7" />
-               <Label text="Lesson ID :" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-               </Label>
-               <Label fx:id="lblLessonID" text="1" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-               <Label style="-fx-font-weight: bold;" text="Payment ID :" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-               <Label fx:id="lblPaymentID" text="1" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-               <TextField fx:id="txtLastName" promptText="Divyanjalee" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-               <TextField fx:id="txtPhone" promptText="0777777777" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-               <TextField fx:id="txtAge" promptText="24" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-               <DatePicker fx:id="dobDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                    <Label layoutX="59.0" layoutY="114.0" prefHeight="18.0" prefWidth="109.0" style="-fx-font-weight: bold;" text="Registration Date :" textFill="black" GridPane.rowIndex="7" />
+                    <Label text="Lesson ID :" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                        <font>
+                            <Font name="System Bold" size="12.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="lblLessonID" text="1" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                    <Label style="-fx-font-weight: bold;" text="Payment ID :" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                    <Label fx:id="lblPaymentID" text="1" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+                    <TextField fx:id="txtLastName" promptText="Divyanjalee" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                    <TextField fx:id="txtPhone" promptText="0777777777" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                    <TextField fx:id="txtAge" promptText="24" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                    <DatePicker fx:id="registrationDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                 </children>
             </GridPane>
 
@@ -141,10 +141,7 @@
                     <TableColumn fx:id="colEmail" prefWidth="132.79998779296875" text="Email" />
                     <TableColumn fx:id="colPhone" minWidth="1.59991455078125" prefWidth="151.20001220703125" text="Phone" />
                     <TableColumn fx:id="colAge" minWidth="0.0" prefWidth="81.5999755859375" text="Age" />
-               <TableColumn fx:id="colDOB" prefWidth="127.20013427734375" text="DOB" />
-               <TableColumn fx:id="colCourseID" prefWidth="101.5999755859375" text="Course ID" />
-               <TableColumn fx:id="colLessonID" prefWidth="91.20001220703125" text="Lesson ID" />
-               <TableColumn fx:id="colPaymentID" prefWidth="80.7999267578125" text="Payment ID" />
+                    <TableColumn fx:id="colregDate" prefWidth="127.20013427734375" text="Registration Date" />
                 </columns>
 
                 <VBox.margin>

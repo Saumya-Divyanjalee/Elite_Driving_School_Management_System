@@ -10,7 +10,7 @@ import lombok.*;
 
 
 public class CourseTM {
-    private int courseId;
+    private long courseId;
     private String lessonId;
     private String studentId;
     private String InstructorId;
@@ -18,12 +18,12 @@ public class CourseTM {
     private String timePeriod;
 
 
-    public CourseTM(int courseId, String lessonId, String studentId, String instructorId, String courseName, String timePeriod) {
-        this.courseId = Integer.parseInt(String.valueOf(courseId));
-        this.lessonId = lessonId;
-        this.studentId = studentId;
-        this.InstructorId = instructorId;
-        this.courseName = courseName;
-        this.timePeriod = timePeriod;
-    }
+//    public CourseTM(int courseId, String lessonId, String studentId, String instructorId, String courseName, String timePeriod) {
+//        this.courseId = Integer.parseInt(String.valueOf(courseId));
+//        this.lessonId = lessonId;
+//        this.studentId = studentId;
+//        this.InstructorId = instructorId;
+//        this.courseName = courseName;
+//        this.timePeriod = timePeriod;
+//    }
 }

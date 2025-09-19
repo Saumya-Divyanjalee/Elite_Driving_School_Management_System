@@ -11,7 +11,7 @@ import java.util.Date;
 @ToString
 
 public class LessonTM {
-    private String lessonId;
+    private long lessonId;
     private String lessonName;
     private String startTime;
     private String endTime;

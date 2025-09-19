@@ -11,16 +11,14 @@ import java.util.Date;
 @ToString
 
 public class StudentTM {
-    private String studentId;
+    private long studentId;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
     private String age;
-    private Date dob;
-    private String courseId;
-    private String lessonId;
-    private String paymentId;
+    private Date regDate;
+    private String address;
 
 
 }

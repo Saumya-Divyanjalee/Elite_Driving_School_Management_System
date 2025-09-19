@@ -9,7 +9,7 @@ import lombok.*;
 
 public class InstructorDTO {
 
-private String instructorId;
+private long instructorId;
 private String instructorName;
 private String address;
 private String phone;

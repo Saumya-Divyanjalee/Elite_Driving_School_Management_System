@@ -2,15 +2,25 @@ package lk.ijse.orm.elite_driving_school_management_system.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
+import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
+import lk.ijse.orm.elite_driving_school_management_system.bo.custom.InstructorBO;
+import lk.ijse.orm.elite_driving_school_management_system.dto.InstructorDTO;
+import lk.ijse.orm.elite_driving_school_management_system.entity.Instructor;
+import lk.ijse.orm.elite_driving_school_management_system.tm.InstructorTM;
 
-public class InstructorController {
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
+public class InstructorController implements Initializable {
+
+
+    public TextField telephone;
     @FXML
     private Button btnDelete;
 
@@ -27,25 +37,25 @@ public class InstructorController {
     private Button btnUpdate;
 
     @FXML
-    private TableColumn<?, ?> colAddress;
+    private TableColumn<InstructorTM,String> colAddress;
 
     @FXML
-    private TableColumn<?, ?> colEmail;
+    private TableColumn<InstructorTM,String> colEmail;
 
     @FXML
-    private TableColumn<?, ?> colInstructorID;
+    private TableColumn<InstructorTM,String> colInstructorID;
 
     @FXML
-    private TableColumn<?, ?> colLessonID;
+    private TableColumn<InstructorTM,String> colLessonID;
 
     @FXML
-    private TableColumn<?, ?> colName;
+    private TableColumn<InstructorTM,String> colName;
 
     @FXML
-    private TableColumn<?, ?> colStudentID;
+    private TableColumn<InstructorTM,String> colStudentID;
 
     @FXML
-    private TableColumn<?, ?> colphone;
+    private TableColumn<InstructorTM,String> colphone;
 
     @FXML
     private Label lblLessonID;
@@ -57,7 +67,7 @@ public class InstructorController {
     private Label lblinsID;
 
     @FXML
-    private TableView<?> tblInstructor;
+    private TableView<InstructorTM> tblInstructor;
 
     @FXML
     private TextField txtAddress;
@@ -70,6 +80,35 @@ public class InstructorController {
 
     @FXML
     private TextField txtphone;
+
+
+    InstructorBO instructorBO = (InstructorBO) BOFactory.getInstance().getBO(BoTypes.INSTRUCTOR);
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        colInstructorID.setCellValueFactory(new PropertyValueFactory<>("instructorId"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("instructorName"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colphone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colStudentID.setCellValueFactory(new PropertyValueFactory<>("studentId"));
+        colLessonID.setCellValueFactory(new PropertyValueFactory<>("lessonId"));
+
+        try{
+            loadTableData();
+            loadNextId();
+            resetPage();
+        }catch (Exception e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"Something went wrong...").show();
+        }
+    }
+
+    private void loadTableData()throws Exception{
+        List<InstructorDTO> instructorList = instructorBO.
+    }
+    private void loadNextId(){}
+    private void resetPage(){}
 
     @FXML
     void deleteOnAction(ActionEvent event) {

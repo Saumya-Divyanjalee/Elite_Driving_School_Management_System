@@ -12,11 +12,6 @@ import java.util.Optional;
 
 public interface CourseBO extends SuperBO {
 
-     boolean saveCourse(CourseDTO dto) throws Exception;
-     boolean updateCourse(CourseDTO dto) throws Exception;
-     boolean deleteCourse(Integer id) throws Exception;
-     List<CourseDTO> getAllCourses() throws Exception;
-     Optional<CourseDTO> findCourseById(Integer id) throws Exception;
-     Optional<String> getLastCourseId() throws Exception;
+
 
 }

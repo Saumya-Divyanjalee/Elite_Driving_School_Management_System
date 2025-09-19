@@ -9,7 +9,7 @@ import lombok.*;
 
 public class InstructorTM {
 
-private String instructorId;
+private long instructorId;
 private String instructorName;
 private String address;
 private String phone;

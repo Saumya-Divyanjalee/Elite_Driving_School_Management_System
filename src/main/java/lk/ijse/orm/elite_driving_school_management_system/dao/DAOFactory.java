@@ -1,6 +1,11 @@
 package lk.ijse.orm.elite_driving_school_management_system.dao;
 
+import lk.ijse.orm.elite_driving_school_management_system.bo.custom.impl.InstructorBOImpl;
+import lk.ijse.orm.elite_driving_school_management_system.bo.custom.impl.LessonBOImpl;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.impl.CourseDAOImpl;
+import lk.ijse.orm.elite_driving_school_management_system.dao.custom.impl.InstructorDAOImpl;
+import lk.ijse.orm.elite_driving_school_management_system.dao.custom.impl.LessonDAOImpl;
+import lk.ijse.orm.elite_driving_school_management_system.dao.custom.impl.PaymentDAOImpl;
 
 public class DAOFactory  {
     private static DAOFactory daoFactory;
@@ -14,7 +19,16 @@ public class DAOFactory  {
         switch (daoType) {
             case COURSE:
                 return (T) new CourseDAOImpl();
-                case INSTRUCTOR:
+            case INSTRUCTOR:
+                return (T) new InstructorDAOImpl();
+            case LESSON:
+                return (T) new LessonDAOImpl();
+            case PAYMENT:
+                return (T) new PaymentDAOImpl();
+            case STUDENT:
+                return (T) new CourseDAOImpl();
+                default:
+                    return null;
         }
     }
 }

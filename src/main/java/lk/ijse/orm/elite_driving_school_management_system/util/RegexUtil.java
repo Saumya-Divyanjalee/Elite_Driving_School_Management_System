@@ -1,5 +1,7 @@
 package lk.ijse.orm.elite_driving_school_management_system.util;
 
+import lk.ijse.orm.elite_driving_school_management_system.exception.RegistrationException;
+
 import java.util.regex.Pattern;
 
 public class RegexUtil {
@@ -15,5 +17,11 @@ public class RegexUtil {
 
     public static boolean isValidPhone(String phone) {
         return PHONE_PATTERN.matcher(phone).matches();
+    }
+
+    public static void validateRequired(String value, String fieldName) throws RegistrationException {
+        if (value == null || value.trim().isEmpty()) {
+            throw new RegistrationException(fieldName + " is required!");
+        }
     }
 }

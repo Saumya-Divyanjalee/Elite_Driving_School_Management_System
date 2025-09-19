@@ -73,7 +73,7 @@
                     <Label style="-fx-font-weight: bold;" text=" " GridPane.columnIndex="2" GridPane.rowIndex="2" />
                     <Label fx:id="lblStudentID" text="1" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                <Label layoutX="59.0" layoutY="78.0" prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Phone :" textFill="black" GridPane.rowIndex="3" />
-               <TextField fx:id="txtphone" promptText="0777777777" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               <TextField fx:id="telephone" promptText="0777777777" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                <Label style="-fx-font-weight: bold;" text="Email : " GridPane.columnIndex="2" GridPane.rowIndex="2" />
                <TextField fx:id="txtEmail" prefHeight="26.0" prefWidth="214.0" promptText="example123@gmail.com" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                 </children>

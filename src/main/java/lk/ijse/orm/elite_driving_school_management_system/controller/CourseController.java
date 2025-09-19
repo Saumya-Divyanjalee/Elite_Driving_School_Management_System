@@ -11,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.CourseBO;
-import lk.ijse.orm.elite_driving_school_management_system.bo.custom.impl.CourseBOImpl;
+
 import lk.ijse.orm.elite_driving_school_management_system.dto.CourseDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.CourseTM;
 
@@ -94,7 +94,7 @@ public class CourseController implements Initializable {
             resetPage();
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Initialization failed!").show();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong...").show();
         }
     }
 
@@ -118,9 +118,9 @@ public class CourseController implements Initializable {
         try {
             txtCourseName.clear();
             txtTimePeriod.clear();
-            lblLessonID.setText("Lxxx");
-            lblInstructorID.setText("Ixxx");
-            lblStudentID.setText("Sxxx");
+            lblLessonID.setText("");
+            lblInstructorID.setText("");
+            lblStudentID.setText("");
             loadTableData();
             loadNextId();
 

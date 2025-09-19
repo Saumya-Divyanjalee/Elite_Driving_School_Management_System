@@ -16,7 +16,7 @@ public class Course implements SuperEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,unique = true,name = "course_id")
-    private int courseId;
+    private long courseId;
 
     @Column(nullable = false, name = "course_name")
     private String courseName;

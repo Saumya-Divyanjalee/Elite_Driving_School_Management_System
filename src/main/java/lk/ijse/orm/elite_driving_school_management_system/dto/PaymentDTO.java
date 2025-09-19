@@ -11,7 +11,7 @@ import java.util.Date;
 @ToString
 
 public class PaymentDTO {
-    private String paymentId;
+    private long paymentId;
     private double amount;
     private String description;
     private Date date;

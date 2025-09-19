@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "student_table")
-public class Student {
+public class Student implements SuperEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
@@ -25,7 +25,7 @@ public class Student {
     @Column(nullable = false,name ="last_name")
     private String lastName;
 
-    @Column(nullable = false, name = "address")
+    @Column(unique = true, nullable = false, name = "address")
     private String address;
 
     @Column(nullable = false, name = "email")
@@ -37,18 +37,25 @@ public class Student {
     @Column(nullable = false,name = "age")
     private String age;
 
-    @Column(nullable = false, name = "dob")
-    private Date dob;
+    @Column(nullable = false, name = "regDate")
+    private Date regDate;
 
-    @OneToMany(mappedBy = "students",
-    cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student",
+    cascade = CascadeType.ALL,
+    fetch = FetchType.LAZY)
     private List<Lesson> lessons;
 
     @OneToMany(mappedBy = "student",
-    cascade = CascadeType.ALL)
+    cascade = CascadeType.ALL,
+    fetch = FetchType.LAZY)
     private List<Payment> payments;
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "student",fetch = FetchType.LAZY)
     private List<Course> courses;
 
+
+
+
+    public Student(long studentId, String firstName, String lastName, String email, String phone, String age, Date regDate, String address) {
+    }
 }
