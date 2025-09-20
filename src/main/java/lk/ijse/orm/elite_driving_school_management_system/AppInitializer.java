@@ -17,11 +17,10 @@ public class AppInitializer extends Application {
         launch(args);
     }
     public void start(Stage primaryStage) throws IOException {
-        URL resource = this.getClass().getResource("/view/Student.fxml");
+        URL resource = this.getClass().getResource("/view/Instructor.fxml");
         Parent load = FXMLLoader.load(resource);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("Elite Driving School System");
-        primaryStage.getIcons().add(new Image("assets/logo.png"));
         Scene scene = new Scene(load);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);

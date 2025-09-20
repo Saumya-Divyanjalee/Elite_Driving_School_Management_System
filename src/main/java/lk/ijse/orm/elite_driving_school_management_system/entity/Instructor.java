@@ -36,7 +36,6 @@ public class Instructor implements SuperEntity {
     private List<Lesson> lessons;
 
 
-
-
-
+    public Instructor(long instructorId, String instructorName, String address, String phone, String email) {
+    }
 }

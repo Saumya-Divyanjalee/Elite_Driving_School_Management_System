@@ -2,6 +2,7 @@ package lk.ijse.orm.elite_driving_school_management_system.tm;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -17,8 +18,10 @@ public class StudentTM {
     private String email;
     private String phone;
     private String age;
-    private Date regDate;
+    private LocalDate regDate;
     private String address;
 
 
+    public StudentTM(long studentId, String firstName, String lastName, String email, String phone, String age, Date regDate, String address) {
+    }
 }

@@ -18,7 +18,6 @@ public class CourseTM {
     private String InstructorId;
 
 
-
-
-
+    public CourseTM(long courseId, String courseName, String timePeriod) {
+    }
 }

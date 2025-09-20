@@ -99,14 +99,11 @@ public class CourseController implements Initializable {
     }
 
     private void loadTableData() throws Exception {
-        List<CourseDTO> courseList = courseBO.getAllCourses();
+        List<CourseDTO> courseList = courseBO.getAllCourse();
         ObservableList<CourseTM> obList = FXCollections.observableArrayList();
         for (CourseDTO dto : courseList) {
             obList.add(new CourseTM(
                     dto.getCourseId(),
-                    dto.getLessonId(),
-                    dto.getStudentId(),
-                    dto.getInstructorId(),
                     dto.getCourseName(),
                     dto.getTimePeriod()
             ));
@@ -134,7 +131,7 @@ public class CourseController implements Initializable {
     }
 
     private void loadNextId() throws Exception {
-        String lastId = courseBO.getLastCourseId().orElse("C000");
+        String lastId = String.valueOf(courseBO.getNextIdCourse());
         int newIdNum = Integer.parseInt(lastId.replace("C", "")) + 1;
         String nextId = String.format("C%03d", newIdNum);
         lblCourseID.setText(nextId);
@@ -144,9 +141,6 @@ public class CourseController implements Initializable {
         if (!validateInput()) return;
         CourseDTO dto = new CourseDTO(
                 lblCourseID.getText(),
-                lblLessonID.getText(),
-                lblStudentID.getText(),
-                lblInstructorID.getText(),
                 txtCourseName.getText(),
                 txtTimePeriod.getText()
         );
@@ -168,9 +162,6 @@ public class CourseController implements Initializable {
         if (!validateInput()) return;
         CourseDTO dto = new CourseDTO(
                 lblCourseID.getText(),
-                lblLessonID.getText(),
-                lblStudentID.getText(),
-                lblInstructorID.getText(),
                 txtCourseName.getText(),
                 txtTimePeriod.getText()
         );
@@ -195,7 +186,7 @@ public class CourseController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.YES) {
             try {
-                boolean deleted = courseBO.deleteCourse(Integer.valueOf(lblCourseID.getText()));
+                boolean deleted = courseBO.deleteCourse(Long.valueOf(Integer.valueOf(lblCourseID.getText())));
                 if (deleted) {
                     resetPage();
                     new Alert(Alert.AlertType.INFORMATION, "Course deleted successfully!").show();

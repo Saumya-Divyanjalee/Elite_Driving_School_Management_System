@@ -40,16 +40,32 @@ return  studentDTO;
 
     @Override
     public Long getNextId() throws Exception {
-        return studentDAO.getNextId().getStudentId();
+        return studentDAO.getNextId();
      }
 
     @Override
     public boolean saveStudent(StudentDTO studentDTO) throws Exception {
-         return studentDAO.save(new Student(studentDTO.getStudentId(),studentDTO.getFirstName(),studentDTO.getLastName(),studentDTO.getEmail(),studentDTO.getPhone(),studentDTO.getAge(),studentDTO.getRegDate(),studentDTO.getAddress()));
+         return studentDAO.save(new Student(
+                 studentDTO.getStudentId(),
+                 studentDTO.getFirstName(),
+                 studentDTO.getLastName(),
+                 studentDTO.getEmail(),
+                 studentDTO.getPhone(),
+                 studentDTO.getAge(),
+                 studentDTO.getRegDate(),
+                 studentDTO.getAddress()));
     }
 
     @Override
     public boolean updateStudent(StudentDTO studentDTO) throws Exception {
-         return studentDAO.update(new Student(studentDTO.getStudentId(),studentDTO.getFirstName(),studentDTO.getLastName(),studentDTO.getEmail(),studentDTO.getPhone(),studentDTO.getAge(),studentDTO.getRegDate(),studentDTO.getAddress()));
+         return studentDAO.update(new Student(
+                 studentDTO.getStudentId(),
+                 studentDTO.getFirstName(),
+                 studentDTO.getLastName(),
+                 studentDTO.getEmail(),
+                 studentDTO.getPhone(),
+                 studentDTO.getAge(),
+                 studentDTO.getRegDate(),
+                 studentDTO.getAddress()));
     }
 }

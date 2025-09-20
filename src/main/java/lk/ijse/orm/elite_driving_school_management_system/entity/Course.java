@@ -36,4 +36,6 @@ public class Course implements SuperEntity {
     )
     private List<Student>student;
 
+    public Course(long courseId, String courseName, String timePeriod) {
+    }
 }

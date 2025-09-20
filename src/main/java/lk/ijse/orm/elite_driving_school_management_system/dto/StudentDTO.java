@@ -25,4 +25,7 @@ public class StudentDTO {
 
     public StudentDTO(long id, String firstName, String lastName, String email, String phone, String age, String regDate, String address) {
     }
+
+    public StudentDTO(String firstName, String lastName, String email, String phone, String age, String regDate, String address) {
+    }
 }

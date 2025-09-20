@@ -16,4 +16,9 @@ private String phone;
 private String email;
 private String studentId;
 private String lessonId;
+
+
+
+    public InstructorTM(long instructorId, String instructorName, String address, String phone, String email) {
+    }
 }

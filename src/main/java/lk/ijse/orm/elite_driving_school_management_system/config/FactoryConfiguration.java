@@ -5,29 +5,33 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class FactoryConfiguration {
     private static FactoryConfiguration factoryConfiguration;
-    private SessionFactory sessionFactory;
-
-
+    private final SessionFactory sessionFactory;
 
     private FactoryConfiguration() {
-        Properties properties = new Properties();
-        try{
-            properties.load(new FileInputStream("hibernate.properties"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Configuration configuration = new Configuration()
+        Configuration configuration = new Configuration();
 
-                .addAnnotatedClass(Student.class)
+
+        Properties properties = new Properties();
+        try (InputStream inputStream = FactoryConfiguration.class.getClassLoader().getResourceAsStream("hibernate.properties")) {
+            if (inputStream == null) {
+                throw new IOException("Unable to find hibernate.properties");
+            }
+            properties.load(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load hibernate.properties", e);
+        }
+
+
+        configuration.addProperties(properties);
+
+
+        configuration.addAnnotatedClass(Student.class)
                 .addAnnotatedClass(Course.class)
                 .addAnnotatedClass(Instructor.class)
                 .addAnnotatedClass(Lesson.class)
@@ -35,15 +39,15 @@ public class FactoryConfiguration {
 
         sessionFactory = configuration.buildSessionFactory();
     }
+
     public static FactoryConfiguration getInstance() {
-         return (factoryConfiguration == null)? factoryConfiguration = new FactoryConfiguration()
-                 : factoryConfiguration;
+        if (factoryConfiguration == null) {
+            factoryConfiguration = new FactoryConfiguration();
+        }
+        return factoryConfiguration;
     }
 
     public Session getSession() {
         return sessionFactory.openSession();
     }
-
-
-
 }

@@ -16,4 +16,10 @@ private String phone;
 private String email;
 private String studentId;
 private String lessonId;
+
+    public InstructorDTO(long instructorId, String instructorName, String address, String phone, String email) {
+    }
+
+    public InstructorDTO(String text, String text1, String text2, String text3, String text4) {
+    }
 }

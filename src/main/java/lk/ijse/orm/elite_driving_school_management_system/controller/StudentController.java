@@ -21,7 +21,8 @@ import java.util.ResourceBundle;
 
 public class StudentController implements Initializable {
 
-    StudentBO studentBO = (StudentBO) BOFactory.getInstance().getBO(BoTypes.STUDENT);
+    private final StudentBO studentBO = (StudentBO) BOFactory.getInstance().getBO(BoTypes.STUDENT);
+
 
     @FXML
     private Button btnDelete;
