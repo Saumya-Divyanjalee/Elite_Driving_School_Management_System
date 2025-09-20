@@ -42,8 +42,6 @@ public class Lesson implements SuperEntity {
     private Student student;
 
 
-
-
-
-
+    public Lesson(long lessonId, String lessonName, String startTime, String endTime) {
+    }
 }

@@ -2,6 +2,7 @@ package lk.ijse.orm.elite_driving_school_management_system.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -18,4 +19,7 @@ public class LessonDTO {
     private String instructorId;
     private String studentId;
     private String courseId;
+
+    public LessonDTO(long lessonId, String lessonName, LocalDateTime startTime, LocalDateTime endTime) {
+    }
 }
