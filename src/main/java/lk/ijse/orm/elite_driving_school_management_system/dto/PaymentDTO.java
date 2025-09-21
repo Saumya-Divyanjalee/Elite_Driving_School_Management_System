@@ -21,4 +21,6 @@ public class PaymentDTO {
     private String userId;
 
 
+    public PaymentDTO(long id, double amount, String description, Date date, String time) {
+    }
 }

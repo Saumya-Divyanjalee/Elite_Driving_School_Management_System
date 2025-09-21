@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PaymentDAOImpl implements PaymentDAO {
+
     @Override
     public boolean delete(Long id) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
@@ -43,6 +44,7 @@ public class PaymentDAOImpl implements PaymentDAO {
             return session.createQuery("FROM Payment", Payment.class).list();
         }
     }
+
     @Override
     public Long getNextId() throws SQLException, ClassNotFoundException {
         try (Session session = FactoryConfiguration.getInstance().getSession()) {

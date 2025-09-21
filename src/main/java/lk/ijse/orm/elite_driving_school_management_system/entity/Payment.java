@@ -36,5 +36,6 @@ public class Payment implements SuperEntity {
     private Student student;
 
 
-
+    public Payment(long paymentId, double amount, String description, Date date, String time) {
+    }
 }

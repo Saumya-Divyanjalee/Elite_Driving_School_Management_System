@@ -9,6 +9,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
+import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
+import lk.ijse.orm.elite_driving_school_management_system.bo.custom.PaymentBO;
+import lk.ijse.orm.elite_driving_school_management_system.tm.PaymentTM;
 
 public class PaymentController {
 
@@ -28,28 +32,28 @@ public class PaymentController {
     private Button btnUpdate;
 
     @FXML
-    private TableColumn<?, ?> colAmount;
+    private TableColumn<PaymentTM,String> colAmount;
 
     @FXML
-    private TableColumn<?, ?> colCourseID;
+    private TableColumn<PaymentTM,String> colCourseID;
 
     @FXML
-    private TableColumn<?, ?> colDate;
+    private TableColumn<PaymentTM,String> colDate;
 
     @FXML
-    private TableColumn<?, ?> colDescription;
+    private TableColumn<PaymentTM,String> colDescription;
 
     @FXML
-    private TableColumn<?, ?> colPaymentID;
+    private TableColumn<PaymentTM,String> colPaymentID;
 
     @FXML
-    private TableColumn<?, ?> colStudentID;
+    private TableColumn<PaymentTM,String> colStudentID;
 
     @FXML
-    private TableColumn<?, ?> colTime;
+    private TableColumn<PaymentTM,String> colTime;
 
     @FXML
-    private TableColumn<?, ?> colUserID;
+    private TableColumn<PaymentTM,String> colUserID;
 
     @FXML
     private DatePicker datepicker;
@@ -67,7 +71,7 @@ public class PaymentController {
     private Label lblcourseID;
 
     @FXML
-    private TableView<?> tblPayment;
+    private TableView<PaymentTM> tblPayment;
 
     @FXML
     private TextField txtAmount;
@@ -78,8 +82,11 @@ public class PaymentController {
     @FXML
     private TextField txtTime;
 
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBO(BoTypes.PAYMENT);
+
     @FXML
     void deleteOnAction(ActionEvent event) {
+
 
     }
 
