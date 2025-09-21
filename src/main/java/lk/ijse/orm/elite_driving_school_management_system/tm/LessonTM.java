@@ -18,4 +18,7 @@ public class LessonTM {
     private String instructorId;
     private String studentId;
     private String courseId;
+
+    public LessonTM(long lessonId, String lessonName, String startTime, String endTime) {
+    }
 }

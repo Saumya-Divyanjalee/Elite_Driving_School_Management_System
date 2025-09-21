@@ -22,4 +22,7 @@ public class LessonDTO {
 
     public LessonDTO(long lessonId, String lessonName, LocalDateTime startTime, LocalDateTime endTime) {
     }
+
+    public LessonDTO(String text, String text1, String text2, String text3) {
+    }
 }
