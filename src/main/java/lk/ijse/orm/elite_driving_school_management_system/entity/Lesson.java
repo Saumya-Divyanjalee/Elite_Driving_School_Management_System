@@ -6,6 +6,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static java.time.LocalDateTime.parse;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -43,5 +45,10 @@ public class Lesson implements SuperEntity {
 
 
     public Lesson(long lessonId, String lessonName, String startTime, String endTime) {
+        this.lessonId = lessonId;
+        this.lessonName = lessonName;
+        this.startTime = parse(startTime);
+        this.endTime = parse(endTime);
+
     }
 }

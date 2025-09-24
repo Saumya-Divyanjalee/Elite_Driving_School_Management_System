@@ -19,13 +19,27 @@ public class StudentDTO {
     private String age;
     private Date regDate;
     private String address;
+    private String nic;
 
 
 
 
-    public StudentDTO(long id, String firstName, String lastName, String email, String phone, String age, String regDate, String address) {
+
+
+
+    public StudentDTO(long id, String firstName, String lastName, String email, String phone, String age, Date regDate, String address, String nic) {
+        this.studentId = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.age = age;
+        this.regDate = regDate;
+        this.address = address;
+        this.nic = nic;
+
     }
 
-    public StudentDTO(String firstName, String lastName, String email, String phone, String age, String regDate, String address) {
+    public StudentDTO(long studentId, String firstName, String lastName, String email, String phone, String age, Date regDate, String address) {
     }
 }

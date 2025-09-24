@@ -26,7 +26,7 @@ public class AdminDashboard implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        navigateTo("/views/Student.fxml");
+        navigateTo("/views/lesson.fxml");
     }
 
     private void navigateTo(String s){

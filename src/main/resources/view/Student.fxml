@@ -7,8 +7,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -37,7 +35,7 @@
                     <ColumnConstraints minWidth="150.0" />
                     <ColumnConstraints minWidth="200.0" />
                     <ColumnConstraints minWidth="150.0" />
-                    <ColumnConstraints minWidth="100.0" />
+                    <ColumnConstraints minWidth="200.0" />
                     <ColumnConstraints minWidth="150.0" />
                     <ColumnConstraints minWidth="150.0" />
                 </columnConstraints>
@@ -101,6 +99,12 @@
                     <TextField fx:id="txtPhone" promptText="0777777777" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                     <TextField fx:id="txtAge" promptText="24" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                     <DatePicker fx:id="registrationDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+               <Label text="NIC :" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="txtNic" prefHeight="26.0" prefWidth="93.0" promptText="2001459782V" GridPane.columnIndex="5" GridPane.rowIndex="4" />
                 </children>
             </GridPane>
 
@@ -121,15 +125,6 @@
                     <font>
                         <Font size="15.0" />
                     </font></Button>
-                <Button fx:id="btnMail" mnemonicParsing="false" onAction="#mailOnAction" prefHeight="48.0" prefWidth="71.0" style="-fx-background-color: #ffffff;">
-                    <graphic>
-                        <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icons8-email-50.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
             </HBox>
 
             <TableView fx:id="tblStudent" onMouseClicked="#onClickTable" prefHeight="342.0" prefWidth="1322.0" style="-fx-border-color: lightgray;">
@@ -142,6 +137,7 @@
                     <TableColumn fx:id="colPhone" minWidth="1.59991455078125" prefWidth="151.20001220703125" text="Phone" />
                     <TableColumn fx:id="colAge" minWidth="0.0" prefWidth="81.5999755859375" text="Age" />
                     <TableColumn fx:id="colregDate" prefWidth="127.20013427734375" text="Registration Date" />
+               <TableColumn fx:id="colNic" prefWidth="111.199951171875" text="NIC" />
                 </columns>
 
                 <VBox.margin>

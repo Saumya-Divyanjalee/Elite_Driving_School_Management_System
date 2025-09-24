@@ -8,7 +8,7 @@ import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
+
 
 public class LessonDAOImpl implements LessonDAO {
 
@@ -20,7 +20,7 @@ public class LessonDAOImpl implements LessonDAO {
         try{
             Lesson lesson = session.get(Lesson.class, id);
            if(lesson != null) {
-               session.delete(lesson);
+               session.remove(lesson);
                transaction.commit();
                return true;
            }else {
@@ -52,36 +52,30 @@ public class LessonDAOImpl implements LessonDAO {
     @Override
     public boolean save(Lesson lesson) throws Exception {
          Session session = FactoryConfiguration.getInstance().getSession();
-         Transaction transaction = session.beginTransaction();
 
-         try {
-             session.persist(lesson);
-             transaction.commit();
-             return true;
-
-         }catch(Exception e){
-             if(transaction!= null)transaction.rollback();
-             e.printStackTrace();
-             return false;
-         }finally {
-             session.close();
-         }
+        try (session) {
+            Transaction tx = session.beginTransaction();
+            session.persist(lesson);
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean update(Lesson lesson) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try{
+
+        try (session) {
+            Transaction tx = session.beginTransaction();
             session.merge(lesson);
-            transaction.commit();
+            tx.commit();
             return true;
-        }catch (Exception e){
-            if(transaction!= null)transaction.rollback();
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }finally {
-            session.close();
         }
     }
 }

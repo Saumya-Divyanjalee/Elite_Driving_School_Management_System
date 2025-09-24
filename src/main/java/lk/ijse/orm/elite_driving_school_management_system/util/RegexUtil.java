@@ -1,27 +1,16 @@
 package lk.ijse.orm.elite_driving_school_management_system.util;
 
-import lk.ijse.orm.elite_driving_school_management_system.exception.RegistrationException;
-
-import java.util.regex.Pattern;
+import lk.ijse.orm.elite_driving_school_management_system.exception.LoginException;
 
 public class RegexUtil {
-    private static final Pattern EMAIL_PATTERN =
-            Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
 
-    private static final Pattern PHONE_PATTERN =
-            Pattern.compile("^\\+94\\d{9}$"); // Sri Lanka phone format
+    public static void validateRequired(String value, String field) throws LoginException {
+        if (value == null || value.isEmpty()) {
+            throw new LoginException(field + " is required");
+        }
+    }
 
     public static boolean isValidEmail(String email) {
-        return EMAIL_PATTERN.matcher(email).matches();
-    }
-
-    public static boolean isValidPhone(String phone) {
-        return PHONE_PATTERN.matcher(phone).matches();
-    }
-
-    public static void validateRequired(String value, String fieldName) throws RegistrationException {
-        if (value == null || value.trim().isEmpty()) {
-            throw new RegistrationException(fieldName + " is required!");
-        }
+        return email != null && email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
     }
 }

@@ -40,6 +40,9 @@ public class Student implements SuperEntity {
     @Column(nullable = false, name = "regDate")
     private Date regDate;
 
+    @Column(nullable = false, name = "nic")
+    private String nic;
+
     @OneToMany(mappedBy = "student",
     cascade = CascadeType.ALL,
     fetch = FetchType.LAZY)
@@ -57,5 +60,12 @@ public class Student implements SuperEntity {
 
 
     public Student(long studentId, String firstName, String lastName, String email, String phone, String age, Date regDate, String address) {
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.age = age;
+        this.regDate = regDate;
     }
 }

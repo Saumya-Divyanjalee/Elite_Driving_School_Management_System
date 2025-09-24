@@ -2,6 +2,7 @@ package lk.ijse.orm.elite_driving_school_management_system.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -14,7 +15,16 @@ import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.PaymentBO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.PaymentTM;
 
-public class PaymentController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PaymentController implements Initializable {
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+    }
 
     @FXML
     private Button btnDelete;
@@ -114,5 +124,6 @@ public class PaymentController {
     void updateOnAction(ActionEvent event) {
 
     }
+
 
 }

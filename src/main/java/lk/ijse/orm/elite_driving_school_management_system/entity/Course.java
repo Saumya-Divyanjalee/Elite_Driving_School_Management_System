@@ -37,5 +37,9 @@ public class Course implements SuperEntity {
     private List<Student>student;
 
     public Course(long courseId, String courseName, String timePeriod) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.timePeriod = timePeriod;
+
     }
 }

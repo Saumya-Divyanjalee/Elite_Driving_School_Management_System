@@ -37,5 +37,11 @@ public class Instructor implements SuperEntity {
 
 
     public Instructor(long instructorId, String instructorName, String address, String phone, String email) {
+        this.instructorId = instructorId;
+        this.instructorName = instructorName;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+
     }
 }

@@ -2,10 +2,11 @@ package lk.ijse.orm.elite_driving_school_management_system.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import lk.ijse.orm.elite_driving_school_management_system.config.FactoryConfiguration;
 import lk.ijse.orm.elite_driving_school_management_system.entity.User;
 import lk.ijse.orm.elite_driving_school_management_system.exception.LoginException;
@@ -15,9 +16,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-
 public class LoginController {
 
+    public TextField txtEmail;
     @FXML
     private Button btnLogin;
 
@@ -25,27 +26,22 @@ public class LoginController {
     private ComboBox<String> cmbUser;
 
     @FXML
-    private TextField txtEmail;
-
-    @FXML
-    private TextField txtPassword;
-
-    @FXML
     private TextField txtUserName;
 
     @FXML
-    public void initialize() {
+    private PasswordField txtPassword;
 
+    @FXML
+    public void initialize() {
         cmbUser.getItems().addAll("ADMIN", "RECEPTIONIST");
     }
 
     @FXML
     void loginOnAction(ActionEvent event) {
         try {
-            String usernameOrEmail = txtUserName.getText();
-            String password = txtPassword.getText();
+            String usernameOrEmail = txtUserName.getText().trim();
+            String password = txtPassword.getText().trim();
             String role = cmbUser.getValue();
-
 
             RegexUtil.validateRequired(usernameOrEmail, "Username/Email");
             RegexUtil.validateRequired(password, "Password");
@@ -54,7 +50,6 @@ public class LoginController {
             if (!RegexUtil.isValidEmail(usernameOrEmail) && usernameOrEmail.length() < 3) {
                 throw new LoginException("Enter valid Email or Username");
             }
-
 
             try (Session session = FactoryConfiguration.getInstance().getSession()) {
                 Transaction tx = session.beginTransaction();
@@ -71,18 +66,15 @@ public class LoginController {
                 tx.commit();
 
                 if (user == null) {
-                    throw new LoginException("User not found!");
+                    throw new LoginException("User not found for role: " + role);
                 }
 
-
-                boolean valid = PasswordEncryptor.verifyPassword(password, user.getPassword);
+                boolean valid = PasswordEncryptor.verifyPassword(password, user.getPassword());
                 if (!valid) {
                     throw new LoginException("Invalid password!");
                 }
 
-
-                showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome " + user.getUsername());
-
+                openDashboard(role);
 
             } catch (LoginException ex) {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", ex.getMessage());
@@ -93,6 +85,33 @@ public class LoginController {
 
         } catch (LoginException e) {
             showAlert(Alert.AlertType.ERROR, "Validation Error", e.getMessage());
+        }
+    }
+
+    private void openDashboard(String role) {
+        try {
+            String fxmlPath = "";
+            String title = "";
+
+            if ("ADMIN".equals(role)) {
+                fxmlPath = "/view/Admin-dashboard.fxml";
+                title = "Admin Dashboard";
+            } else if ("RECEPTIONIST".equals(role)) {
+                fxmlPath = "/view/Receptionist-dashboard.fxml";
+                title = "Receptionist Dashboard";
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) txtUserName.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle(title);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Dashboard loading failed!");
         }
     }
 

@@ -20,8 +20,11 @@ public class StudentTM {
     private String age;
     private LocalDate regDate;
     private String address;
+    private String nic;
 
 
-    public StudentTM(long studentId, String firstName, String lastName, String email, String phone, String age, Date regDate, String address) {
+
+
+    public StudentTM(long studentId, String firstName, String lastName, String email, String phone, String age, Date regDate, String address, String nic) {
     }
 }

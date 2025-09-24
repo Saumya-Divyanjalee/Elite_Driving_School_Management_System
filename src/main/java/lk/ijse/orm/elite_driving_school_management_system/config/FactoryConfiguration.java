@@ -18,7 +18,7 @@ public class FactoryConfiguration {
 
 
         Properties properties = new Properties();
-        try (InputStream inputStream = FactoryConfiguration.class.getClassLoader().getResourceAsStream("hibernate.properties")) {
+        try (InputStream inputStream = FactoryConfiguration.class.getClassLoader().getResourceAsStream("lk/ijse/orm/elite_driving_school_management_system/hibernate.properties")) {
             if (inputStream == null) {
                 throw new IOException("Unable to find hibernate.properties");
             }

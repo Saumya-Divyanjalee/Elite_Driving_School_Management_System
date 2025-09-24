@@ -24,11 +24,11 @@ public class StudentController implements Initializable {
     private final StudentBO studentBO = (StudentBO) BOFactory.getInstance().getBO(BoTypes.STUDENT);
 
 
-    @FXML
-    private Button btnDelete;
+    public TextField txtNic;
+
 
     @FXML
-    private Button btnMail;
+    private Button btnDelete;
 
     @FXML
     private Button btnReset;
@@ -38,6 +38,9 @@ public class StudentController implements Initializable {
 
     @FXML
     private Button btnUpdate;
+
+
+    public TableColumn<StudentTM,String> colNic;
 
     @FXML
     private TableColumn<StudentTM,String> colAddress;
@@ -111,6 +114,8 @@ public class StudentController implements Initializable {
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
         colregDate.setCellValueFactory(new PropertyValueFactory<>("regDate"));
+        colNic.setCellValueFactory(new PropertyValueFactory<>("nic"));
+
 
         try{
             resetPage();
@@ -137,6 +142,8 @@ public class StudentController implements Initializable {
            txtPhone.clear();
            registrationDatePicker.setValue(null);
            txtAddress.clear();
+           txtNic.clear();
+
        }catch (Exception e){
            e.printStackTrace();
            new Alert(Alert.AlertType.ERROR,"Oops!...Something went wrong.").show();
@@ -164,7 +171,8 @@ public class StudentController implements Initializable {
                     dto.getPhone(),
                     dto.getAge(),
                     dto.getRegDate(),
-                    dto.getAddress()
+                    dto.getAddress(),
+                    dto.getNic()
 
             ));
             tblStudent.setItems(studentTMS);
@@ -210,6 +218,7 @@ public class StudentController implements Initializable {
             txtAddress.setText(studentTM.getAddress());
             registrationDatePicker.setValue(studentTM.getRegDate());
             txtAddress.setText(studentTM.getAddress());
+            txtNic.setText(studentTM.getNic());
 
             btnSave.setDisable(true);
             btnUpdate.setDisable(false);
@@ -234,14 +243,18 @@ public class StudentController implements Initializable {
         String age = txtAge.getText();
         String regDate = registrationDatePicker.getValue().toString();
         String address = txtAddress.getText();
+        String nic = txtNic.getText();
 
-        StudentDTO studentDTO = new StudentDTO(firstName,
+        StudentDTO studentDTO = new StudentDTO(
+                id,
+                firstName,
                 lastName,
                 email,
                 phone,
                 age,
                 regDate,
-                address
+                address,
+                nic
         );
         boolean isSave = studentBO.saveStudent(studentDTO);
 
@@ -269,9 +282,10 @@ public class StudentController implements Initializable {
             String age = txtAge.getText();
             String regDate = registrationDatePicker.getValue().toString();
             String address = txtAddress.getText();
+            String nic = txtNic.getText();
 
             StudentDTO studentDTO = new StudentDTO(
-                    id, firstName, lastName, email, phone, age, regDate, address
+                    id, firstName, lastName, email, phone, age, regDate, address,nic
             );
 
             boolean isUpdated = studentBO.updateStudent(studentDTO);
