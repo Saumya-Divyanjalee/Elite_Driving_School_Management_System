@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700" prefWidth="951.0" style="-fx-background-color: linear-gradient(to right, #1e3c72, #2a5298);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm.elite_driving_school_management_system.controller.AdminDashboard">
+
+
+   <VBox alignment="TOP_LEFT" layoutX="0" layoutY="0" prefHeight="700" prefWidth="290.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+      <Label text="Elite Driving School" textFill="#0009ac">
+         <font>
+            <Font name="System Bold" size="20" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@undraw_electric-car_vlgq.png" />
+         </image>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin>
+      </ImageView>
+
+      <Button fx:id="userId" onAction="#userOnAction" prefWidth="159.0" style="-fx-background-color: #81ecec; -fx-text-fill: #130f40; -fx-background-radius: 10; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 40;" text="User Role Management">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin></Button>
+      <Button fx:id="instructorId" onAction="#instructorOnAction" style="-fx-background-color: #81ecec; -fx-text-fill: #130f40; -fx-background-radius: 10; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 40;" text="Instructor Management">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin></Button>
+      <Button fx:id="courseId" onAction="#courseOnAction" style="-fx-background-color: #81ecec; -fx-text-fill: #130f40; -fx-background-radius: 10; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 40;" text="Course Management">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin></Button>
+      <Button fx:id="studentId" onAction="#studentOnAction" style="-fx-background-color: #81ecec; -fx-text-fill: #130f40; -fx-background-radius: 10; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 40;" text="Student Management">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin></Button>
+      <Button fx:id="lessonId" onAction="#lessonOnAction" style="-fx-background-color: #81ecec; -fx-text-fill: #130f40; -fx-background-radius: 10; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 40;" text="Lesson Scheduling">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin></Button>
+      <Button fx:id="paymentId" onAction="#paymentOnAction" style="-fx-background-color: #81ecec; -fx-text-fill: #130f40; -fx-background-radius: 10; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 40;" text="Payment Management">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin></Button>
+      <Button fx:id="secureId" onAction="#secureOnAction" style="-fx-background-color: #81ecec; -fx-text-fill: #130f40; -fx-background-radius: 10; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 40;" text="Secure Data Management">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin></Button>
+      <Button fx:id="logoutId" onAction="#logoutOnAction" style="-fx-background-color: #ff4d4d; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 40;" text="Log out">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin></Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+   </VBox>
+   <AnchorPane layoutX="290.4" prefHeight="709.0" prefWidth="663.0" style="-fx-background-color: #130f40;" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
+
+</AnchorPane>
