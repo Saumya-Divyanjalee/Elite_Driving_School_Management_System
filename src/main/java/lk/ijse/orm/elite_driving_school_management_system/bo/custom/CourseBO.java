@@ -25,4 +25,6 @@ public interface CourseBO extends SuperBO {
 
     boolean updateCourse(CourseDTO courseDTO) throws Exception ;
 
+    List<CourseDTO> findAll() throws Exception;
+
 }

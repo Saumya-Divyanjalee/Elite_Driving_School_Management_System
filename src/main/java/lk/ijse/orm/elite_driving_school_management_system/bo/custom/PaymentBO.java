@@ -8,17 +8,24 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface PaymentBO extends SuperBO {
 
-     boolean deletePayment(Long id) throws Exception ;
+      boolean savePayment(PaymentDTO dto) ;
 
-     List<PaymentDTO> getAllPayment() throws Exception ;
+      boolean updatePayment(PaymentDTO dto) throws Exception ;
 
-     Long getNextIdPayment() throws SQLException, ClassNotFoundException;
+      boolean deletePayment(String id) throws Exception;
 
-     boolean savePayment(PaymentDTO paymentDTO) throws Exception ;
+      List<PaymentDTO> findAllPayment() throws Exception ;
 
-     boolean updatePayment(PaymentDTO paymentDTO) throws Exception ;
+      ArrayList<PaymentDTO> getAllPayments() throws Exception ;
+
+      List<String> getAllStudentId() throws Exception ;
+      List<String> getAllCourseId() throws Exception ;
+      List<String> getAllUserId() throws Exception ;
+
+
 }

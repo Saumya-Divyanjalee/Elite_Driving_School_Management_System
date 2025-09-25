@@ -3,12 +3,7 @@ package lk.ijse.orm.elite_driving_school_management_system.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
@@ -20,6 +15,11 @@ import java.util.ResourceBundle;
 
 public class PaymentController implements Initializable {
 
+    public TextField txtPaymentId;
+    public ComboBox cmbUserId;
+    public ComboBox cmbStudentId;
+    public ComboBox cmbCourseId;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -29,8 +29,7 @@ public class PaymentController implements Initializable {
     @FXML
     private Button btnDelete;
 
-    @FXML
-    private Button btnMail;
+
 
     @FXML
     private Button btnReset;
@@ -68,17 +67,6 @@ public class PaymentController implements Initializable {
     @FXML
     private DatePicker datepicker;
 
-    @FXML
-    private Label lblPaymentID;
-
-    @FXML
-    private Label lblStudentID;
-
-    @FXML
-    private Label lblUserId;
-
-    @FXML
-    private Label lblcourseID;
 
     @FXML
     private TableView<PaymentTM> tblPayment;
@@ -100,10 +88,6 @@ public class PaymentController implements Initializable {
 
     }
 
-    @FXML
-    void mailOnAction(ActionEvent event) {
-
-    }
 
     @FXML
     void onClickTable(MouseEvent event) {

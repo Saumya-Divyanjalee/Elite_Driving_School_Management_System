@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class PaymentDTO {
     private long paymentId;
-    private double amount;
+    private String amount;
     private String description;
     private Date date;
     private String time;
@@ -21,6 +21,13 @@ public class PaymentDTO {
     private String userId;
 
 
-    public PaymentDTO(long id, double amount, String description, Date date, String time) {
+    public PaymentDTO(long id, String amount, String description, Date date, String time) {
+        this.paymentId = id;
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+
+
     }
 }

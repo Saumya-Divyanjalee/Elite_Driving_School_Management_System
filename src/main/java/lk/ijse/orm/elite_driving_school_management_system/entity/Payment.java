@@ -20,7 +20,7 @@ public class Payment implements SuperEntity {
     private long id;
 
     @Column(nullable = false,name ="amount")
-    private double amount;
+    private String amount;
 
     @Column(nullable = false,name = "description")
     private String description;
@@ -32,11 +32,15 @@ public class Payment implements SuperEntity {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id",nullable = false)
     private Student student;
 
+    @OneToOne
+    @JoinColumn(name ="course_id",unique = true,nullable = false)
+    private Course course;
 
-    public Payment(long paymentId, double amount, String description, Date date, String time) {
+
+    public Payment(long paymentId, String amount, String description, Date date, String time) {
         this.id = paymentId;
         this.amount = amount;
         this.description = description;

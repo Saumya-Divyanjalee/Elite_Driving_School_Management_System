@@ -13,84 +13,53 @@ import java.util.Optional;
 
 public class PaymentDAOImpl implements PaymentDAO {
 
-    @Override
-    public boolean delete(Long id) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            Payment payment = session.get(Payment.class, id);
-            if (payment != null) {
-                session.delete(payment);
-                transaction.commit();
+
+        private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+
+        @Override
+        public boolean save(Payment entity) {
+            try (Session session = factoryConfiguration.getSession()) {
+                Transaction tx = session.beginTransaction();
+                session.persist(entity);
+                tx.commit();
                 return true;
-            } else {
-                transaction.rollback();
+            } catch (Exception e) {
+                e.printStackTrace();
                 return false;
             }
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-            return false;
-        } finally {
+        }
+
+        @Override
+        public boolean update(Payment entity) throws Exception {
+            Session session = factoryConfiguration.getSession();
+            Transaction tx = session.beginTransaction();
+            session.merge(entity);
+            tx.commit();
             session.close();
-        }
-    }
-
-    @Override
-    public List<Payment> getAll() throws Exception {
-        try(Session session = FactoryConfiguration.getInstance().getSession()){
-            return session.createQuery("FROM Payment", Payment.class).list();
-        }
-    }
-
-    @Override
-    public Long getNextId() throws SQLException, ClassNotFoundException {
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
-            Long maxId = (Long) session.createQuery("SELECT MAX(p.id) FROM Payment p").uniqueResult();
-            return (maxId == null) ? 1L : maxId + 1;
-        }
-    }
-
-
-    @Override
-    public boolean save(Payment payment) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.persist(payment);
-            transaction.commit();
             return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
+        }
+
+        @Override
+        public boolean delete(String id) throws Exception {
+            try (Session session = factoryConfiguration.getSession()) {
+                Transaction tx = session.beginTransaction();
+                Payment payment = session.get(Payment.class, Long.parseLong(id));
+                if (payment != null) {
+                    payment.setStudent(null);
+                    payment.setCourse(null); // Prevent FK constraint errors when deleting
+                    session.remove(payment); // Remove payment
+                }
+                tx.commit();
+                return payment != null;
             }
-            e.printStackTrace();
-            return false;
-        } finally {
-            session.close();
         }
-    }
 
-
-    @Override
-    public boolean update(Payment payment) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.merge(payment);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-            return false;
-        } finally {
+        @Override
+        public List<Payment> findAll() throws Exception {
+            Session session = factoryConfiguration.getSession();
+            List<Payment> list = session.createQuery("FROM Payment", Payment.class).list();
             session.close();
+            return list;
         }
-    }
 
 }

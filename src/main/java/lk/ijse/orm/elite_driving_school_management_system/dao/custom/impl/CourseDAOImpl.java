@@ -36,6 +36,11 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
+    public List<Course> findAll() throws Exception {
+        return List.of();
+    }
+
+    @Override
     public List<Course> getAll() throws Exception {
         try (Session session = FactoryConfiguration.getInstance().getSession()) {
             return session.createQuery("FROM Course", Course.class).list();
