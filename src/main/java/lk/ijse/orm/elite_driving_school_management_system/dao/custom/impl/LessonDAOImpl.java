@@ -12,70 +12,53 @@ import java.util.List;
 
 public class LessonDAOImpl implements LessonDAO {
 
-
+private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
     @Override
-    public boolean delete(Long id) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try{
-            Lesson lesson = session.get(Lesson.class, id);
-           if(lesson != null) {
-               session.remove(lesson);
-               transaction.commit();
-               return true;
-           }else {
-               transaction.rollback();
-               return false;
-           }
-        }catch(Exception e){
-            if(transaction!= null)transaction.rollback();
-            e.printStackTrace();
-            return false;
-        }finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public List<Lesson> getAll() throws Exception {
-         try(Session session = FactoryConfiguration.getInstance().getSession()){
-             return session.createQuery("FROM Lesson", Lesson.class).list();
-         }
-    }
-
-    @Override
-    public Long getNextId() throws SQLException, ClassNotFoundException {
-        return null;
-
-    }
-
-    @Override
-    public boolean save(Lesson lesson) throws Exception {
-         Session session = FactoryConfiguration.getInstance().getSession();
-
-        try (session) {
+    public boolean save(Lesson entity) throws Exception {
+        try(Session session = factoryConfiguration.getSession()) {
             Transaction tx = session.beginTransaction();
-            session.persist(lesson);
+            session.persist(entity);
             tx.commit();
             return true;
-        } catch (Exception e) {
+
+        }catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
     @Override
-    public boolean update(Lesson lesson) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-
-        try (session) {
+    public boolean update(Lesson entity) throws Exception {
+        try(Session session = factoryConfiguration.getSession()) {
             Transaction tx = session.beginTransaction();
-            session.merge(lesson);
+            session.merge(entity);
             tx.commit();
             return true;
-        } catch (Exception e) {
+
+        }catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean delete(String id) throws Exception {
+         Session session = factoryConfiguration.getSession();
+         Transaction tx = session.beginTransaction();
+         Lesson lesson = (Lesson) session.get(Lesson.class, id);
+         if(lesson!=null){
+             session.remove(lesson);
+         }tx.commit();
+         session.close();
+         return lesson!=null;
+
+    }
+
+    @Override
+    public List<Lesson> findAll() throws Exception {
+        Session session = factoryConfiguration.getSession();
+        List<Lesson> list = session.createQuery("FROM Lesson", Lesson.class).list();
+        session.close();
+        return list;
     }
 }

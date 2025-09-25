@@ -1,54 +1,37 @@
 package lk.ijse.orm.elite_driving_school_management_system.config;
 
+
 import lk.ijse.orm.elite_driving_school_management_system.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 public class FactoryConfiguration {
-    private static FactoryConfiguration factoryConfiguration;
+
+    private static FactoryConfiguration instance;
     private final SessionFactory sessionFactory;
 
     private FactoryConfiguration() {
+
         Configuration configuration = new Configuration();
-
-
-        Properties properties = new Properties();
-        try (InputStream inputStream = FactoryConfiguration.class.getClassLoader().getResourceAsStream("lk/ijse/orm/elite_driving_school_management_system/hibernate.properties")) {
-            if (inputStream == null) {
-                throw new IOException("Unable to find hibernate.properties");
-            }
-            properties.load(inputStream);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load hibernate.properties", e);
-        }
-
-
-        configuration.addProperties(properties);
-
-
-        configuration.addAnnotatedClass(Student.class)
-//                .addAnnotatedClass(Course.class)
-                .addAnnotatedClass(Instructor.class)
-                .addAnnotatedClass(Lesson.class);
-//                .addAnnotatedClass(Payment.class);
-
+        configuration.addAnnotatedClass(Course.class);
+        configuration.addAnnotatedClass(Lesson.class);
+        configuration.addAnnotatedClass(Payment.class);
+        configuration.addAnnotatedClass(Student.class);
+        configuration.addAnnotatedClass(Instructor.class);
 
         sessionFactory = configuration.buildSessionFactory();
     }
 
     public static FactoryConfiguration getInstance() {
-        if (factoryConfiguration == null) {
-            factoryConfiguration = new FactoryConfiguration();
-        }
-        return factoryConfiguration;
+        return (instance == null) ?
+                instance = new FactoryConfiguration() : instance;
     }
 
     public Session getSession() {
         return sessionFactory.openSession();
     }
 }
+
+
+

@@ -13,92 +13,55 @@ import java.util.Optional;
 
 public class InstructorDAOImpl implements InstructorDAO {
 
+ private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+
     @Override
-    public boolean save(Instructor instructor) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            session.persist(instructor);
-            transaction.commit();
+    public boolean save(Instructor entity) throws Exception {
+
+        try (Session session = factoryConfiguration.getSession()) {
+            Transaction tx = session.beginTransaction();
+            session.persist(entity);
+            tx.commit();
             return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-                e.printStackTrace();
-                return false;
-            }
-        } finally {
-            session.close();
-        }
-        return false;
-    }
-
-
-    @Override
-    public boolean update(Instructor instructor) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            session.merge(instructor);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-                e.printStackTrace();
-                return false;
-            }
-        } finally {
-            session.close();
-        }
-
-
-        return false;
-    }
-
-
-    @Override
-    public boolean delete(Long id) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try{
-            Instructor instructor = session.get(Instructor.class,id);
-             if(instructor!=null){
-                 session.delete(instructor);
-                 transaction.commit();
-                 return true;
-             }else {
-                 transaction.rollback();
-                 return false;
-             }
-
         }catch(Exception e){
-            if(transaction!=null){
-                transaction.rollback();
-                e.printStackTrace();
-                return false;
-            }
-            }finally{
-            session.close();
-        }
-
-        return false;
-    }
-
-    @Override
-    public List<Instructor> getAll() throws Exception {
-        try (Session session = FactoryConfiguration.getInstance().getSession()){
-            return session.createQuery("from Instructor").list();
+            e.printStackTrace();
+            return false;
         }
     }
 
     @Override
-    public Long getNextId() throws SQLException, ClassNotFoundException {
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
-            Long maxId = (Long) session.createQuery("SELECT MAX(i.instructorId) FROM Instructor i").uniqueResult();
-            return (maxId == null) ? 0L : maxId;
+    public boolean update(Instructor entity) throws Exception {
+
+        try (Session session = factoryConfiguration.getSession()) {
+            Transaction tx = session.beginTransaction();
+            session.merge(entity);
+            tx.commit();
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 
+    @Override
+    public boolean delete(String id) throws Exception {
+        Session session = factoryConfiguration.getSession();
+        Transaction tx = session.beginTransaction();
+        Instructor instructor = session.get(Instructor.class,id);
+        if(instructor!=null){
+            session.remove(instructor);
+
+        }tx.commit();
+        session.close();
+        return instructor!=null;
+    }
+
+    @Override
+    public List<Instructor> findAll() throws Exception {
+        Session session = factoryConfiguration.getSession();
+        List<Instructor> list = session.createQuery("FROM Instructor",Instructor.class).list();
+        session.close();
+        return list;
+    }
 }
 
