@@ -28,53 +28,53 @@
                 <VBox.margin>
                     <Insets bottom="20.0" left="190.0" right="5.0" top="10.0" />
                 </VBox.margin></Label>
-         
+
             <GridPane hgap="10" minHeight="80.0" prefHeight="200.0" prefWidth="80.0" vgap="10">
                 <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" minWidth="150.0" />
                     <ColumnConstraints maxWidth="200.0" minWidth="300.0" prefWidth="200.0" />
                     <ColumnConstraints minWidth="150.0" />
                     <ColumnConstraints minWidth="150.0" />
-               <ColumnConstraints minWidth="150.0" />
-               <ColumnConstraints minWidth="150.0" />
+                    <ColumnConstraints minWidth="150.0" />
+                    <ColumnConstraints minWidth="150.0" />
                 </columnConstraints>
-         
+
                 <rowConstraints>
                     <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
                     <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
                     <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
                     <RowConstraints />
-               <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
                     <RowConstraints />
                     <RowConstraints />
                     <RowConstraints />
                     <RowConstraints />
                     <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
                     <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-               <RowConstraints />
-               <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-               <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
                 </rowConstraints>
 
                 <VBox.margin>
                     <Insets bottom="5.0" />
                 </VBox.margin>
-         
+
                 <children>
                     <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Payment ID :" textFill="black" GridPane.rowIndex="3" />
-         
+
                     <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Amount :" textFill="black" GridPane.rowIndex="4" />
                     <TextField fx:id="txtAmount" promptText="50000.00" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-         
+
                     <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Description :" textFill="black" GridPane.rowIndex="5" />
                     <TextField fx:id="txtDescription" promptText="practical driving test" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                     <Label text="User ID : " GridPane.columnIndex="2" GridPane.rowIndex="3">
@@ -93,15 +93,15 @@
                         </font>
                     </Label>
                     <DatePicker fx:id="datepicker" prefHeight="26.0" prefWidth="217.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-               <Label GridPane.columnIndex="4" GridPane.rowIndex="3">
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-               </Label>
-               <TextField fx:id="txtPaymentId" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-               <ComboBox fx:id="cmbUserId" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-               <ComboBox fx:id="cmbStudentId" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-               <ComboBox fx:id="cmbCourseId" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                    <Label GridPane.columnIndex="4" GridPane.rowIndex="3">
+                        <font>
+                            <Font name="System Bold" size="12.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="txtPaymentId" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <ComboBox fx:id="cmbUserId" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                    <ComboBox fx:id="cmbStudentId" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                    <ComboBox fx:id="cmbCourseId" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                 </children>
             </GridPane>
 
@@ -133,7 +133,7 @@
                     <TableColumn fx:id="colDate" prefWidth="166.4000244140625" text="Date" />
                     <TableColumn fx:id="colStudentID" prefWidth="98.39990234375" text="Student ID" />
                     <TableColumn fx:id="colCourseID" minWidth="0.0" prefWidth="106.400146484375" text="Course ID" />
-               <TableColumn fx:id="colUserID" prefWidth="118.400146484375" text="User ID" />
+                    <TableColumn fx:id="colUserID" prefWidth="118.400146484375" text="User ID" />
                 </columns>
 
                 <VBox.margin>
