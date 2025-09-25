@@ -11,6 +11,8 @@ import java.util.List;
 
 public class QueryDAOImpl implements QueryDAO {
 
+
+    //Enter the student count for the course (how many students are enrolled in each course).
     @Override
     public List<Object[]> getCourseStudentCount() {
         Transaction transaction = null;
