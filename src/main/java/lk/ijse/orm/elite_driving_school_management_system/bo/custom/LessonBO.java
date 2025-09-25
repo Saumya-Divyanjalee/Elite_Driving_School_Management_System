@@ -8,12 +8,19 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface LessonBO extends SuperBO {
-    boolean deleteLesson(Long id) throws Exception ;
-    List<LessonDTO> getAllLesson() throws Exception ;
-    Long getNextIdLesson() throws ClassNotFoundException, SQLException;
-    boolean saveLesson(LessonDTO lessonDTO) throws Exception ;
-    boolean updateLesson(LessonDTO lessonDTO) throws Exception ;
+     boolean saveLesson(LessonDTO dto) throws Exception ;
+     boolean updateLesson(LessonDTO dto) throws Exception ;
+     boolean deleteLesson(String id) throws Exception ;
+     List<LessonDTO> findAllLesson() throws Exception ;
+     List<String> getAllInstructorIds() throws Exception;
+     List<String> getAllCourseIds() throws Exception;
+     List<String> getAllStudentIds() throws Exception;
+
+    ArrayList<LessonDTO> getAllLesson() throws Exception;
+
+
 }

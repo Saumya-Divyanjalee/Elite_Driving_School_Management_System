@@ -63,9 +63,7 @@ public class AdminDashboard implements Initializable {
     public void paymentOnAction(ActionEvent actionEvent) {
         navigateTo("/views/Payment.fxml");
     }
-    public void secureOnAction(ActionEvent actionEvent) {
-        navigateTo("/views/Secure.fxml");
-    }
+
     public void logoutOnAction(ActionEvent actionEvent) {
         navigateTo("/views/Logout.fxml");
     }

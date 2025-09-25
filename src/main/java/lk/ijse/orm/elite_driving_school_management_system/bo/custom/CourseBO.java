@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public interface CourseBO extends SuperBO {
 
-    boolean deleteCourse(Long id) throws Exception ;
+    boolean deleteCourse(String id) throws Exception ;
 
     List<CourseDTO> getAllCourse() throws Exception ;
 

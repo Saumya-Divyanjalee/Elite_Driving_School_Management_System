@@ -20,9 +20,11 @@ public class LessonDTO {
     private String studentId;
     private String courseId;
 
-    public LessonDTO(long lessonId, String lessonName, LocalDateTime startTime, LocalDateTime endTime) {
-    }
+
 
     public LessonDTO(String text, String text1, String text2, String text3) {
+    }
+
+    public LessonDTO(long lessonId, String lessonName, LocalDateTime startTime, LocalDateTime endTime, long studentID, long courseId, long instructorId) {
     }
 }

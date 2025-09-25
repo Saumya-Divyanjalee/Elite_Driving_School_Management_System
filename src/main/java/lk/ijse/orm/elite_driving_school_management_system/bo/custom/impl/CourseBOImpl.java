@@ -14,51 +14,68 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CourseBOImpl implements CourseBO {
 
     CourseDAO courseDAO = (CourseDAO) DAOFactory.getInstance().getDAO(DAOTypes.COURSE);
 
     @Override
-    public boolean deleteCourse(Long id) throws Exception {
+    public boolean deleteCourse(String id) throws Exception {
          return courseDAO.delete(id);
     }
 
     @Override
     public List<CourseDTO> getAllCourse() throws Exception {
-        List<Course> entity = courseDAO.getAll();
-        List<CourseDTO> courseDTOS = new ArrayList<>();
-        for(Course c : entity){
-            courseDTOS.add(new CourseDTO(
-                    c.getCourseId(),
-                    c.getCourseName(),
-                    c.getTimePeriod()
-            ));
+     ArrayList<Course> courses = (ArrayList<Course>) courseDAO.findAll();
+     ArrayList<CourseDTO> list = new ArrayList<>();
+     for (Course c : courses) {
+         list.add(new CourseDTO(
+                 c.getCourseId(),
+                 c.getCourseName(),
+                 c.getTimePeriod(),
+                 c.getCourseFee()));
 
-        }
-        return courseDTOS;
+     }
+     return list;
     }
 
     @Override
     public Long getNextIdCourse() throws SQLException, ClassNotFoundException {
-        return courseDAO.getNextId();
+        return  null;
     }
 
     @Override
     public boolean saveCourse(CourseDTO courseDTO) throws Exception {
-        return courseDAO.save(new Course(
+        Course course = new Course(
                 courseDTO.getCourseId(),
                 courseDTO.getCourseName(),
-                courseDTO.getTimePeriod()
-        ));
+                courseDTO.getTimePeriod(),
+                courseDTO.getCourseFee()
+        );
+        return courseDAO.save(course);
     }
 
     @Override
     public boolean updateCourse(CourseDTO courseDTO) throws Exception {
-          return courseDAO.update(new Course(
-                  courseDTO.getCourseId(),
-                  courseDTO.getCourseName(),
-                  courseDTO.getTimePeriod()
-          ));
+           Course course = new Course(
+                   courseDTO.getCourseId(),
+                   courseDTO.getCourseName(),
+                   courseDTO.getTimePeriod(),
+                   courseDTO.getCourseFee()
+
+           );
+           return courseDAO.update(course);
+    }
+
+    @Override
+    public List<CourseDTO> findAll() throws Exception {
+         return courseDAO.findAll().stream().map(course ->
+                 new CourseDTO(
+                         course.getCourseId(),
+                         course.getCourseName(),
+                         course.getTimePeriod(),
+                         course.getCourseFee()
+                 )).collect(Collectors.toList());
     }
 }

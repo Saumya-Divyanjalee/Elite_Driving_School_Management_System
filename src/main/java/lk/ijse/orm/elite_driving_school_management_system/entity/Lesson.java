@@ -51,4 +51,10 @@ public class Lesson implements SuperEntity {
         this.endTime = parse(endTime);
 
     }
+
+    public Lesson(long lessonId, String lessonName, String startTime, String endTime, Student student, Course course, Instructor instructor) {
+    }
+
+    public Lesson(String lessonName, String startTime, String endTime, Student student, Course course, Instructor instructor) {
+    }
 }

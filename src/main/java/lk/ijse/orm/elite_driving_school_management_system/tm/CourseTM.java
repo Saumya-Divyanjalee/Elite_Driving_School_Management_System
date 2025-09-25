@@ -13,9 +13,7 @@ public class CourseTM {
     private long courseId;
     private String courseName;
     private String timePeriod;
-    private String lessonId;
-    private String studentId;
-    private String InstructorId;
+    private String courseFee;
 
 
     public CourseTM(long courseId, String courseName, String timePeriod) {

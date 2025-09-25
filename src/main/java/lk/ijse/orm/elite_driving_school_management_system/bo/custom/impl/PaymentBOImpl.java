@@ -25,12 +25,12 @@ public class PaymentBOImpl implements PaymentBO {
 
 
 
-    @Override
-    public boolean savePayment(PaymentDTO dto) {
-        Student student = studentDAO.findById(dto.getStudentId());
-        Course course = courseDAO.fin
-
-    }
+//    @Override
+//    public boolean savePayment(PaymentDTO dto) {
+//        Student student = studentDAO.findById(dto.getStudentId());
+//        Course course = courseDAO.fin
+//
+//    }
 
     @Override
     public boolean updatePayment(PaymentDTO dto) throws Exception {

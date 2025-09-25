@@ -31,17 +31,31 @@ public class Instructor implements SuperEntity {
     @Column(nullable = false,name = "email")
     private String email;
 
+
+    @Column(nullable = false,name = "availability")
+    private String availability;
+
     @OneToMany(mappedBy = "instructor",
     cascade = CascadeType.ALL)
     private List<Lesson> lessons;
 
 
-    public Instructor(long instructorId, String instructorName, String address, String phone, String email) {
-        this.instructorId = instructorId;
+
+
+
+
+    public Instructor(String instructorName, String email, String address, String phone, String email1, String availability) {
         this.instructorName = instructorName;
         this.address = address;
         this.phone = phone;
         this.email = email;
+        this.availability = availability;
 
+    }
+
+    public Instructor(String instructorName, String address, String phone, String email, String availability) {
+    }
+
+    public Instructor(long instructorId, String instructorName, String address, String phone, String email, String availability) {
     }
 }

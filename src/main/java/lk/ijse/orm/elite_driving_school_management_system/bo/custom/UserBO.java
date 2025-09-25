@@ -1,5 +1,8 @@
 package lk.ijse.orm.elite_driving_school_management_system.bo.custom;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 import lk.ijse.orm.elite_driving_school_management_system.bo.SuperBO;
 import lk.ijse.orm.elite_driving_school_management_system.config.FactoryConfiguration;
 import lk.ijse.orm.elite_driving_school_management_system.dto.UserDTO;
@@ -12,13 +15,14 @@ import java.util.List;
 
 public interface UserBO extends SuperBO {
 
-     boolean saveUser(UserDTO userDTO) throws Exception ;
+      boolean save(User entity) throws Exception ;
 
-     boolean updateUser(UserDTO userDTO) throws Exception ;
+      boolean update(User entity) throws Exception ;
 
-     boolean deleteUser(Long id) throws Exception ;
+      boolean delete(Long id) throws Exception ;
 
-     List<UserDTO> findAllUser() throws Exception ;
+     List<User> findAll() throws Exception ;
 
-     UserDTO findByUserName(String useName) throws Exception ;
+     User findByUserName(String userName) throws Exception ;
 }
+

@@ -11,12 +11,10 @@ import javafx.scene.input.MouseEvent;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.CourseBO;
-
 import lk.ijse.orm.elite_driving_school_management_system.dto.CourseDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.CourseTM;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -24,49 +22,25 @@ import java.util.ResourceBundle;
 public class CourseController implements Initializable {
 
     @FXML
-    private Button btnDelete;
+    private TableColumn<CourseTM, String> colCourseID;
 
     @FXML
-    private Button btnMail;
+    private TableColumn<CourseTM, String> colCourseName;
 
     @FXML
-    private Button btnReset;
+    private TableColumn<CourseTM, String> colTimePeriod;
 
     @FXML
-    private Button btnSave;
+    private TableColumn<CourseTM, String> colCourseFee;
 
     @FXML
-    private Button btnUpdate;
+    private TableColumn<CourseTM, String> colLessonID;
 
     @FXML
-    private TableColumn<CourseTM,String> colCourseID;
+    private TableColumn<CourseTM, String> colInstructorID;
 
     @FXML
-    private TableColumn<CourseTM,String> colCourseName;
-
-    @FXML
-    private TableColumn<CourseTM,String> colInstructorID;
-
-    @FXML
-    private TableColumn<CourseTM,String> colLessonID;
-
-    @FXML
-    private TableColumn<CourseTM,String> colStudentID;
-
-    @FXML
-    private TableColumn<CourseTM,String> colTimePeriod;
-
-    @FXML
-    private Label lblCourseID;
-
-    @FXML
-    private Label lblInstructorID;
-
-    @FXML
-    private Label lblLessonID;
-
-    @FXML
-    private Label lblStudentID;
+    private TableColumn<CourseTM, String> colStudentID;
 
     @FXML
     private TableView<CourseTM> tblCourse;
@@ -77,13 +51,42 @@ public class CourseController implements Initializable {
     @FXML
     private TextField txtTimePeriod;
 
-    CourseBO courseBO = (CourseBO) BOFactory.getInstance().getBO(BoTypes.COURSE);
+    @FXML
+    private TextField txtCourseFee;
+
+    @FXML
+    private Label lblCourseID;
+
+    @FXML
+    private Label lblLessonID;
+
+    @FXML
+    private Label lblInstructorID;
+
+    @FXML
+    private Label lblStudentID;
+
+    @FXML
+    private Button btnSave;
+
+    @FXML
+    private Button btnUpdate;
+
+    @FXML
+    private Button btnDelete;
+
+    @FXML
+    private Button btnReset;
+
+    private final CourseBO courseBO =
+            (CourseBO) BOFactory.getInstance().getBO(BoTypes.COURSE);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colCourseID.setCellValueFactory(new PropertyValueFactory<>("courseId"));
         colCourseName.setCellValueFactory(new PropertyValueFactory<>("courseName"));
         colTimePeriod.setCellValueFactory(new PropertyValueFactory<>("timePeriod"));
+        colCourseFee.setCellValueFactory(new PropertyValueFactory<>("courseFee"));
         colLessonID.setCellValueFactory(new PropertyValueFactory<>("lessonId"));
         colInstructorID.setCellValueFactory(new PropertyValueFactory<>("instructorId"));
         colStudentID.setCellValueFactory(new PropertyValueFactory<>("studentId"));
@@ -105,7 +108,9 @@ public class CourseController implements Initializable {
             obList.add(new CourseTM(
                     dto.getCourseId(),
                     dto.getCourseName(),
-                    dto.getTimePeriod()
+                    dto.getTimePeriod(),
+                    dto.getCourseFee()
+
             ));
         }
         tblCourse.setItems(obList);
@@ -115,6 +120,7 @@ public class CourseController implements Initializable {
         try {
             txtCourseName.clear();
             txtTimePeriod.clear();
+            txtCourseFee.clear();
             lblLessonID.setText("");
             lblInstructorID.setText("");
             lblStudentID.setText("");
@@ -137,12 +143,15 @@ public class CourseController implements Initializable {
         lblCourseID.setText(nextId);
     }
 
+    @FXML
     public void saveOnAction(ActionEvent actionEvent) {
         if (!validateInput()) return;
         CourseDTO dto = new CourseDTO(
                 lblCourseID.getText(),
                 txtCourseName.getText(),
-                txtTimePeriod.getText()
+                txtTimePeriod.getText(),
+                txtCourseFee.getText()
+
         );
         try {
             boolean saved = courseBO.saveCourse(dto);
@@ -158,12 +167,15 @@ public class CourseController implements Initializable {
         }
     }
 
+    @FXML
     public void updateOnAction(ActionEvent actionEvent) {
         if (!validateInput()) return;
         CourseDTO dto = new CourseDTO(
                 lblCourseID.getText(),
                 txtCourseName.getText(),
-                txtTimePeriod.getText()
+                txtTimePeriod.getText(),
+                txtCourseFee.getText()
+
         );
         try {
             boolean updated = courseBO.updateCourse(dto);
@@ -179,14 +191,16 @@ public class CourseController implements Initializable {
         }
     }
 
+    @FXML
     public void deleteOnAction(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                 "Are you sure you want to delete this course?",
                 ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
+
         if (result.isPresent() && result.get() == ButtonType.YES) {
             try {
-                boolean deleted = courseBO.deleteCourse(Long.valueOf(Integer.valueOf(lblCourseID.getText())));
+                boolean deleted = courseBO.deleteCourse(lblCourseID.getText());
                 if (deleted) {
                     resetPage();
                     new Alert(Alert.AlertType.INFORMATION, "Course deleted successfully!").show();
@@ -200,19 +214,20 @@ public class CourseController implements Initializable {
         }
     }
 
+    @FXML
     public void resetOnAction(ActionEvent actionEvent) {
         resetPage();
     }
 
+    @FXML
     public void onClickTable(MouseEvent mouseEvent) {
         CourseTM selected = tblCourse.getSelectionModel().getSelectedItem();
         if (selected != null) {
             lblCourseID.setText(String.valueOf(selected.getCourseId()));
             txtCourseName.setText(selected.getCourseName());
             txtTimePeriod.setText(selected.getTimePeriod());
-            lblLessonID.setText(selected.getLessonId());
-            lblInstructorID.setText(selected.getInstructorId());
-            lblStudentID.setText(selected.getStudentId());
+            txtCourseFee.setText(selected.getCourseFee());
+
 
             btnSave.setDisable(true);
             btnUpdate.setDisable(false);
@@ -227,6 +242,10 @@ public class CourseController implements Initializable {
         }
         if (txtTimePeriod.getText().isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please enter time period.").show();
+            return false;
+        }
+        if (txtCourseFee.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter course fee.").show();
             return false;
         }
         return true;

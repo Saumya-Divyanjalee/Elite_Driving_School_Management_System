@@ -1,8 +1,7 @@
 module lk.ijse.orm.elite_driving_school_management_system {
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.graphics;
-    requires java.desktop;
+    requires java.sql;
 
     requires org.hibernate.orm.core;
     requires static lombok;
@@ -10,6 +9,7 @@ module lk.ijse.orm.elite_driving_school_management_system {
     requires java.naming;
     requires jbcrypt;
     requires java.mail;
+
 
 
     opens lk.ijse.orm.elite_driving_school_management_system.controller to javafx.fxml;

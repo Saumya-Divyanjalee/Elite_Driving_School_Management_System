@@ -24,6 +24,9 @@ public class Course implements SuperEntity {
     @Column(nullable = false, name ="time_period")
     private String timePeriod;
 
+    @Column(nullable = false, name ="course_fee")
+    private String courseFee;
+
     @OneToMany(mappedBy = "course",
             cascade = CascadeType.ALL)
     private List<Lesson>lessons;
@@ -41,5 +44,12 @@ public class Course implements SuperEntity {
         this.courseName = courseName;
         this.timePeriod = timePeriod;
 
+    }
+
+    public Course(long courseId, String courseName, String timePeriod, String courseFee) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.timePeriod = timePeriod;
+        this.courseFee = courseFee;
     }
 }
