@@ -12,77 +12,59 @@ import java.util.List;
 
 public class CourseDAOImpl implements CourseDAO {
 
+ FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+
+
     @Override
-    public boolean delete(Long id) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            Course course = session.get(Course.class, id);
-            if (course != null) {
-                session.delete(course);
-                transaction.commit();
-                return true;
-            } else {
-                transaction.rollback();
-                return false;
-            }
+    public Course findById(Long id) throws Exception {
+        try (Session session = FactoryConfiguration.getInstance().getSession().getSessionFactory().openSession()) {
+            return session.get(Course.class, id);
+        }
+    }
+
+
+
+    @Override
+    public boolean save(Course entity) throws Exception {
+        try (Session session = factoryConfiguration.getSession()) {
+            Transaction tx = session.beginTransaction();
+            session.persist(entity);
+            tx.commit();
+            return true;
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
             e.printStackTrace();
             return false;
-        } finally {
-            session.close();
         }
+    }
+
+    @Override
+    public boolean update(Course entity) throws Exception {
+        Session session = factoryConfiguration.getSession();
+        Transaction tx = session.beginTransaction();
+        session.merge(entity);
+        tx.commit();
+        session.close();
+        return true;
+    }
+
+    @Override
+    public boolean delete(String id) throws Exception {
+        Session session = factoryConfiguration.getSession();
+        Transaction tx = session.beginTransaction();
+        Course course = session.get(Course.class, id);
+        if (course != null) {
+            session.remove(course);
+        }
+        tx.commit();
+        session.close();
+        return course != null;
     }
 
     @Override
     public List<Course> findAll() throws Exception {
-        return List.of();
-    }
-
-    @Override
-    public List<Course> getAll() throws Exception {
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
-            return session.createQuery("FROM Course", Course.class).list();
-        }
-    }
-
-    @Override
-    public Long getNextId() throws SQLException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public boolean save(Course course) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            session.persist(course);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-            return false;
-        } finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public boolean update(Course course) throws Exception {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            session.merge(course);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-            return false;
-        } finally {
-            session.close();
-        }
+        Session session = factoryConfiguration.getSession();
+        List<Course> list = session.createQuery("FROM Course", Course.class).list();
+        session.close();
+        return list;
     }
 }
