@@ -23,4 +23,14 @@ public class PaymentTM {
     private String userId;
 
 
+    public PaymentTM(long paymentId, String amount, String description, Date date, String time, String studentId, String courseId, String userId) {
+        this.paymentId = paymentId;
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+        this.studentId = studentId;
+        this.courseId = courseId;
+        this.userId = userId;
+    }
 }

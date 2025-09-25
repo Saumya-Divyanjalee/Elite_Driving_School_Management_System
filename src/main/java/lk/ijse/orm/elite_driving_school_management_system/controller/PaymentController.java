@@ -1,20 +1,18 @@
 package lk.ijse.orm.elite_driving_school_management_system.controller;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.PaymentBO;
+import lk.ijse.orm.elite_driving_school_management_system.dto.PaymentDTO;
+import lk.ijse.orm.elite_driving_school_management_system.tm.PaymentTM;
 
 import java.net.URL;
 import java.util.List;
@@ -130,6 +128,12 @@ public class PaymentController implements Initializable {
     }
 
     private void loadUserIds() {
+        try {
+            List<String> uIds = paymentBO.getAllUserId();
+            cmbUserId.setItems(FXCollections.observableArrayList(uIds));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void loadCoursIDs() {
@@ -151,5 +155,25 @@ public class PaymentController implements Initializable {
     }
 
     private void loadTableData() {
+        try{
+            List<PaymentDTO> paymentDTOList = paymentBO.findAllPayment();
+            ObservableList<PaymentTM>  paymentTM = FXCollections.observableArrayList();
+            for(PaymentDTO p : paymentDTOList){
+                paymentDTOList.add(new PaymentTM(
+                        p.getPaymentId(),
+                        p.getAmount(),
+                        p.getDescription(),
+                        p.getDate(),
+                        p.getTime(),
+                        p.getStudentId(),
+                        p.getCourseId(),
+                        p.getUserId()
+                ));
+            }
+            tblPayment.setItems(paymentTM);
+        }catch (Exception e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error", ButtonType.OK).show();
+        }
     }
 }
