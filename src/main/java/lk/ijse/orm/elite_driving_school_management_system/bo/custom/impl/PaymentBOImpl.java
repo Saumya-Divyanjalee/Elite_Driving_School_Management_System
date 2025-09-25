@@ -24,13 +24,10 @@ public class PaymentBOImpl implements PaymentBO {
     UserDAO userDAO = (UserDAO) DAOFactory.getInstance().getDAO(DAOTypes.USER);
 
 
-
-//    @Override
-//    public boolean savePayment(PaymentDTO dto) {
-//        Student student = studentDAO.findById(dto.getStudentId());
-//        Course course = courseDAO.fin
-//
-//    }
+    @Override
+    public boolean savePayment(PaymentDTO dto) {
+        return false;
+    }
 
     @Override
     public boolean updatePayment(PaymentDTO dto) throws Exception {
