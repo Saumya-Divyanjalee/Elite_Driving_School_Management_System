@@ -13,6 +13,7 @@ import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.CourseBO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.CourseDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.CourseTM;
+import lk.ijse.orm.elite_driving_school_management_system.util.RegexUtil;
 
 import java.net.URL;
 import java.util.List;
@@ -236,18 +237,32 @@ public class CourseController implements Initializable {
     }
 
     private boolean validateInput() {
-        if (txtCourseName.getText().isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please enter course name.").show();
+        try {
+            // Validate Course Name
+            RegexUtil.validateRequired(txtCourseName.getText(), "Course Name");
+            if (!RegexUtil.isValidName(txtCourseName.getText())) {
+                new Alert(Alert.AlertType.WARNING, "Course name must be 3-50 letters only.").show();
+                return false;
+            }
+
+            // Validate Time Period
+            RegexUtil.validateRequired(txtTimePeriod.getText(), "Time Period");
+            if (!RegexUtil.isValidDuration(txtTimePeriod.getText())) {
+                new Alert(Alert.AlertType.WARNING, "Time period must be a number followed by 'month' or 'months'.").show();
+                return false;
+            }
+
+            // Validate Course Fee
+            RegexUtil.validateRequired(txtCourseFee.getText(), "Course Fee");
+            if (!RegexUtil.isValidFee(txtCourseFee.getText())) {
+                new Alert(Alert.AlertType.WARNING, "Course fee must be a valid number (up to 2 decimals).").show();
+                return false;
+            }
+
+            return true;
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
             return false;
         }
-        if (txtTimePeriod.getText().isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please enter time period.").show();
-            return false;
-        }
-        if (txtCourseFee.getText().isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please enter course fee.").show();
-            return false;
-        }
-        return true;
     }
 }

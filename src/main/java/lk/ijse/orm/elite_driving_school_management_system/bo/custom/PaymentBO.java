@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface PaymentBO extends SuperBO {
 
-      boolean savePayment(PaymentDTO dto) ;
+      boolean savePayment(PaymentDTO dto) throws Exception;
 
       boolean updatePayment(PaymentDTO dto) throws Exception ;
 

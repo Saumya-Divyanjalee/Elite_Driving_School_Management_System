@@ -34,13 +34,13 @@ public class PaymentController implements Initializable {
     private Button btnUpdate;
 
     @FXML
-    private ComboBox<?> cmbCourseId;
+    private ComboBox<String> cmbCourseId;
 
     @FXML
     private ComboBox<String> cmbStudentId;
 
     @FXML
-    private ComboBox<?> cmbUserId;
+    private ComboBox<String> cmbUserId;
 
     @FXML
     private TableColumn<?, ?> colAmount;
@@ -70,7 +70,7 @@ public class PaymentController implements Initializable {
     private DatePicker datepicker;
 
     @FXML
-    private TableView<?> tblPayment;
+    private TableView<PaymentTM> tblPayment;
 
     @FXML
     private TextField txtAmount;

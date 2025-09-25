@@ -23,9 +23,36 @@ public class PaymentDTO {
 
 
 
-    public PaymentDTO(String text, String text1, java.sql.Date date, String text2, Object selectedItem, String selectedItem1, Object selectedItem2) {
+
+    public PaymentDTO(String amount, String description, java.sql.Date date, String time, String studentId, String courseId, String userId) {
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+        this.studentId = studentId;
+        this.courseId = courseId;
+        this.userId = userId;
     }
 
-    public PaymentDTO(String text, String text1, String text2, java.sql.Date date, String text3, Object value, String value1, Object value2) {
+
+    public PaymentDTO(String amount, String description, String time, java.sql.Date date, String studentId, Object courseIdObj, String userId, Object extra) {
+        this.amount = amount;
+        this.description = description;
+        this.time = time;
+        this.date = date;
+        this.studentId = studentId;
+        this.courseId = String.valueOf(courseIdObj);
+        this.userId = userId;
+    }
+
+
+    public PaymentDTO(long paymentId, String amount, String description, Date date, String time, long studentId, long courseId) {
+        this.paymentId = paymentId;
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+        this.studentId = String.valueOf(studentId);
+        this.courseId = String.valueOf(courseId);
     }
 }

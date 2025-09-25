@@ -2,14 +2,19 @@ package lk.ijse.orm.elite_driving_school_management_system.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-public class UserRoleController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class UserRoleController implements Initializable {
 
     @FXML
     private Button btnDelete;
@@ -24,10 +29,16 @@ public class UserRoleController {
     private Button btnUpdate;
 
     @FXML
+    private ComboBox<?> cmbRole;
+
+    @FXML
     private TableColumn<?, ?> colEmail;
 
     @FXML
     private TableColumn<?, ?> colMobile;
+
+    @FXML
+    private TableColumn<?, ?> colPassword;
 
     @FXML
     private TableColumn<?, ?> colRole;
@@ -39,9 +50,6 @@ public class UserRoleController {
     private TableColumn<?, ?> colUserName;
 
     @FXML
-    private Label lblUserId;
-
-    @FXML
     private TableView<?> tblUser;
 
     @FXML
@@ -51,7 +59,10 @@ public class UserRoleController {
     private TextField txtMobile;
 
     @FXML
-    private TextField txtRole;
+    private TextField txtPassword;
+
+    @FXML
+    private TextField txtUserId;
 
     @FXML
     private TextField txtUserName;
@@ -81,4 +92,18 @@ public class UserRoleController {
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        colUserId.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        colUserName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colMobile.setCellValueFactory(new PropertyValueFactory<>("mobile"));
+        colPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
+        colRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        
+        loadTableData();
+    }
+
+    private void loadTableData() {
+    }
 }

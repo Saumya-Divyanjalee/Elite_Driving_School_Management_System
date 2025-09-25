@@ -11,10 +11,12 @@ import lk.ijse.orm.elite_driving_school_management_system.dto.PaymentDTO;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Course;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Payment;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Student;
+import lk.ijse.orm.elite_driving_school_management_system.entity.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PaymentBOImpl implements PaymentBO {
 
@@ -25,38 +27,95 @@ public class PaymentBOImpl implements PaymentBO {
 
 
     @Override
-    public boolean savePayment(PaymentDTO dto) {
-        return false;
+    public boolean savePayment(PaymentDTO dto) throws Exception {
+         Student student = studentDAO.findById(Long.valueOf(dto.getStudentId()));
+         Course course = courseDAO.findById(Long.valueOf(dto.getCourseId()));
+         Payment payment = new Payment(
+                 dto.getAmount(),
+                 dto.getDescription(),
+                 dto.getDate(),
+                 dto.getTime(),
+                 student,
+                 course
+         );
+         return paymentDAO.save(payment);
     }
 
     @Override
     public boolean updatePayment(PaymentDTO dto) throws Exception {
-        return false;
+        Student student = studentDAO.findById(Long.valueOf(dto.getStudentId()));
+        Course course = courseDAO.findById(Long.valueOf(dto.getCourseId()));
+        Payment payment = new Payment(
+                dto.getPaymentId(),
+                dto.getAmount(),
+                dto.getDescription(),
+                dto.getDate(),
+                dto.getTime(),
+                student,
+                course
+        );
+        return paymentDAO.update(payment);
+
     }
 
     @Override
     public boolean deletePayment(String id) throws Exception {
-        return false;
+        return paymentDAO.delete(id);
     }
 
     @Override
     public List<PaymentDTO> findAllPayment() throws Exception {
-        return List.of();
+        return paymentDAO.findAll().stream().map(payment ->
+                new PaymentDTO(
+                        payment.getId(),
+                        payment.getAmount(),
+                        payment.getDescription(),
+                        payment.getDate(),
+                        payment.getTime(),
+                        payment.getStudent().getStudentID(),
+                        payment.getCourse().getCourseId()
+                )).collect(Collectors.toList());
     }
 
     @Override
     public ArrayList<PaymentDTO> getAllPayments() throws Exception {
-        return null;
+        ArrayList<Payment> payments = (ArrayList<Payment>) paymentDAO.findAll();
+        ArrayList<PaymentDTO> paymentDTOS = new ArrayList<>();
+        for (Payment p : payments) {
+            paymentDTOS.add(new PaymentDTO(
+                    p.getId(),
+                    p.getAmount(),
+                    p.getDescription(),
+                    p.getDate(),
+                    p.getTime(),
+                    p.getStudent().getStudentID(),
+                    p.getCourse().getCourseId()
+            ));
+            return paymentDTOS;
+
+        }
+        return paymentDTOS;
     }
 
     @Override
     public List<String> getAllStudentId() throws Exception {
-        return List.of();
+         List<Student> students = studentDAO.findAll();
+         List<String> studentIds = new ArrayList<>();
+         for (Student s : students) {
+             studentIds.add(String.valueOf(s.getStudentID()));
+         }
+         return studentIds;
     }
 
     @Override
     public List<String> getAllCourseId() throws Exception {
-        return List.of();
+         List<Course> courses = courseDAO.findAll();
+         List<String> courseIds = new ArrayList<>();
+         for (Course c : courses) {
+             courseIds.add(String.valueOf(c.getCourseId()));
+
+         }
+         return courseIds;
     }
 
     @Override

@@ -36,14 +36,14 @@ public class ReceptionistDashboard  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle  resources) {
-        navigateTo("view/Student.fxml");
+        navigateTo("/lk.ijse.orm.elite_driving_school_management_system.resources/view/StudentDashboard.fxml");
 
     }
 
     public void navigateTo(String x){
         try{
             ancMainContainer.getChildren().clear();
-            Parent pane = FXMLLoader.load(getClass().getResource(x));
+            AnchorPane pane = FXMLLoader.load(getClass().getResource(x));
 
             if(pane instanceof Region){
                 Region region = (Region)pane;

@@ -20,19 +20,20 @@ public class AdminDashboard implements Initializable {
     public Button studentId;
     public Button lessonId;
     public Button paymentId;
-    public Button secureId;
+
     public Button logoutId;
     public AnchorPane ancMainContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        navigateTo("/views/lesson.fxml");
+        navigateTo("/view/lesson.fxml");
     }
 
     private void navigateTo(String s){
         try{
             ancMainContainer.getChildren().clear();
-            Parent pane = FXMLLoader.load(getClass().getResource(s));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
+            Parent pane = loader.load();
 
             if(pane instanceof Region){
                 Region region = (Region)pane;
@@ -46,25 +47,25 @@ public class AdminDashboard implements Initializable {
         }
     }
     public void userOnAction(ActionEvent actionEvent) {
-        navigateTo("/views/User.fxml");
+        navigateTo("/view/User.fxml");
     }
     public void instructorOnAction(ActionEvent actionEvent) {
-        navigateTo("/views/Instructor.fxml");
+        navigateTo("/view/Instructor.fxml");
     }
     public void courseOnAction(ActionEvent actionEvent) {
-        navigateTo("/views/Course.fxml");
+        navigateTo("/view/Course.fxml");
     }
     public void studentOnAction(ActionEvent actionEvent) {
-        navigateTo("/views/Student.fxml");
+        navigateTo("/view/Student.fxml");
     }
     public void lessonOnAction(ActionEvent actionEvent) {
-        navigateTo("/views/Lesson.fxml");
+        navigateTo("/view/Lesson.fxml");
     }
     public void paymentOnAction(ActionEvent actionEvent) {
-        navigateTo("/views/Payment.fxml");
+        navigateTo("/view/Payment.fxml");
     }
 
     public void logoutOnAction(ActionEvent actionEvent) {
-        navigateTo("/views/Logout.fxml");
+        navigateTo("/view/Logout.fxml");
     }
 }

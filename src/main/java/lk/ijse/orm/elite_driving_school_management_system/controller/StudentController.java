@@ -14,7 +14,9 @@ import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.StudentBO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.StudentDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.StudentTM;
+import lk.ijse.orm.elite_driving_school_management_system.util.RegexUtil;
 
+import javax.security.auth.login.LoginException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -123,6 +125,34 @@ public class StudentController implements Initializable {
     @FXML
     void saveOnAction(ActionEvent event) {
         try {
+            RegexUtil.validateRequired(txtName.getText(), "Name");
+            if (!RegexUtil.isValidName(txtName.getText())) {
+                throw new LoginException("Invalid Name format!");
+            }
+
+            RegexUtil.validateRequired(txtEmail.getText(), "Email");
+            if (!RegexUtil.isValidEmail(txtEmail.getText())) {
+                throw new LoginException("Invalid Email format!");
+            }
+
+            RegexUtil.validateRequired(txtPhone.getText(), "Phone");
+            if (!RegexUtil.isValidPhone(txtPhone.getText())) {
+                throw new LoginException("Invalid Phone format!");
+            }
+
+            RegexUtil.validateRequired(txtAddress.getText(), "Address");
+            if (!RegexUtil.isValidAddress(txtAddress.getText())) {
+                throw new LoginException("Invalid Address format!");
+            }
+
+            RegexUtil.validateRequired(txtRegisterFee.getText(), "Register Fee");
+            if (!RegexUtil.isValidFee(txtRegisterFee.getText())) {
+                throw new LoginException("Invalid Register Fee format!");
+            }
+
+            if (dateRegistration.getValue() == null) {
+                throw new LoginException("Registration Date is required!");
+            }
             StudentDTO dto = new StudentDTO(
                     txtName.getText(),
                     txtEmail.getText(),
@@ -163,6 +193,33 @@ public class StudentController implements Initializable {
     @FXML
     void updateOnAction(ActionEvent event) {
         try {
+
+            RegexUtil.validateRequired(txtStudentId.getText(), "Student ID");
+
+
+            RegexUtil.validateRequired(txtName.getText(), "Name");
+            if (!RegexUtil.isValidName(txtName.getText())) {
+                throw new LoginException("Invalid Name format!");
+            }
+            RegexUtil.validateRequired(txtEmail.getText(), "Email");
+            if (!RegexUtil.isValidEmail(txtEmail.getText())) {
+                throw new LoginException("Invalid Email format!");
+            }
+            RegexUtil.validateRequired(txtPhone.getText(), "Phone");
+            if (!RegexUtil.isValidPhone(txtPhone.getText())) {
+                throw new LoginException("Invalid Phone format!");
+            }
+            RegexUtil.validateRequired(txtAddress.getText(), "Address");
+            if (!RegexUtil.isValidAddress(txtAddress.getText())) {
+                throw new LoginException("Invalid Address format!");
+            }
+            RegexUtil.validateRequired(txtRegisterFee.getText(), "Register Fee");
+            if (!RegexUtil.isValidFee(txtRegisterFee.getText())) {
+                throw new LoginException("Invalid Register Fee format!");
+            }
+            if (dateRegistration.getValue() == null) {
+                throw new LoginException("Registration Date is required!");
+            }
             long id = Long.parseLong(txtStudentId.getText());
             StudentDTO dto = new StudentDTO(
                     id,

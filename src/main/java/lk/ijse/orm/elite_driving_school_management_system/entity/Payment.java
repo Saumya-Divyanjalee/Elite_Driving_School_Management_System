@@ -47,4 +47,24 @@ public class Payment implements SuperEntity {
         this.date = date;
         this.time = time;
     }
+
+    public Payment(String amount, String description, Date date, String time, Student student, Course course) {
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.student = student;
+        this.course = course;
+
+    }
+
+    public Payment(long paymentId, String amount, String description, Date date, String time, Student student, Course course) {
+        this.id = paymentId;
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.student = student;
+        this.course = course;
+
+
+    }
 }

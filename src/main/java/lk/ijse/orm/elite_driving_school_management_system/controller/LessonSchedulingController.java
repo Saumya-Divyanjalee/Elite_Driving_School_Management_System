@@ -13,6 +13,7 @@ import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.LessonBO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.LessonDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.LessonTM;
+import lk.ijse.orm.elite_driving_school_management_system.util.RegexUtil;
 
 import java.net.URL;
 import java.sql.Date;
@@ -230,6 +231,7 @@ public class LessonSchedulingController implements Initializable {
     @FXML
     void saveOnAction(ActionEvent event) {
         try {
+            validateLessonInputs();
             LessonDTO dto = new LessonDTO(
 
                     txtName.getText(),
@@ -258,6 +260,7 @@ public class LessonSchedulingController implements Initializable {
     @FXML
     void updateOnAction(ActionEvent event) {
         try {
+            validateLessonInputs();
             LessonDTO dto = new LessonDTO(
                     Long.parseLong(txtLesson.getText()),
                     txtName.getText(),
@@ -279,6 +282,18 @@ public class LessonSchedulingController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Error updating lesson!").show();
         }
 
+    }
+    private void validateLessonInputs() throws Exception {
+        RegexUtil.validateRequired(txtName.getText(), "Lesson Name");
+        RegexUtil.validateRequired(txtstarttime.getText(), "Start Time");
+        RegexUtil.validateRequired(txtendtime.getText(), "End Time");
+        RegexUtil.validateRequired(datepicker.getValue() != null ? datepicker.getValue().toString() : null, "Date");
+        RegexUtil.validateRequired((String) cmbInstructor.getSelectionModel().getSelectedItem(), "Instructor");
+        RegexUtil.validateRequired((String) cmbCourse.getSelectionModel().getSelectedItem(), "Course");
+        RegexUtil.validateRequired((String) cmbStudent.getSelectionModel().getSelectedItem(), "Student");
+
+        if (!RegexUtil.isValidTime(txtstarttime.getText())) throw new Exception("Invalid Start Time");
+        if (!RegexUtil.isValidTime(txtendtime.getText())) throw new Exception("Invalid End Time");
     }
 
 

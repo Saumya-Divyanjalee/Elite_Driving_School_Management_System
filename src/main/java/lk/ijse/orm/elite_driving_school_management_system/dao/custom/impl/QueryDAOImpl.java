@@ -2,6 +2,7 @@ package lk.ijse.orm.elite_driving_school_management_system.dao.custom.impl;
 
 import lk.ijse.orm.elite_driving_school_management_system.config.FactoryConfiguration;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.QueryDAO;
+import lk.ijse.orm.elite_driving_school_management_system.entity.Student;
 import lk.ijse.orm.elite_driving_school_management_system.util.CustomQueries;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -30,6 +31,26 @@ public class QueryDAOImpl implements QueryDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public List<Student> getStudentsInAllCourses() {
+        Transaction transaction = null;
+        List<Student> students = null;
+
+        try (Session session = FactoryConfiguration.getInstance().getSession()) {
+            transaction = session.beginTransaction();
+
+            Query<Student> query = session.createQuery("FROM Student", Student.class);
+            students = query.getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        }
+
+        return students;
     }
 
     @Override

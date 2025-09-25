@@ -41,7 +41,7 @@ public class LoginController {
     void loginOnAction(ActionEvent event) {
         try {
             String usernameOrEmail = txtUserName.getText().trim();
-            String password = txtPasswords.getText().trim();
+            String password = txtPassword.getText().trim();
             String role = cmbUser.getValue();
 
             RegexUtil.validateRequired(usernameOrEmail, "Username/Email");

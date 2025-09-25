@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface InstructorBO extends SuperBO {
@@ -17,5 +18,6 @@ public interface InstructorBO extends SuperBO {
     boolean deleteInstructor(String s) throws Exception ;
     List<InstructorDTO> findAllInstructor() throws Exception ;
     Instructor findByIdInstructor(long id) throws Exception ;
+    ArrayList<InstructorDTO> getAllInstructor() throws Exception ;
 
 }

@@ -4,12 +4,18 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordEncryptor {
 
+
+    // Hash plain password with bcrypt
     public static String hashPassword(String plainPassword) {
-        return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));
+        if (plainPassword == null || plainPassword.trim().isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be empty!");
+        }
+        return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12)); // workload factor 12
     }
 
+    // Verify input password against stored hash
     public static boolean verifyPassword(String plainPassword, String hashedPassword) {
-        if (hashedPassword == null) return false;
+        if (plainPassword == null || hashedPassword == null) return false;
         return BCrypt.checkpw(plainPassword, hashedPassword);
     }
 }

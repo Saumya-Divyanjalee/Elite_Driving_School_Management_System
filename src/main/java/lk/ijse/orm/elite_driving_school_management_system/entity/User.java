@@ -28,4 +28,7 @@ public class User implements SuperEntity{
 
     @Column(nullable = false)
     private String role;
+
+    public User(String username, String email, String hashedPassword, String role) {
+    }
 }

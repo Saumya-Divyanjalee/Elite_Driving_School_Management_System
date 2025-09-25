@@ -11,18 +11,21 @@ import lk.ijse.orm.elite_driving_school_management_system.entity.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface UserBO extends SuperBO {
 
-      boolean save(User entity) throws Exception ;
+      boolean saveUser(UserDTO userDTO) throws Exception ;
 
-      boolean update(User entity) throws Exception ;
+      boolean updateUser(UserDTO userDTO) throws Exception ;
 
-      boolean delete(Long id) throws Exception ;
+      boolean deleteUser(String id) throws Exception ;
 
-     List<User> findAll() throws Exception ;
+     List<UserDTO> findAllUser() throws Exception ;
 
-     User findByUserName(String userName) throws Exception ;
+     UserDTO findByUserName(String userName) throws Exception ;
+
+     ArrayList<UserDTO> getAllUsers() throws Exception ;
 }
 

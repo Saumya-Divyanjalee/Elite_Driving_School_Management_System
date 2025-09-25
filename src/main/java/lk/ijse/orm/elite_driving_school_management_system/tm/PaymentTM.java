@@ -25,7 +25,7 @@ public class PaymentTM {
 
     public PaymentTM(long paymentId, String amount, String description, Date date, String time, String studentId, String courseId, String userId) {
         this.paymentId = paymentId;
-        this.amount = amount;
+        this.amount = Double.parseDouble(amount);
         this.description = description;
         this.date = date;
         this.time = time;
