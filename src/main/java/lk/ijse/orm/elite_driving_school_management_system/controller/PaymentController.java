@@ -87,21 +87,63 @@ public class PaymentController implements Initializable {
 
     @FXML
     void deleteOnAction(ActionEvent event) {
+        try{
+            String paymentId = txtPaymentId.getText();
+            if(paymentId.isEmpty()){
+                new Alert(Alert.AlertType.ERROR, "Please Enter Payment ID!").show();
+                return;
+            }
+            if (paymentId.isEmpty()){
+                new Alert(Alert.AlertType.ERROR, "Please Enter Payment ID!").show();
+                loadTableData();
+                resetPage();
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Not Found").show();
+            }
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR, "Not Found").show();
+        }
+
+    }
+
+    private void resetPage() {
+        txtPaymentId.clear();
+        txtAmount.clear();
+        txtDescription.clear();
+        datepicker.setValue(null);
+        txtTime.clear();
+        cmbStudentId.getSelectionModel().clearSelection();
+        cmbCourseId.getSelectionModel().clearSelection();
+        cmbUserId.getSelectionModel().clearSelection();
+
 
     }
 
     @FXML
     void onClickTable(MouseEvent event) {
+        PaymentTM paymentTM = (PaymentTM) tblPayment.getSelectionModel().getSelectedItem();
+        if(paymentTM == null){
+            txtPaymentId.setText(String.valueOf(paymentTM.getPaymentId()));
+            txtAmount.setText(String.valueOf(paymentTM.getAmount()));
+            txtDescription.setText(String.valueOf(paymentTM.getDescription()));
+            datepicker.setValue(null);
+            txtTime.setText(String.valueOf(paymentTM.getTime()));
+            cmbCourseId.getSelectionModel().clearSelection();
+            cmbUserId.getSelectionModel().clearSelection();
+            cmbStudentId.getSelectionModel().clearSelection();
+        }
 
     }
 
     @FXML
     void resetOnAction(ActionEvent event) {
+        resetPage();
 
     }
 
     @FXML
     void saveOnAction(ActionEvent event) {
+
 
     }
 
