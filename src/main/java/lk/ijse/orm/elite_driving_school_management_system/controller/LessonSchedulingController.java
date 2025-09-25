@@ -15,6 +15,7 @@ import lk.ijse.orm.elite_driving_school_management_system.dto.LessonDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.LessonTM;
 
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,11 @@ import java.util.ResourceBundle;
 
 public class LessonSchedulingController implements Initializable {
 
+    public TextField txtLesson;
+    public ComboBox cmbInstructor;
+    public ComboBox cmbStudent;
+    public ComboBox cmbCourse;
+    public TableColumn colDate;
     @FXML
     private Button btnDelete;
 
@@ -62,18 +68,6 @@ public class LessonSchedulingController implements Initializable {
     private DatePicker datepicker;
 
     @FXML
-    private Label lblInstructorID;
-
-    @FXML
-    private Label lblStudentID;
-
-    @FXML
-    private Label lblcourseID;
-
-    @FXML
-    private Label lbllessonID;
-
-    @FXML
     private TableView<LessonTM> tblLesson;
 
     @FXML
@@ -94,10 +88,16 @@ public class LessonSchedulingController implements Initializable {
         colName.setCellValueFactory(new PropertyValueFactory<>("lessonName"));
         colStartTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         colEndTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colInstructorID.setCellValueFactory(new PropertyValueFactory<>("instructorId"));
+        colCourseID.setCellValueFactory(new PropertyValueFactory<>("courseId"));
+        colStudentID.setCellValueFactory(new PropertyValueFactory<>("studentId"));
 
         try{
             loadTableData();
-            loadNextId();
+            loadCourseId();
+            loadInstructorId();
+            loadStudentId();
             resetPage();
         }catch (Exception e){
             e.printStackTrace();
@@ -106,49 +106,78 @@ public class LessonSchedulingController implements Initializable {
 
     }
 
+    private void loadStudentId() {
+        try {
+            List<String> sId = lessonBO.getAllStudentIds();
+            ObservableList<String> list = FXCollections.observableArrayList(sId);
+            cmbStudent.setItems(list);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"Something went wrong!-loadStudentId").show();
+        }
+    }
+
+    private void loadInstructorId() {
+        try {
+            List<String> iId = lessonBO.getAllInstructorIds();
+            ObservableList<String> list = FXCollections.observableArrayList(iId);
+            cmbInstructor.setItems(list);
+        }catch (Exception e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"Something went wrong!-loadInstructorId").show();
+        }
+    }
+
+    private void loadCourseId() {
+        try {
+            List<String> cId = lessonBO.getAllCourseIds();
+            ObservableList<String> list = FXCollections.observableArrayList(cId);
+            cmbCourse.setItems(list);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"Something went wrong!-loadCourseId").show();
+        }
+
+    }
+
     private void loadTableData() throws Exception {
-        List<LessonDTO> lessonDTOList = lessonBO.getAllLesson();
-        ObservableList<LessonTM> observableList = FXCollections.observableArrayList();
+        try {
+            List<LessonDTO> lessonDTOList = lessonBO.getAllLesson();
+
+            ObservableList<LessonTM> observableList = FXCollections.observableArrayList();
         for (LessonDTO dto : lessonDTOList) {
             observableList.add(new LessonTM(
                     dto.getLessonId(),
                     dto.getLessonName(),
                     dto.getStartTime(),
-                    dto.getEndTime()
+                    dto.getEndTime(),
+                    dto.getDate(),
+                    dto.getInstructorId(),
+                    dto.getCourseId(),
+                    dto.getStudentId()
+
 
             ));
+            tblLesson.setItems(observableList);
 
+        }
+    }catch (Exception e){
+        new Alert(Alert.AlertType.ERROR,"Something went wrong!").show();
         }
     }
 
-    private void loadNextId() {
-        try{
-            Long lastId = lessonBO.getNextIdLesson();
-            long newIdNum = (lastId == null? 1: lastId + 1);
-            String nextId = String.format("L%3d", newIdNum);
-            lblcourseID.setText(nextId);
-        } catch (Exception e) {
-           e.printStackTrace();
-           new Alert(Alert.AlertType.ERROR,"Something went wrong!").show();
-        }
-    }
+
 
     private void resetPage() {
-        try{
-            txtName.clear();
-            txtendtime.clear();
-            txtstarttime.clear();
-            datepicker.setValue(null);
-            loadTableData();
-            loadNextId();
-
-            btnSave.setDisable(false);
-            btnUpdate.setDisable(true);
-            btnDelete.setDisable(true);
-        }catch (Exception e){
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Something went wrong! reset Page ").show();
-        }
+        txtLesson.clear();
+        txtName.clear();
+        txtendtime.clear();
+        txtstarttime.clear();
+        datepicker.setValue(null);
+        cmbInstructor.getSelectionModel().clearSelection();
+        cmbStudent.getSelectionModel().clearSelection();
     }
 
     @FXML
@@ -158,7 +187,7 @@ public class LessonSchedulingController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.YES){
             try{
-                boolean deleted = lessonBO.deleteLesson(Long.valueOf(lbllessonID.getText()));
+                boolean deleted = lessonBO.deleteLesson(String.valueOf(Long.valueOf(txtLesson.getText())));
                 if(deleted){
                     resetPage();
                     new Alert(Alert.AlertType.INFORMATION,"Deleted Successfully!").show();
@@ -178,7 +207,7 @@ public class LessonSchedulingController implements Initializable {
     void onClickTable(MouseEvent event) {
         LessonTM lessonTM = tblLesson.getSelectionModel().getSelectedItem();
         if(lessonTM != null){
-            lbllessonID.setText(String.valueOf(lessonTM.getLessonId()));
+            txtLesson.setText(String.valueOf(lessonTM.getLessonId()));
             txtName.setText(lessonTM.getLessonName());
             txtstarttime.setText(lessonTM.getStartTime());
             txtendtime.setText(lessonTM.getEndTime());
@@ -200,53 +229,54 @@ public class LessonSchedulingController implements Initializable {
 
     @FXML
     void saveOnAction(ActionEvent event) {
-        LessonDTO lessonDTO = new LessonDTO(
-                lbllessonID.getText(),
-                txtName.getText(),
-                txtstarttime.getText(),
-                txtendtime.getText()
-        );
-
         try {
-            boolean saved = lessonBO.saveLesson(lessonDTO);
-            if(saved){
+            LessonDTO dto = new LessonDTO(
+
+                    txtName.getText(),
+                    txtstarttime.getText(),
+                    txtendtime.getText(),
+                    datepicker.getValue().toString(),
+                    cmbInstructor.getSelectionModel().getSelectedItem(),
+                    cmbCourse.getSelectionModel().getSelectedItem(),
+                    cmbStudent.getSelectionModel().getSelectedItem()
+            );
+
+            if (lessonBO.saveLesson(dto)) {
+                new Alert(Alert.AlertType.INFORMATION, "Lesson added successfully!").show();
+                loadTableData();
                 resetPage();
-                new Alert(Alert.AlertType.INFORMATION,"Saved Successfully!").show();
-
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Something went wrong! Not Saving").show();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Something went wrong! Save Issue").show();
+            new Alert(Alert.AlertType.ERROR, "Error saving lesson!").show();
         }
-
-
     }
+
+
+
 
     @FXML
     void updateOnAction(ActionEvent event) {
-        LessonDTO lessonDTO = new LessonDTO(
-                lbllessonID.getText(),
-                txtName.getText(),
-                txtstarttime.getText(),
-                txtendtime.getText()
+        try {
+            LessonDTO dto = new LessonDTO(
+                    Long.parseLong(txtLesson.getText()),
+                    txtName.getText(),
+                    txtstarttime.getText(),
+                    txtendtime.getText(),
+                    datepicker.getValue().toString(),
+                    cmbInstructor.getSelectionModel().getSelectedItem(),
+                    cmbCourse.getSelectionModel().getSelectedItem(),
+                    cmbStudent.getSelectionModel().getSelectedItem()
+            );
 
-        );
-
-        try{
-            boolean updated = lessonBO.updateLesson(lessonDTO);
-            if(updated){
+            if (lessonBO.updateLesson(dto)) {
+                new Alert(Alert.AlertType.INFORMATION, "Lesson updated successfully!").show();
+                loadTableData();
                 resetPage();
-                new Alert(Alert.AlertType.INFORMATION,"Updated Successfully!").show();
-
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Something went wrong! Update Issue").show();
-
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Something went wrong! Not work update button").show();
+            new Alert(Alert.AlertType.ERROR, "Error updating lesson!").show();
         }
 
     }

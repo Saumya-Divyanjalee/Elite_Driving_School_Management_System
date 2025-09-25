@@ -15,6 +15,7 @@ public class LessonTM {
     private String lessonName;
     private String startTime;
     private String endTime;
+    private Date date;
     private String instructorId;
     private String studentId;
     private String courseId;

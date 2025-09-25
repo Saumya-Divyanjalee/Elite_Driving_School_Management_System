@@ -88,6 +88,15 @@ public class InstructorController implements Initializable {
 
     @FXML
     void deleteOnAction(ActionEvent event) {
+        try {
+            if (instructorBO.deleteInstructor(txtintrId.getText())){
+                new Alert(Alert.AlertType.INFORMATION, "Deleted", ButtonType.OK).show();
+                loadTableData();
+                resetPage();
+            }
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR, "Not Delete", ButtonType.OK).show();
+        }
 
 
     }

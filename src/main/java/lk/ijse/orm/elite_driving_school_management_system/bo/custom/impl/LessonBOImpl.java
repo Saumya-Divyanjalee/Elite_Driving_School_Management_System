@@ -34,6 +34,7 @@ public class LessonBOImpl implements LessonBO {
                 dto.getLessonName(),
                 dto.getStartTime(),
                 dto.getEndTime(),
+                dto.getDate(),
                 student,
                 course,
                 instructor
@@ -52,6 +53,7 @@ public class LessonBOImpl implements LessonBO {
                 dto.getLessonName(),
                 dto.getStartTime(),
                 dto.getEndTime(),
+                dto.getDate(),
                 student,
                 course,
                 instructor
@@ -72,6 +74,7 @@ public class LessonBOImpl implements LessonBO {
                         lesson.getLessonName(),
                         lesson.getStartTime(),
                         lesson.getEndTime(),
+                        lesson.getDate(),
                         lesson.getStudent().getStudentID(),
                         lesson.getCourse().getCourseId(),
                         lesson.getInstructor().getInstructorId()

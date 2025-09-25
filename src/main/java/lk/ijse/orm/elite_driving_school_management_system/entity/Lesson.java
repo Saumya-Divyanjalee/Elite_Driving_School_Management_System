@@ -3,6 +3,7 @@ package lk.ijse.orm.elite_driving_school_management_system.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class Lesson implements SuperEntity {
 
     @Column(nullable = false, name = "end_time")
     private LocalDateTime endTime;
+    
+    @Column(nullable = false, name = "date")
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "instructor_id")
@@ -56,5 +60,11 @@ public class Lesson implements SuperEntity {
     }
 
     public Lesson(String lessonName, String startTime, String endTime, Student student, Course course, Instructor instructor) {
+    }
+
+    public Lesson(String lessonName, String startTime, String endTime, java.util.Date date, Student student, Course course, Instructor instructor) {
+    }
+
+    public Lesson(long lessonId, String lessonName, String startTime, String endTime, java.util.Date date, Student student, Course course, Instructor instructor) {
     }
 }
