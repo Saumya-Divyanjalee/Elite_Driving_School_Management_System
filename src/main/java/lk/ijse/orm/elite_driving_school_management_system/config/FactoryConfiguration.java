@@ -32,10 +32,11 @@ public class FactoryConfiguration {
 
 
         configuration.addAnnotatedClass(Student.class)
-                .addAnnotatedClass(Course.class)
+//                .addAnnotatedClass(Course.class)
                 .addAnnotatedClass(Instructor.class)
-                .addAnnotatedClass(Lesson.class)
-                .addAnnotatedClass(Payment.class);
+                .addAnnotatedClass(Lesson.class);
+//                .addAnnotatedClass(Payment.class);
+
 
         sessionFactory = configuration.buildSessionFactory();
     }

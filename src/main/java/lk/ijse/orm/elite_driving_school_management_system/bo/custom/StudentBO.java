@@ -8,14 +8,16 @@ import lk.ijse.orm.elite_driving_school_management_system.entity.Student;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface StudentBO extends SuperBO {
 
 
-    boolean saveStudent(StudentDTO studentDTO) throws Exception;
-    boolean updateStudent(StudentDTO studentDTO) throws Exception ;
-    boolean deleteStudent(Long id) throws Exception ;
-    List<StudentDTO> getAllStudent() throws Exception ;
-    Long getNextId() throws Exception;
+    boolean saveStudent(StudentDTO dto) throws Exception;
+    boolean updateStudent(StudentDTO dto) throws Exception;
+    boolean deleteStudent(String id) throws Exception;
+    List<StudentDTO> findAll() throws Exception;
+    ArrayList<StudentDTO> getAllStudent() throws SQLException, Exception;
 }

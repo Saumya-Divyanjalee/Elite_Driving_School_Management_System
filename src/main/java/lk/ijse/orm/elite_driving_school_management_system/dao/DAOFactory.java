@@ -26,6 +26,8 @@ public class DAOFactory  {
                 return (T) new CourseDAOImpl();
             case QUERY:
                 return (T) new QueryDAOImpl();
+            case USER:
+                return (T) new UserDAOImpl();
                 default:
                     return null;
         }

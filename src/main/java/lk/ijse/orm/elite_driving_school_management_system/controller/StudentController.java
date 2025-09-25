@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.StudentBO;
@@ -15,17 +16,12 @@ import lk.ijse.orm.elite_driving_school_management_system.dto.StudentDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.StudentTM;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class StudentController implements Initializable {
-
-    private final StudentBO studentBO = (StudentBO) BOFactory.getInstance().getBO(BoTypes.STUDENT);
-
-
-    public TextField txtNic;
-
 
     @FXML
     private Button btnDelete;
@@ -39,190 +35,81 @@ public class StudentController implements Initializable {
     @FXML
     private Button btnUpdate;
 
-
-    public TableColumn<StudentTM,String> colNic;
+    @FXML
+    private TableColumn<?, ?> colAddress;
 
     @FXML
-    private TableColumn<StudentTM,String> colAddress;
+    private TableColumn<?, ?> colDate;
 
     @FXML
-    private TableColumn<StudentTM,String> colAge;
+    private TableColumn<?, ?> colEmail;
 
     @FXML
-    private TableColumn<StudentTM,String> colEmail;
+    private TableColumn<?, ?> colId;
 
     @FXML
-    private TableColumn<StudentTM,String> colFirstName;
+    private TableColumn<?, ?> colName;
 
     @FXML
-    private TableColumn<StudentTM,String> colLastName;
+    private TableColumn<?, ?> colPhone;
 
     @FXML
-    private TableColumn<StudentTM,String> colPhone;
+    private TableColumn<?, ?> colregisterfee;
 
     @FXML
-    private TableColumn<StudentTM,String> colStudentID;
+    private DatePicker dateRegistration;
 
     @FXML
-    private TableColumn<StudentTM,String> colregDate;
+    private HBox imagehbox;
 
     @FXML
-    private Label lblCourseID;
-
-    @FXML
-    private Label lblLessonID;
-
-    @FXML
-    private Label lblPaymentID;
-
-    @FXML
-    private Label lblStudentID;
-
-    @FXML
-    private DatePicker registrationDatePicker;
-
-    @FXML
-    private TableView<StudentTM> tblStudent;
+    private TableView<StudentTM> tblStudents;
 
     @FXML
     private TextField txtAddress;
 
     @FXML
-    private TextField txtAge;
-
-    @FXML
     private TextField txtEmail;
 
     @FXML
-    private TextField txtFirstName;
-
-    @FXML
-    private TextField txtLastName;
+    private TextField txtName;
 
     @FXML
     private TextField txtPhone;
 
+    @FXML
+    private TextField txtRegisterFee;
 
+    @FXML
+    private TextField txtStudentId;
 
+    StudentBO studentBO = (StudentBO) BOFactory.getInstance().getBO(BoTypes.STUDENT);
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        colStudentID.setCellValueFactory(new PropertyValueFactory<>("studentId"));
-        colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
-        colregDate.setCellValueFactory(new PropertyValueFactory<>("regDate"));
-        colNic.setCellValueFactory(new PropertyValueFactory<>("nic"));
-
-
-        try{
-            resetPage();
-        }catch (Exception e){
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Oops!...Something went wrong.").show();
+    @FXML
+    void clickOnAction(MouseEvent event) {
+        StudentTM selected = (StudentTM) tblStudents.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            txtStudentId.setText(String.valueOf(selected.getStudentID()));
+            txtName.setText(selected.getStudentName());
+            txtEmail.setText(selected.getStudentEmail());
+            txtPhone.setText(selected.getStudentPhone());
+            txtAddress.setText(selected.getStudentAddress());
+            txtRegisterFee.setText(selected.getRegisterFee());
+            dateRegistration.setValue(LocalDate.parse(selected.getRegisterDate().toLocaleString()));
         }
-    }
 
-    private void resetPage() {
-
-       try {
-           loadTableData();
-
-           loadNextId();
-
-           btnSave.setDisable(false);
-           btnDelete.setDisable(true);
-           btnUpdate.setDisable(true);
-
-           txtFirstName.clear();
-           txtLastName.clear();
-           txtEmail.clear();
-           txtPhone.clear();
-           registrationDatePicker.setValue(null);
-           txtAddress.clear();
-           txtNic.clear();
-
-       }catch (Exception e){
-           e.printStackTrace();
-           new Alert(Alert.AlertType.ERROR,"Oops!...Something went wrong.").show();
-       }
-
-
-    }
-
-    private void loadNextId() throws Exception {
-        Long nextId = studentBO.getNextId();
-        lblStudentID.setText(String.valueOf(nextId));
-
-    }
-
-    private void loadTableData() throws Exception {
-        ArrayList<StudentDTO> studentDTOS = (ArrayList<StudentDTO>) studentBO.getAllStudent();
-        ObservableList<StudentTM> studentTMS = FXCollections.observableArrayList();
-
-        for (StudentDTO dto : studentDTOS) {
-            studentTMS.add(new StudentTM(
-                    dto.getStudentId(),
-                    dto.getFirstName(),
-                    dto.getLastName(),
-                    dto.getEmail(),
-                    dto.getPhone(),
-                    dto.getAge(),
-                    dto.getRegDate(),
-                    dto.getAddress(),
-                    dto.getNic()
-
-            ));
-            tblStudent.setItems(studentTMS);
-        }
     }
 
     @FXML
     void deleteOnAction(ActionEvent event) {
-         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-         Optional<ButtonType> result = alert.showAndWait();
-
-         if(result.isPresent() && result.get() == ButtonType.YES){
-             Long studentId = Long.valueOf(lblStudentID.getText());
-             try{
-                 boolean isDelete = studentBO.deleteStudent(studentId);
-                 if(isDelete){
-                     resetPage();
-                     new Alert(Alert.AlertType.INFORMATION,"Deleted Successfully!").show();
-                 }else {
-                     new Alert(Alert.AlertType.ERROR,"Something went wrong...").show();
-                 }
-
-             } catch (Exception e) {
-                 throw new RuntimeException(e);
-             }
-         }
-
-
-    }
-
-
-    @FXML
-    void onClickTable(MouseEvent event) {
-        StudentTM studentTM = tblStudent.getSelectionModel().getSelectedItem();
-
-        if(studentTM != null){
-            lblStudentID.setText(String.valueOf(studentTM.getStudentId()));
-            txtFirstName.setText(studentTM.getFirstName());
-            txtLastName.setText(studentTM.getLastName());
-            txtEmail.setText(studentTM.getEmail());
-            txtPhone.setText(studentTM.getPhone());
-            txtAge.setText(String.valueOf(studentTM.getAge()));
-            txtAddress.setText(studentTM.getAddress());
-            registrationDatePicker.setValue(studentTM.getRegDate());
-            txtAddress.setText(studentTM.getAddress());
-            txtNic.setText(studentTM.getNic());
-
-            btnSave.setDisable(true);
-            btnUpdate.setDisable(false);
-            btnDelete.setDisable(true);
+        try {
+            if (studentBO.deleteStudent(txtStudentId.getText())) {
+                infoMsg("Student deleted successfully!");
+                loadStudentTable();
+                resetPage();
+            }
+        } catch (Exception e) {
+            errorMsg("Error deleting student: " + e.getMessage());
         }
 
     }
@@ -234,73 +121,108 @@ public class StudentController implements Initializable {
     }
 
     @FXML
-    void saveOnAction(ActionEvent event) throws Exception {
-        long id = Long.parseLong(lblStudentID.getText());
-        String firstName = txtFirstName.getText();
-        String lastName = txtLastName.getText();
-        String email = txtEmail.getText();
-        String phone = txtPhone.getText();
-        String age = txtAge.getText();
-        String regDate = registrationDatePicker.getValue().toString();
-        String address = txtAddress.getText();
-        String nic = txtNic.getText();
-
-        StudentDTO studentDTO = new StudentDTO(
-                id,
-                firstName,
-                lastName,
-                email,
-                phone,
-                age,
-                regDate,
-                address,
-                nic
-        );
-        boolean isSave = studentBO.saveStudent(studentDTO);
-
-        if (isSave) {
-            loadTableData();
-            new Alert(Alert.AlertType.INFORMATION,"Student has been saved.").show();
-        }else {
-            new Alert(Alert.AlertType.ERROR,"Something went wrong.").show();
+    void saveOnAction(ActionEvent event) {
+        try {
+            StudentDTO dto = new StudentDTO(
+                    txtName.getText(),
+                    txtEmail.getText(),
+                    txtPhone.getText(),
+                    txtAddress.getText(),
+                    txtRegisterFee.getText(),
+                    Date.valueOf(dateRegistration.getValue())
+            );
+            if (studentBO.saveStudent(dto)) {
+                infoMsg("Student added successfully!");
+                loadStudentTable();
+                resetPage();
+            }
+        } catch (Exception e) {
+            errorMsg("Error saving student: " + e.getMessage());
         }
 
-
-
-
-
     }
+
+    private void resetPage() {
+        txtStudentId.clear();
+        txtName.clear();
+        txtEmail.clear();
+        txtPhone.clear();
+        txtAddress.clear();
+        txtRegisterFee.clear();
+        dateRegistration.setValue(null);
+    }
+
+    private void infoMsg(String s) {
+        new Alert(Alert.AlertType.INFORMATION, s).show();
+    }
+
+
+
+
 
     @FXML
     void updateOnAction(ActionEvent event) {
         try {
-            long id = Long.parseLong(lblStudentID.getText());
-            String firstName = txtFirstName.getText();
-            String lastName = txtLastName.getText();
-            String email = txtEmail.getText();
-            String phone = txtPhone.getText();
-            String age = txtAge.getText();
-            String regDate = registrationDatePicker.getValue().toString();
-            String address = txtAddress.getText();
-            String nic = txtNic.getText();
-
-            StudentDTO studentDTO = new StudentDTO(
-                    id, firstName, lastName, email, phone, age, regDate, address,nic
+            long id = Long.parseLong(txtStudentId.getText());
+            StudentDTO dto = new StudentDTO(
+                    id,
+                    txtName.getText(),
+                    txtEmail.getText(),
+                    txtPhone.getText(),
+                    txtAddress.getText(),
+                    txtRegisterFee.getText(),
+                    Date.valueOf(dateRegistration.getValue())
             );
-
-            boolean isUpdated = studentBO.updateStudent(studentDTO);
-
-            if (isUpdated) {
+            if (studentBO.updateStudent(dto)) {
+                infoMsg("Student updated successfully!");
+                loadStudentTable();
                 resetPage();
-                new Alert(Alert.AlertType.INFORMATION, "Student updated successfully!").show();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Update failed!").show();
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while updating!").show();
+            errorMsg("Error updating student: " + e.getMessage());
         }
+
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        colId.setCellValueFactory(new PropertyValueFactory<>("studentId"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("studentEmail"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("studentPhone"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("studentAddress"));
+        colregisterfee.setCellValueFactory(new PropertyValueFactory<>("registerFee"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("registerDate"));
 
+        loadStudentTable();
+
+
+    }
+
+    private void loadStudentTable() {
+        try {
+            List<StudentDTO> studentDTOS = studentBO.findAll();
+            ObservableList<StudentTM> list = FXCollections.observableArrayList();
+            for (StudentDTO dto : studentDTOS) {
+                list.add(new StudentTM(
+                        dto.getStudentID(),
+                        dto.getStudentName(),
+                        dto.getStudentEmail(),
+                        dto.getStudentPhone(),
+                        dto.getStudentAddress(),
+                        dto.getRegisterFee(),
+                        dto.getRegisterDate()
+                ));
+            }
+            tblStudents.setItems(list);
+        } catch (Exception e) {
+            errorMsg("Error loading students: " + e.getMessage());
+        }
+
+        }
+
+    private void errorMsg(String s) {
+        new Alert(Alert.AlertType.ERROR, s).show();
+    }
 }
+

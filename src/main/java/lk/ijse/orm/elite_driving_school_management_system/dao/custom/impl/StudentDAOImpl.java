@@ -13,76 +13,47 @@ public class StudentDAOImpl implements StudentDAO {
     @Override
     public boolean save(Student student) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try{
-            session.persist(student);
-            transaction.commit();
-            return true;
-        }catch(Exception e){
-            transaction.rollback();
-            return false;
-        }finally{
-            session.close();
-        }
+        Transaction tx = session.beginTransaction();
+        session.persist(student);
+        tx.commit();
+        session.close();
+        return true;
     }
 
     @Override
     public boolean update(Student student) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            session.merge(student);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-                e.printStackTrace();
-                return false;
-        }
-            return false;
-        } finally {
-            session.close();
-        }
+        Transaction tx = session.beginTransaction();
+        session.merge(student);
+        tx.commit();
+        session.close();
+        return true;
      }
 
-
     @Override
-    public boolean delete(Long id) throws Exception {
+    public boolean delete(String id) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try{
-            Student student = session.get(Student.class,id);
-            if(student!= null){
-                session.delete(student);
-                transaction.commit();
-                return true;
-
-            }
-            return false;
-
-        }catch(Exception e){
-            if(transaction != null)transaction.rollback();
-            e.printStackTrace();
-            return false;
-        }finally {
-            session.close();
+        Transaction tx = session.beginTransaction();
+        Student student = session.get(Student.class, id);
+        if (student != null) {
+            session.remove(student);
         }
+        tx.commit();
+        session.close();
+        return student != null;
     }
-
-
 
     @Override
-    public List<Student> getAll() throws Exception {
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
-            return session.createQuery("FROM Student", Student.class).list();
-        }
+    public List<Student> findAll() throws Exception {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        List<Student> list = session.createQuery("FROM Student", Student.class).list();
+        session.close();
+        return list;
     }
 
-    public Long getNextId() {
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
-            Long maxId = (Long) session.createQuery("SELECT MAX(s.studentId) FROM Student s").uniqueResult();
-            return (maxId == null) ? 1L : maxId + 1;
+    public Student findById(Long id) throws Exception {
+        try (Session session = FactoryConfiguration.getInstance().getSession().getSessionFactory().openSession()) {
+            return session.get(Student.class, id);
         }
     }
 }

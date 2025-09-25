@@ -1,6 +1,7 @@
 package lk.ijse.orm.elite_driving_school_management_system.entity;
 
 import jakarta.persistence.*;
+import lk.ijse.orm.elite_driving_school_management_system.dao.custom.UserDAO;
 import lombok.*;
 
 @AllArgsConstructor
@@ -9,7 +10,7 @@ import lombok.*;
 @Setter
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements SuperEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

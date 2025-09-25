@@ -12,19 +12,15 @@ import java.util.Date;
 @ToString
 
 public class StudentTM {
-    private long studentId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String age;
-    private LocalDate regDate;
-    private String address;
-    private String nic;
+    private long studentID;
+    private String studentName;
+    private String studentEmail;
+    private String studentPhone;
+    private String studentAddress;
+    private String registerFee;
+    private Date registerDate;
 
 
 
 
-    public StudentTM(long studentId, String firstName, String lastName, String email, String phone, String age, Date regDate, String address, String nic) {
-    }
 }

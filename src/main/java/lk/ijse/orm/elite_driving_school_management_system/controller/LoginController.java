@@ -19,6 +19,7 @@ import org.hibernate.query.Query;
 public class LoginController {
 
     public TextField txtEmail;
+    public TextField txtPasswords;
     @FXML
     private Button btnLogin;
 
@@ -40,7 +41,7 @@ public class LoginController {
     void loginOnAction(ActionEvent event) {
         try {
             String usernameOrEmail = txtUserName.getText().trim();
-            String password = txtPassword.getText().trim();
+            String password = txtPasswords.getText().trim();
             String role = cmbUser.getValue();
 
             RegexUtil.validateRequired(usernameOrEmail, "Username/Email");

@@ -11,35 +11,23 @@ import java.util.Date;
 @ToString
 
 public class StudentDTO {
-    private long studentId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String age;
-    private Date regDate;
-    private String address;
-    private String nic;
+    private long studentID;
+    private String studentName;
+    private String studentEmail;
+    private String studentPhone;
+    private String studentAddress;
+    private String registerFee;
+    private Date registerDate;
 
 
+    public StudentDTO(String text, String text1, String text2, String text3, String text4, java.sql.Date date) {
+        this.studentID = Long.parseLong(text);
+        this.studentName = text1;
+        this.studentEmail = text2;
+        this.studentPhone = text3;
+        this.studentAddress = text4;
+        this.registerFee = text4;
+        this.registerDate = date;
 
-
-
-
-
-    public StudentDTO(long id, String firstName, String lastName, String email, String phone, String age, Date regDate, String address, String nic) {
-        this.studentId = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.age = age;
-        this.regDate = regDate;
-        this.address = address;
-        this.nic = nic;
-
-    }
-
-    public StudentDTO(long studentId, String firstName, String lastName, String email, String phone, String age, Date regDate, String address) {
     }
 }

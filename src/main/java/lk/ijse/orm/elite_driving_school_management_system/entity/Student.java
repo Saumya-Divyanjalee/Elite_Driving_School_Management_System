@@ -1,71 +1,76 @@
 package lk.ijse.orm.elite_driving_school_management_system.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.List;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 @Entity
-@Table(name = "student_table")
+@Table(name = "students")
 public class Student implements SuperEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
-    private long studentId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long studentID;
 
-    @Column(nullable = false,name = "first_name")
-    private String firstName;
+    @Column(nullable = false)
+    private String studentName;
 
-    @Column(nullable = false,name ="last_name")
-    private String lastName;
+    @Column(nullable = false, unique = true)
+    private String studentEmail;
 
-    @Column(unique = true, nullable = false, name = "address")
-    private String address;
+    @Column(length = 15)
+    private String studentPhone;
 
-    @Column(nullable = false, name = "email")
-    private String email;
+    @Column(nullable = false)
+    private String studentAddress;
 
-    @Column(nullable = false,name = "phone")
-    private String phone;
+    @Column(name = "registerFee")
+    private String registerFee;
 
-    @Column(nullable = false,name = "age")
-    private String age;
+    @Column(nullable = false)
+    private Date registerDate;
 
-    @Column(nullable = false, name = "regDate")
-    private Date regDate;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Lesson> lessons = new java.util.ArrayList<>();
 
-    @Column(nullable = false, name = "nic")
-    private String nic;
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Payment> payments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "student",
-    cascade = CascadeType.ALL,
-    fetch = FetchType.LAZY)
-    private List<Lesson> lessons;
-
-    @OneToMany(mappedBy = "student",
-    cascade = CascadeType.ALL,
-    fetch = FetchType.LAZY)
-    private List<Payment> payments;
-
-    @ManyToMany(mappedBy = "student",fetch = FetchType.LAZY)
-    private List<Course> courses;
+    @ManyToMany
+    @JoinTable(
+            name = "student_course", // join table
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> courses = new ArrayList<>();
 
 
+    public Student(long studentID, String studentName, String studentEmail, String studentPhone, String studentAddress, String registerFee, java.util.Date registerDate) {
+        this.studentID = studentID;
+        this.studentName = studentName;
+        this.studentEmail = studentEmail;
+        this.studentPhone = studentPhone;
+        this.studentAddress = studentAddress;
+        this.registerFee = registerFee;
+        this.registerDate = (Date) registerDate;
 
+    }
 
-    public Student(long studentId, String firstName, String lastName, String email, String phone, String age, Date regDate, String address) {
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.age = age;
-        this.regDate = regDate;
+    public Student(String studentName, String studentEmail, String studentPhone, String studentAddress, String registerFee, java.util.Date registerDate) {
+        this.studentName = studentName;
+        this.studentEmail = studentEmail;
+        this.studentPhone = studentPhone;
+        this.studentAddress = studentAddress;
+        this.registerFee = registerFee;
+        this.registerDate = (Date) registerDate;
+
     }
 }

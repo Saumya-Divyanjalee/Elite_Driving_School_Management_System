@@ -10,7 +10,7 @@ public interface CrudDAO<T, ID extends Serializable> extends SuperDAO {
     boolean save(T entity) throws Exception;
     boolean update(T entity) throws Exception;
     boolean delete(ID id) throws Exception;
-    List<T> getAll() throws Exception;
-    Long getNextId() throws SQLException,ClassNotFoundException;
+    List<T> findAll() throws Exception;
+
 
 }
