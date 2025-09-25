@@ -15,6 +15,7 @@ import lk.ijse.orm.elite_driving_school_management_system.dto.PaymentDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.PaymentTM;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -93,13 +94,14 @@ public class PaymentController implements Initializable {
                 new Alert(Alert.AlertType.ERROR, "Please Enter Payment ID!").show();
                 return;
             }
-            if (paymentId.isEmpty()){
-                new Alert(Alert.AlertType.ERROR, "Please Enter Payment ID!").show();
+            if (paymentBO.deletePayment(paymentId)) {
+                new Alert(Alert.AlertType.INFORMATION, "Payment Deleted!").show();
                 loadTableData();
                 resetPage();
-            }else {
-                new Alert(Alert.AlertType.ERROR, "Not Found").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Payment Not Found!").show();
             }
+
         }catch (Exception e){
             new Alert(Alert.AlertType.ERROR, "Not Found").show();
         }
@@ -143,12 +145,57 @@ public class PaymentController implements Initializable {
 
     @FXML
     void saveOnAction(ActionEvent event) {
+        try{
+            PaymentDTO paymentDTO = new PaymentDTO(
+                    txtAmount.getText(),
+                    txtDescription.getText(),
+                    Date.valueOf(datepicker.getValue()),
+                    txtTime.getText(),
+                    cmbCourseId.getSelectionModel().getSelectedItem(),
+                    cmbStudentId.getSelectionModel().getSelectedItem(),
+                    cmbUserId.getSelectionModel().getSelectedItem()
+            );
+
+            if(paymentBO.savePayment(paymentDTO)){
+                new Alert(Alert.AlertType.INFORMATION, "Payment Saved").show();
+                loadTableData();
+                resetPage();
+
+            }
+
+        } catch (Exception e){
+            new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
+        }
 
 
     }
 
     @FXML
     void updateOnAction(ActionEvent event) {
+        try {
+            PaymentDTO dto = new PaymentDTO(
+                    txtPaymentId.getText(),
+                    txtAmount.getText(),
+                    txtDescription.getText(),
+                    Date.valueOf(datepicker.getValue()),
+                    txtTime.getText(),
+                    cmbCourseId.getValue(),
+                    cmbStudentId.getValue(),
+                    cmbUserId.getValue()
+            );
+
+            if (paymentBO.updatePayment(dto)) {
+                new Alert(Alert.AlertType.INFORMATION, "Payment Updated!").show();
+                loadTableData();
+                resetPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Update Failed!").show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+        }
+
 
     }
 
@@ -172,7 +219,7 @@ public class PaymentController implements Initializable {
     private void loadUserIds() {
         try {
             List<String> uIds = paymentBO.getAllUserId();
-            cmbUserId.setItems(FXCollections.observableArrayList(uIds));
+            cmbUserId.setItems(FXCollections.observableArrayList(uIds).sorted());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -181,7 +228,7 @@ public class PaymentController implements Initializable {
     private void loadCoursIDs() {
         try {
             List<String> lIds = paymentBO.getAllCourseId();
-            cmbCourseId.setItems(FXCollections.observableArrayList(lIds));
+            cmbCourseId.setItems(FXCollections.observableArrayList(lIds).sorted());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -201,7 +248,7 @@ public class PaymentController implements Initializable {
             List<PaymentDTO> paymentDTOList = paymentBO.findAllPayment();
             ObservableList<PaymentTM>  paymentTM = FXCollections.observableArrayList();
             for(PaymentDTO p : paymentDTOList){
-                paymentDTOList.add(new PaymentTM(
+                paymentTM.add(new PaymentTM(
                         p.getPaymentId(),
                         p.getAmount(),
                         p.getDescription(),
@@ -213,6 +260,7 @@ public class PaymentController implements Initializable {
                 ));
             }
             tblPayment.setItems(paymentTM);
+
         }catch (Exception e){
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Error", ButtonType.OK).show();
