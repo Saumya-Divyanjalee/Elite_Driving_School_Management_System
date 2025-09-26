@@ -12,20 +12,30 @@ public class BOFactory {
                 boFactory = new BOFactory() :boFactory;
     }
 
-    public <T extends SuperBO> T getBO(BoTypes boType) {
+    public enum BoTypes {
+        COURSE,
+        INSTRUCTOR,
+        LESSON,
+        PAYMENT,
+        STUDENT,
+        USER,
+
+    }
+
+    public SuperBO getBO(BoTypes boType) {
         switch (boType){
             case COURSE :
-                return (T) new CourseBOImpl();
+                return new CourseBOImpl();
             case INSTRUCTOR :
-                return (T) new InstructorBOImpl();
+                return new InstructorBOImpl();
             case LESSON:
-                return (T) new LessonBOImpl();
+                return new LessonBOImpl();
             case PAYMENT:
-                return (T) new PaymentBOImpl();
+                return new PaymentBOImpl();
             case STUDENT:
-                return (T) new CourseBOImpl();
+                return new StudentBOImpl();
             case USER:
-                return (T) new UserBOImpl();
+                return new UserBOImpl();
             default:
                 return null;
 

@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
-import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.CourseBO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.CourseDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.CourseTM;
@@ -80,7 +79,7 @@ public class CourseController implements Initializable {
     private Button btnReset;
 
     private final CourseBO courseBO =
-            (CourseBO) BOFactory.getInstance().getBO(BoTypes.COURSE);
+            (CourseBO) BOFactory.getInstance().getBO(BOFactory.BoTypes.COURSE);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

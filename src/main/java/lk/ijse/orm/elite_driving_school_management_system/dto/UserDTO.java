@@ -10,7 +10,16 @@ import lombok.*;
 public class UserDTO {
     private long userId;
     private String username;
+    private String mobile;
     private String email;
     private String password;
     private String role;
+
+    public UserDTO(String username, String mobile, String email, String password, String role) {
+        this.username = username;
+        this.mobile = mobile;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }

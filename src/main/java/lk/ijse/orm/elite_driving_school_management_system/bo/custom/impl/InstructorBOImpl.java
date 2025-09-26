@@ -2,7 +2,6 @@ package lk.ijse.orm.elite_driving_school_management_system.bo.custom.impl;
 
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.InstructorBO;
 import lk.ijse.orm.elite_driving_school_management_system.dao.DAOFactory;
-import lk.ijse.orm.elite_driving_school_management_system.dao.DAOTypes;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.InstructorDAO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.InstructorDTO;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Instructor;
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class InstructorBOImpl implements InstructorBO {
 
-    private final InstructorDAO instructorDAO = (InstructorDAO) DAOFactory.getInstance().getDAO(DAOTypes.INSTRUCTOR);
+    private final InstructorDAO instructorDAO = (InstructorDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.INSTRUCTOR);
 
     @Override
     public boolean saveInstructor(InstructorDTO dto) throws Exception {

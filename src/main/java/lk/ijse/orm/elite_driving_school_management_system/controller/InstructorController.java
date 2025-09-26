@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
-import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.InstructorBO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.InstructorDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.InstructorTM;
@@ -46,7 +45,7 @@ public class InstructorController implements Initializable {
     @FXML
     private ComboBox<String> cmbAvailability;
 
-    private InstructorBO instructorBO = (InstructorBO) BOFactory.getInstance().getBO(BoTypes.INSTRUCTOR);
+    private InstructorBO instructorBO = (InstructorBO) BOFactory.getInstance().getBO(BOFactory.BoTypes.INSTRUCTOR);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

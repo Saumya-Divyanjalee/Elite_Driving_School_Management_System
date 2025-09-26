@@ -10,6 +10,7 @@ import lombok.*;
 public class UserTM {
     private long userId;
     private String username;
+    private String mobile;
     private String email;
     private String password;
     private String role;

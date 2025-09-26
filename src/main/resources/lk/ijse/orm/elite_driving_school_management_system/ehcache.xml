@@ -9,7 +9,7 @@
             overflowToDisk="false"
             statistics="true"/>
 
-    <cache name="lk.ijse.drivingschoolormfinal.entity.Instructor"
+    <cache name="lk.ijse.orm.elite_driving_school_management_system.entity.Instructor"
            maxEntriesLocalHeap="500"
            eternal="false"
            timeToIdleSeconds="300"
@@ -17,7 +17,7 @@
            overflowToDisk="false"
            statistics="true"/>
 
-    <cache name="lk.ijse.drivingschoolormfinal.entity.Course"
+    <cache name="lk.ijse.orm.elite_driving_school_management_system.entity.Course"
            maxEntriesLocalHeap="500"
            eternal="false"
            timeToIdleSeconds="300"
@@ -25,7 +25,7 @@
            overflowToDisk="false"
            statistics="true"/>
 
-    <cache name="lk.ijse.drivingschoolormfinal.entity.Student"
+    <cache name="lk.ijse.orm.elite_driving_school_management_system.entity.Student"
            maxEntriesLocalHeap="1000"
            eternal="false"
            timeToIdleSeconds="300"
@@ -33,7 +33,7 @@
            overflowToDisk="false"
            statistics="true"/>
 
-    <cache name="lk.ijse.drivingschoolormfinal.entity.Lesson"
+    <cache name="lk.ijse.orm.elite_driving_school_management_system.entity.Lesson"
            maxEntriesLocalHeap="800"
            eternal="false"
            timeToIdleSeconds="300"
@@ -41,7 +41,7 @@
            overflowToDisk="false"
            statistics="true"/>
 
-    <cache name="lk.ijse.drivingschoolormfinal.entity.Payment"
+    <cache name="lk.ijse.orm.elite_driving_school_management_system.entity.Payment"
            maxEntriesLocalHeap="1000"
            eternal="false"
            timeToIdleSeconds="300"

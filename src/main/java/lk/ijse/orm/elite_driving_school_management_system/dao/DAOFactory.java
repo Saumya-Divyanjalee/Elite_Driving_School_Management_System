@@ -11,23 +11,33 @@ public class DAOFactory  {
        return (daoFactory == null) ? new DAOFactory() : daoFactory;
     }
 
+    public enum DAOTypes {
+        COURSE,
+        INSTRUCTOR,
+        LESSON,
+        PAYMENT,
+        STUDENT,
+        QUERY,
+        USER
+    }
 
-    public <T extends SuperDAO>T getDAO(DAOTypes daoType) {
+
+    public SuperDAO getDAO(DAOTypes daoType) {
         switch (daoType) {
             case COURSE:
-                return (T) new CourseDAOImpl();
+                return new CourseDAOImpl();
             case INSTRUCTOR:
-                return (T) new InstructorDAOImpl();
+                return new InstructorDAOImpl();
             case LESSON:
-                return (T) new LessonDAOImpl();
+                return new LessonDAOImpl();
             case PAYMENT:
-                return (T) new PaymentDAOImpl();
+                return new PaymentDAOImpl();
             case STUDENT:
-                return (T) new CourseDAOImpl();
+                return new StudentDAOImpl();
             case QUERY:
-                return (T) new QueryDAOImpl();
+                return new QueryDAOImpl();
             case USER:
-                return (T) new UserDAOImpl();
+                return new UserDAOImpl();
                 default:
                     return null;
         }

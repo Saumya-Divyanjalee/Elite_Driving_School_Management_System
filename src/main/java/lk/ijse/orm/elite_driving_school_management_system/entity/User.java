@@ -20,6 +20,9 @@ public class User implements SuperEntity{
     @Column(nullable = false, unique = true,name = "user_name")
     private String username;
 
+    @Column(nullable = false,name = "mobile")
+    private String mobile;
+
     @Column(nullable = false, unique = true,name = "email")
     private String email;
 
@@ -30,5 +33,19 @@ public class User implements SuperEntity{
     private String role;
 
     public User(String username, String email, String hashedPassword, String role) {
+        this.username = username;
+        this.email = email;
+        this.password = hashedPassword;
+        this.role = role;
+
+    }
+
+    public User(String username, String mobile, String email, String hashedPassword, String role) {
+        this.username = username;
+        this.mobile = mobile;
+        this.email = email;
+        this.password = hashedPassword;
+        this.role = role;
+
     }
 }

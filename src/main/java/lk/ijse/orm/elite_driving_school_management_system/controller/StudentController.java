@@ -10,7 +10,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
-import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.StudentBO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.StudentDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.StudentTM;
@@ -85,7 +84,7 @@ public class StudentController implements Initializable {
     @FXML
     private TextField txtStudentId;
 
-    StudentBO studentBO = (StudentBO) BOFactory.getInstance().getBO(BoTypes.STUDENT);
+    StudentBO studentBO = (StudentBO) BOFactory.getInstance().getBO(BOFactory.BoTypes.STUDENT);
 
     @FXML
     void clickOnAction(MouseEvent event) {

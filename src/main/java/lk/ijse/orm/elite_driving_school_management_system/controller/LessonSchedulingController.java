@@ -9,15 +9,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
-import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.LessonBO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.LessonDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.LessonTM;
 import lk.ijse.orm.elite_driving_school_management_system.util.RegexUtil;
 
 import java.net.URL;
-import java.sql.Date;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -81,7 +78,7 @@ public class LessonSchedulingController implements Initializable {
     private TextField txtstarttime;
 
 
-    LessonBO lessonBO = (LessonBO) BOFactory.getInstance().getBO(BoTypes.LESSON);
+    LessonBO lessonBO = (LessonBO) BOFactory.getInstance().getBO(BOFactory.BoTypes.LESSON);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

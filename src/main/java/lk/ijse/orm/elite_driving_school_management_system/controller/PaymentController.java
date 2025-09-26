@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
-import lk.ijse.orm.elite_driving_school_management_system.bo.BoTypes;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.PaymentBO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.PaymentDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.PaymentTM;
@@ -84,7 +83,7 @@ public class PaymentController implements Initializable {
     @FXML
     private TextField txtTime;
 
-    PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBO(BoTypes.PAYMENT);
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBO(BOFactory.BoTypes.PAYMENT);
 
     @FXML
     void deleteOnAction(ActionEvent event) {

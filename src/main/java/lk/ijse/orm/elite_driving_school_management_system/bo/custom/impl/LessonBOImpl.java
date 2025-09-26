@@ -2,7 +2,6 @@ package lk.ijse.orm.elite_driving_school_management_system.bo.custom.impl;
 
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.LessonBO;
 import lk.ijse.orm.elite_driving_school_management_system.dao.DAOFactory;
-import lk.ijse.orm.elite_driving_school_management_system.dao.DAOTypes;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.CourseDAO;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.InstructorDAO;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.LessonDAO;
@@ -19,10 +18,10 @@ import java.util.stream.Collectors;
 
 public class LessonBOImpl implements LessonBO {
 
-    private final LessonDAO lessonDAO = (LessonDAO) DAOFactory.getInstance().getDAO(DAOTypes.LESSON);
-    private final InstructorDAO instructorDAO = (InstructorDAO) DAOFactory.getInstance().getDAO(DAOTypes.INSTRUCTOR);
-    private final CourseDAO courseDAO = (CourseDAO) DAOFactory.getInstance().getDAO(DAOTypes.COURSE);
-    private final StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(DAOTypes.STUDENT);
+    private final LessonDAO lessonDAO = (LessonDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.LESSON);
+    private final InstructorDAO instructorDAO = (InstructorDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.INSTRUCTOR);
+    private final CourseDAO courseDAO = (CourseDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.COURSE);
+    private final StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STUDENT);
 
     @Override
     public boolean saveLesson(LessonDTO dto) throws Exception {

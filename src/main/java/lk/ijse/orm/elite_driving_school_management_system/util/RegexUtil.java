@@ -49,9 +49,7 @@ public class RegexUtil {
         return fee != null && Pattern.matches(FEE_REGEX, fee);
     }
 
-    public static boolean isValidDate(String date) {
-        return date != null && Pattern.matches(DATE_REGEX, date);
-    }
+
 
     public static boolean isValidTime(String time) {
         return time != null && Pattern.matches(TIME_REGEX, time);

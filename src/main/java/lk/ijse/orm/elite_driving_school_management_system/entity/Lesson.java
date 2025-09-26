@@ -57,14 +57,46 @@ public class Lesson implements SuperEntity {
     }
 
     public Lesson(long lessonId, String lessonName, String startTime, String endTime, Student student, Course course, Instructor instructor) {
+        this.lessonId = lessonId;
+        this.lessonName = lessonName;
+        this.startTime = parse(startTime);
+        this.endTime = parse(endTime);
+        this.student = student;
+        this.course = course;
+        this.instructor = instructor;
+
     }
 
     public Lesson(String lessonName, String startTime, String endTime, Student student, Course course, Instructor instructor) {
+        this.lessonName = lessonName;
+        this.startTime = parse(startTime);
+        this.endTime = parse(endTime);
+        this.student = student;
+        this.course = course;
+        this.instructor = instructor;
+
     }
 
     public Lesson(String lessonName, String startTime, String endTime, java.util.Date date, Student student, Course course, Instructor instructor) {
+        this.lessonName = lessonName;
+        this.startTime = parse(startTime);
+        this.endTime = parse(endTime);
+        this.date = (Date) date;
+        this.student = student;
+        this.course = course;
+        this.instructor = instructor;
+
     }
 
     public Lesson(long lessonId, String lessonName, String startTime, String endTime, java.util.Date date, Student student, Course course, Instructor instructor) {
+        this.lessonId = lessonId;
+        this.lessonName = lessonName;
+        this.startTime = parse(startTime);
+        this.endTime = parse(endTime);
+        this.date = (Date) date;
+        this.student = student;
+        this.course = course;
+        this.instructor = instructor;
+
     }
 }

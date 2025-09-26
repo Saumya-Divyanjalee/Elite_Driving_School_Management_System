@@ -2,7 +2,6 @@ package lk.ijse.orm.elite_driving_school_management_system.bo.custom.impl;
 
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.StudentBO;
 import lk.ijse.orm.elite_driving_school_management_system.dao.DAOFactory;
-import lk.ijse.orm.elite_driving_school_management_system.dao.DAOTypes;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.StudentDAO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.StudentDTO;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Student;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class StudentBOImpl implements StudentBO {
 
- StudentDAO studentDAO =(StudentDAO) DAOFactory.getInstance().getDAO(DAOTypes.STUDENT);
+ StudentDAO studentDAO =(StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STUDENT);
     @Override
     public boolean saveStudent(StudentDTO dto) throws Exception {
         Student student = new Student(

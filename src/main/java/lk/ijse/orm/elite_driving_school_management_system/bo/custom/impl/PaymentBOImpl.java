@@ -2,7 +2,6 @@ package lk.ijse.orm.elite_driving_school_management_system.bo.custom.impl;
 
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.PaymentBO;
 import lk.ijse.orm.elite_driving_school_management_system.dao.DAOFactory;
-import lk.ijse.orm.elite_driving_school_management_system.dao.DAOTypes;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.CourseDAO;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.PaymentDAO;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.StudentDAO;
@@ -11,19 +10,17 @@ import lk.ijse.orm.elite_driving_school_management_system.dto.PaymentDTO;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Course;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Payment;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Student;
-import lk.ijse.orm.elite_driving_school_management_system.entity.User;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PaymentBOImpl implements PaymentBO {
 
-    PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOTypes.PAYMENT);
-    StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(DAOTypes.STUDENT);
-    CourseDAO  courseDAO = (CourseDAO) DAOFactory.getInstance().getDAO(DAOTypes.COURSE);
-    UserDAO userDAO = (UserDAO) DAOFactory.getInstance().getDAO(DAOTypes.USER);
+    PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.PAYMENT);
+    StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STUDENT);
+    CourseDAO  courseDAO = (CourseDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.COURSE);
+    UserDAO userDAO = (UserDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.USER);
 
 
     @Override
