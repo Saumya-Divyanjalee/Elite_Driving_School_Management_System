@@ -85,7 +85,7 @@
                     <Label style="-fx-font-weight: bold;" text="Student ID : " GridPane.columnIndex="2" GridPane.rowIndex="4" />
                     <Label style="-fx-font-weight: bold;" text=" " GridPane.columnIndex="2" GridPane.rowIndex="5" />
                     <Label layoutX="59.0" layoutY="78.0" prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Time :" textFill="black" GridPane.rowIndex="6" />
-                    <TextField fx:id="txtTime" promptText="10.30a.m" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    <ComboBox fx:id="cmbTime" prefWidth="150.0" promptText="Select Time" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                     <Label style="-fx-font-weight: bold;" text="Course ID : " GridPane.columnIndex="2" GridPane.rowIndex="5" />
                     <Label text="Date :" GridPane.columnIndex="2" GridPane.rowIndex="6">
                         <font>

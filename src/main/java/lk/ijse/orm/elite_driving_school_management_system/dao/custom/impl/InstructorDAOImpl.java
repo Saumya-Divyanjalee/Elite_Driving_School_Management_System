@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class InstructorDAOImpl implements InstructorDAO {
 
- private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+    private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
     @Override
     public boolean save(Instructor entity) {

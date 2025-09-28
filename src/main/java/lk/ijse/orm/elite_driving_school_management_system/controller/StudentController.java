@@ -19,7 +19,9 @@ import javax.security.auth.login.LoginException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class StudentController implements Initializable {
@@ -88,7 +90,7 @@ public class StudentController implements Initializable {
 
     @FXML
     void clickOnAction(MouseEvent event) {
-        StudentTM selected = (StudentTM) tblStudents.getSelectionModel().getSelectedItem();
+        StudentTM selected = tblStudents.getSelectionModel().getSelectedItem();
         if (selected != null) {
             txtStudentId.setText(String.valueOf(selected.getStudentID()));
             txtName.setText(selected.getStudentName());
@@ -96,29 +98,50 @@ public class StudentController implements Initializable {
             txtPhone.setText(selected.getStudentPhone());
             txtAddress.setText(selected.getStudentAddress());
             txtRegisterFee.setText(selected.getRegisterFee());
-            dateRegistration.setValue(LocalDate.parse(selected.getRegisterDate().toLocaleString()));
-        }
 
+            // Converts any java.util.Date into a LocalDate
+            if (selected.getRegisterDate() != null) {
+                dateRegistration.setValue(selected.getRegisterDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            }
+
+            // Enable update and delete buttons when a student is selected
+            btnUpdate.setDisable(false);
+            btnDelete.setDisable(false);
+            btnSave.setDisable(true);
+        }
     }
 
     @FXML
     void deleteOnAction(ActionEvent event) {
-        try {
-            if (studentBO.deleteStudent(txtStudentId.getText())) {
-                infoMsg("Student deleted successfully!");
-                loadStudentTable();
-                resetPage();
-            }
-        } catch (Exception e) {
-            errorMsg("Error deleting student: " + e.getMessage());
+        // Validate that a student is selected
+        if (txtStudentId.getText() == null || txtStudentId.getText().trim().isEmpty()) {
+            errorMsg("Please select a student to delete!");
+            return;
         }
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete this student?",
+                ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            try {
+                if (studentBO.deleteStudent(txtStudentId.getText().trim())) {
+                    infoMsg("Student deleted successfully!");
+                    loadStudentTable();
+                    resetPage();
+                } else {
+                    errorMsg("Error deleting student!");
+                }
+            } catch (Exception e) {
+                errorMsg("Error deleting student: " + e.getMessage());
+            }
+        }
     }
 
     @FXML
     void resetOnAction(ActionEvent event) {
         resetPage();
-
     }
 
     @FXML
@@ -152,6 +175,7 @@ public class StudentController implements Initializable {
             if (dateRegistration.getValue() == null) {
                 throw new LoginException("Registration Date is required!");
             }
+
             StudentDTO dto = new StudentDTO(
                     txtName.getText(),
                     txtEmail.getText(),
@@ -164,11 +188,12 @@ public class StudentController implements Initializable {
                 infoMsg("Student added successfully!");
                 loadStudentTable();
                 resetPage();
+            } else {
+                errorMsg("Error saving student!");
             }
         } catch (Exception e) {
             errorMsg("Error saving student: " + e.getMessage());
         }
-
     }
 
     private void resetPage() {
@@ -179,23 +204,26 @@ public class StudentController implements Initializable {
         txtAddress.clear();
         txtRegisterFee.clear();
         dateRegistration.setValue(null);
+
+        // Reset button states
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+        btnSave.setDisable(false);
     }
 
     private void infoMsg(String s) {
         new Alert(Alert.AlertType.INFORMATION, s).show();
     }
 
-
-
-
-
     @FXML
     void updateOnAction(ActionEvent event) {
+        // Validate that a student is selected
+        if (txtStudentId.getText() == null || txtStudentId.getText().trim().isEmpty()) {
+            errorMsg("Please select a student to update!");
+            return;
+        }
+
         try {
-
-            RegexUtil.validateRequired(txtStudentId.getText(), "Student ID");
-
-
             RegexUtil.validateRequired(txtName.getText(), "Name");
             if (!RegexUtil.isValidName(txtName.getText())) {
                 throw new LoginException("Invalid Name format!");
@@ -219,7 +247,8 @@ public class StudentController implements Initializable {
             if (dateRegistration.getValue() == null) {
                 throw new LoginException("Registration Date is required!");
             }
-            long id = Long.parseLong(txtStudentId.getText());
+
+            long id = Long.parseLong(txtStudentId.getText().trim());
             StudentDTO dto = new StudentDTO(
                     id,
                     txtName.getText(),
@@ -233,16 +262,19 @@ public class StudentController implements Initializable {
                 infoMsg("Student updated successfully!");
                 loadStudentTable();
                 resetPage();
+            } else {
+                errorMsg("Error updating student!");
             }
+        } catch (NumberFormatException e) {
+            errorMsg("Invalid student ID format!");
         } catch (Exception e) {
             errorMsg("Error updating student: " + e.getMessage());
         }
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colId.setCellValueFactory(new PropertyValueFactory<>("studentId"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("studentID"));
         colName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("studentEmail"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("studentPhone"));
@@ -250,9 +282,11 @@ public class StudentController implements Initializable {
         colregisterfee.setCellValueFactory(new PropertyValueFactory<>("registerFee"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("registerDate"));
 
+        // Initialize button states
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+
         loadStudentTable();
-
-
     }
 
     private void loadStudentTable() {
@@ -274,11 +308,9 @@ public class StudentController implements Initializable {
         } catch (Exception e) {
             errorMsg("Error loading students: " + e.getMessage());
         }
-
-        }
+    }
 
     private void errorMsg(String s) {
         new Alert(Alert.AlertType.ERROR, s).show();
     }
 }
-

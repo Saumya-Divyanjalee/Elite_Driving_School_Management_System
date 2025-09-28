@@ -9,7 +9,6 @@ import  java.util.List;
 @Getter
 @Setter
 
-
 @Entity
 @Table(name ="course_table")
 public class Course implements SuperEntity {
@@ -39,13 +38,14 @@ public class Course implements SuperEntity {
     )
     private List<Student>student;
 
-    public Course(long courseId, String courseName, String timePeriod) {
-        this.courseId = courseId;
+    // Constructor for new courses (without ID, let database generate it)
+    public Course(String courseName, String timePeriod, String courseFee) {
         this.courseName = courseName;
         this.timePeriod = timePeriod;
-
+        this.courseFee = courseFee;
     }
 
+    // Constructor for updating existing courses (with ID)
     public Course(long courseId, String courseName, String timePeriod, String courseFee) {
         this.courseId = courseId;
         this.courseName = courseName;

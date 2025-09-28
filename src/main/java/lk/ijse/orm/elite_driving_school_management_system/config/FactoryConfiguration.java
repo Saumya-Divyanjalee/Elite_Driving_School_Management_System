@@ -18,7 +18,7 @@ public class FactoryConfiguration {
         Configuration configuration = new Configuration();
         try {
             Properties properties = new Properties();
-            properties.load(getClass().getResourceAsStream("lk/ijse/orm/elite_driving_school_management_system/hibernate.properties"));
+            properties.load(getClass().getResourceAsStream("/lk/ijse/orm/elite_driving_school_management_system/hibernate.properties"));
             configuration.setProperties(properties);
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,6 +44,3 @@ public class FactoryConfiguration {
         return sessionFactory.openSession();
     }
 }
-
-
-

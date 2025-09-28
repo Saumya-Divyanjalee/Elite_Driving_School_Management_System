@@ -67,18 +67,29 @@ public class LessonBOImpl implements LessonBO {
 
     @Override
     public List<LessonDTO> findAllLesson() throws Exception {
-        return lessonDAO.findAll().stream().map(lesson ->
-                new LessonDTO(
-                        lesson.getLessonId(),
-                        lesson.getLessonName(),
-                        lesson.getStartTime(),
-                        lesson.getEndTime(),
-                        lesson.getDate(),
-                        lesson.getStudent().getStudentID(),
-                        lesson.getCourse().getCourseId(),
-                        lesson.getInstructor().getInstructorId()
+        return lessonDAO.findAll().stream().map(lesson -> {
+            // Convert LocalDateTime to time strings (HH:mm format)
+            String startTimeStr = lesson.getStartTime().toLocalTime().toString();
+            if (startTimeStr.length() > 5) {
+                startTimeStr = startTimeStr.substring(0, 5); // Keep only HH:mm
+            }
 
-                )).collect(Collectors.toList());
+            String endTimeStr = lesson.getEndTime().toLocalTime().toString();
+            if (endTimeStr.length() > 5) {
+                endTimeStr = endTimeStr.substring(0, 5); // Keep only HH:mm
+            }
+
+            return new LessonDTO(
+                    lesson.getLessonId(),
+                    lesson.getLessonName(),
+                    startTimeStr,
+                    endTimeStr,
+                    lesson.getDate(), // Pass Date object directly
+                    String.valueOf(lesson.getInstructor().getInstructorId()), // Convert to String
+                    String.valueOf(lesson.getStudent().getStudentID()), // Convert to String
+                    String.valueOf(lesson.getCourse().getCourseId()) // Convert to String
+            );
+        }).collect(Collectors.toList());
     }
 
     @Override
@@ -117,14 +128,26 @@ public class LessonBOImpl implements LessonBO {
         ArrayList<LessonDTO> lessonDTOS = new ArrayList<>();
 
         for (Lesson l : lessons) {
+            // Convert LocalDateTime to time strings (HH:mm format)
+            String startTimeStr = l.getStartTime().toLocalTime().toString();
+            if (startTimeStr.length() > 5) {
+                startTimeStr = startTimeStr.substring(0, 5); // Keep only HH:mm
+            }
+
+            String endTimeStr = l.getEndTime().toLocalTime().toString();
+            if (endTimeStr.length() > 5) {
+                endTimeStr = endTimeStr.substring(0, 5); // Keep only HH:mm
+            }
+
             lessonDTOS.add(new LessonDTO(
                     l.getLessonId(),
                     l.getLessonName(),
-                    l.getStartTime(),
-                    l.getEndTime(),
-                    l.getStudent().getStudentID(),
-                    l.getInstructor().getInstructorId(),
-                    l.getCourse().getCourseId()
+                    startTimeStr,
+                    endTimeStr,
+                    l.getDate(),  // Pass Date object directly
+                    String.valueOf(l.getInstructor().getInstructorId()), // Convert to String
+                    String.valueOf(l.getStudent().getStudentID()), // Convert to String
+                    String.valueOf(l.getCourse().getCourseId()) // Convert to String
             ));
         }
         return lessonDTOS;

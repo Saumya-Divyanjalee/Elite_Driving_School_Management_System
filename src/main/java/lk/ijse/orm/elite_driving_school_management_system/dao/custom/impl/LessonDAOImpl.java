@@ -12,7 +12,7 @@ import java.util.List;
 
 public class LessonDAOImpl implements LessonDAO {
 
-private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+    private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
     @Override
     public boolean save(Lesson entity) throws Exception {
         try(Session session = factoryConfiguration.getSession()) {
@@ -43,14 +43,14 @@ private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.g
 
     @Override
     public boolean delete(String id) throws Exception {
-         Session session = factoryConfiguration.getSession();
-         Transaction tx = session.beginTransaction();
-         Lesson lesson = (Lesson) session.get(Lesson.class, id);
-         if(lesson!=null){
-             session.remove(lesson);
-         }tx.commit();
-         session.close();
-         return lesson!=null;
+        Session session = factoryConfiguration.getSession();
+        Transaction tx = session.beginTransaction();
+        Lesson lesson = (Lesson) session.get(Lesson.class, id);
+        if(lesson!=null){
+            session.remove(lesson);
+        }tx.commit();
+        session.close();
+        return lesson!=null;
 
     }
 

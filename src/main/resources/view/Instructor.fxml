@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="697.0" prefWidth="1219.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm.elite_driving_school_management_system.controller.InstructorController">
+<AnchorPane prefHeight="697.0" prefWidth="1219.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm.elite_driving_school_management_system.controller.InstructorController">
     <children>
         <VBox layoutX="-32.0" layoutY="-2.0" prefHeight="714.0" prefWidth="1389.0" spacing="15.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="-15.0" AnchorPane.leftAnchor="-12.0" AnchorPane.rightAnchor="-158.0" AnchorPane.topAnchor="-2.0">
 
@@ -42,11 +42,11 @@
                     <RowConstraints /><RowConstraints /><RowConstraints /><RowConstraints />
                     <RowConstraints /><RowConstraints />
                     <RowConstraints />
-               <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-               <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-               <RowConstraints />
-               <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-               <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                    <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
                 </rowConstraints>
 
                 <VBox.margin>
@@ -68,15 +68,15 @@
                     </Label>
                     <Label style="-fx-font-weight: bold;" text="Student ID : " GridPane.columnIndex="2" GridPane.rowIndex="1" />
                     <Label style="-fx-font-weight: bold;" text=" " GridPane.columnIndex="2" GridPane.rowIndex="2" />
-               <Label layoutX="59.0" layoutY="78.0" prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Phone :" textFill="black" GridPane.rowIndex="3" />
-               <TextField fx:id="telephone" promptText="0777777777" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-               <Label style="-fx-font-weight: bold;" text="Email : " GridPane.columnIndex="2" GridPane.rowIndex="2" />
-               <TextField fx:id="txtEmail" prefHeight="26.0" prefWidth="214.0" promptText="example123@gmail.com" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-               <TextField fx:id="txtintrId" GridPane.columnIndex="1" />
-               <TextField fx:id="txtLessonId" GridPane.columnIndex="3" />
-               <TextField fx:id="txtStudentId" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-               <Label style="-fx-font-weight: bold;" text="Availability " GridPane.columnIndex="2" GridPane.rowIndex="3" />
-               <ComboBox fx:id="cmbAvailability" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                    <Label layoutX="59.0" layoutY="78.0" prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Phone :" textFill="black" GridPane.rowIndex="3" />
+                    <TextField fx:id="telephone" promptText="0777777777" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Label style="-fx-font-weight: bold;" text="Email : " GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                    <TextField fx:id="txtEmail" prefHeight="26.0" prefWidth="214.0" promptText="example123@gmail.com" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                    <TextField fx:id="txtintrId" GridPane.columnIndex="1" />
+                    <TextField fx:id="txtLessonId" GridPane.columnIndex="3" />
+                    <TextField fx:id="txtStudentId" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    <Label style="-fx-font-weight: bold;" text="Availability " GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                    <ComboBox fx:id="cmbAvailability" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                 </children>
             </GridPane>
 
@@ -103,12 +103,10 @@
                 <columns>
                     <TableColumn fx:id="colInstructorID" prefWidth="95.99999761581421" text="Instructor ID" />
                     <TableColumn fx:id="colName" prefWidth="411.1999282836914" text="Name" />
-               <TableColumn fx:id="colAvailability" prefWidth="208.80007934570312" text="Availability" />
+                    <TableColumn fx:id="colAvailability" prefWidth="208.80007934570312" text="Availability" />
                     <TableColumn fx:id="colAddress" prefWidth="362.39996337890625" text="Address" />
-                    <TableColumn fx:id="colphone" prefWidth="317.60009765625" text="Phone" />
+                    <TableColumn fx:id="colPhone" prefWidth="317.60009765625" text="Phone" />
                     <TableColumn fx:id="colEmail" prefWidth="123.9998779296875" text="Email" />
-                    <TableColumn fx:id="colStudentID" prefWidth="126.39990234375" text="Student ID" />
-               <TableColumn fx:id="colLessonID" prefWidth="95.20002441406245" text="Lesson ID" />
                 </columns>
 
                 <VBox.margin>

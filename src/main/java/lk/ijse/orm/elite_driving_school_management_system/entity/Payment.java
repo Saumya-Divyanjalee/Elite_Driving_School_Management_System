@@ -35,9 +35,12 @@ public class Payment implements SuperEntity {
     @JoinColumn(name = "student_id",nullable = false)
     private Student student;
 
-    @OneToOne
-    @JoinColumn(name ="course_id",unique = true,nullable = false)
+    @ManyToOne
+    @JoinColumn(name ="course_id",nullable = false)
     private Course course;
+
+    @Column(name = "user_id")
+    private String userId;
 
 
     public Payment(long paymentId, String amount, String description, Date date, String time) {
@@ -52,9 +55,19 @@ public class Payment implements SuperEntity {
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.time = time;
         this.student = student;
         this.course = course;
+    }
 
+    public Payment(String amount, String description, Date date, String time, Student student, Course course, String userId) {
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+        this.student = student;
+        this.course = course;
+        this.userId = userId;
     }
 
     public Payment(long paymentId, String amount, String description, Date date, String time, Student student, Course course) {
@@ -62,9 +75,19 @@ public class Payment implements SuperEntity {
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.time = time;
         this.student = student;
         this.course = course;
+    }
 
-
+    public Payment(long paymentId, String amount, String description, Date date, String time, Student student, Course course, String userId) {
+        this.id = paymentId;
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+        this.student = student;
+        this.course = course;
+        this.userId = userId;
     }
 }

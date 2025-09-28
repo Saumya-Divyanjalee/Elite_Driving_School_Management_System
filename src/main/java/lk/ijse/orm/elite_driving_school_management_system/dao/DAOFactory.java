@@ -8,7 +8,7 @@ public class DAOFactory  {
     private static DAOFactory daoFactory;
     private DAOFactory() {}
     public static DAOFactory getInstance() {
-       return (daoFactory == null) ? new DAOFactory() : daoFactory;
+        return (daoFactory == null) ? new DAOFactory() : daoFactory;
     }
 
     public enum DAOTypes {
@@ -38,8 +38,8 @@ public class DAOFactory  {
                 return new QueryDAOImpl();
             case USER:
                 return new UserDAOImpl();
-                default:
-                    return null;
+            default:
+                return null;
         }
     }
 }

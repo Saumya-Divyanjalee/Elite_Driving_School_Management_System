@@ -16,16 +16,16 @@ import java.util.List;
 
 public interface UserBO extends SuperBO {
 
-      boolean saveUser(UserDTO userDTO) throws Exception ;
+    boolean saveUser(UserDTO userDTO) throws Exception ;
 
-      boolean updateUser(UserDTO userDTO) throws Exception ;
+    boolean updateUser(UserDTO userDTO) throws Exception ;
 
-      boolean deleteUser(String id) throws Exception ;
+    boolean deleteUser(String id) throws Exception ;
 
-     List<UserDTO> findAllUser() throws Exception ;
+    List<UserDTO> findAllUser() throws Exception ;
 
-     UserDTO findByUserName(String userName) throws Exception ;
+    UserDTO findByUserName(String userName) throws Exception ;
 
-     ArrayList<UserDTO> getAllUsers() throws Exception ;
+    ArrayList<UserDTO> getAllUsers() throws Exception ;
 }
 

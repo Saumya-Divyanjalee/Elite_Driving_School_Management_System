@@ -34,15 +34,6 @@ public class CourseController implements Initializable {
     private TableColumn<CourseTM, String> colCourseFee;
 
     @FXML
-    private TableColumn<CourseTM, String> colLessonID;
-
-    @FXML
-    private TableColumn<CourseTM, String> colInstructorID;
-
-    @FXML
-    private TableColumn<CourseTM, String> colStudentID;
-
-    @FXML
     private TableView<CourseTM> tblCourse;
 
     @FXML
@@ -56,15 +47,6 @@ public class CourseController implements Initializable {
 
     @FXML
     private Label lblCourseID;
-
-    @FXML
-    private Label lblLessonID;
-
-    @FXML
-    private Label lblInstructorID;
-
-    @FXML
-    private Label lblStudentID;
 
     @FXML
     private Button btnSave;
@@ -87,9 +69,6 @@ public class CourseController implements Initializable {
         colCourseName.setCellValueFactory(new PropertyValueFactory<>("courseName"));
         colTimePeriod.setCellValueFactory(new PropertyValueFactory<>("timePeriod"));
         colCourseFee.setCellValueFactory(new PropertyValueFactory<>("courseFee"));
-        colLessonID.setCellValueFactory(new PropertyValueFactory<>("lessonId"));
-        colInstructorID.setCellValueFactory(new PropertyValueFactory<>("instructorId"));
-        colStudentID.setCellValueFactory(new PropertyValueFactory<>("studentId"));
 
         try {
             loadTableData();
@@ -97,23 +76,27 @@ public class CourseController implements Initializable {
             resetPage();
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Something went wrong...").show();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong during initialization...").show();
         }
     }
 
-    private void loadTableData() throws Exception {
-        List<CourseDTO> courseList = courseBO.getAllCourse();
-        ObservableList<CourseTM> obList = FXCollections.observableArrayList();
-        for (CourseDTO dto : courseList) {
-            obList.add(new CourseTM(
-                    dto.getCourseId(),
-                    dto.getCourseName(),
-                    dto.getTimePeriod(),
-                    dto.getCourseFee()
-
-            ));
+    private void loadTableData() {
+        try {
+            List<CourseDTO> courseList = courseBO.getAllCourse();
+            ObservableList<CourseTM> obList = FXCollections.observableArrayList();
+            for (CourseDTO dto : courseList) {
+                obList.add(new CourseTM(
+                        dto.getCourseId(),
+                        dto.getCourseName(),
+                        dto.getTimePeriod(),
+                        dto.getCourseFee()
+                ));
+            }
+            tblCourse.setItems(obList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to load course data!").show();
         }
-        tblCourse.setItems(obList);
     }
 
     private void resetPage() {
@@ -121,9 +104,7 @@ public class CourseController implements Initializable {
             txtCourseName.clear();
             txtTimePeriod.clear();
             txtCourseFee.clear();
-            lblLessonID.setText("");
-            lblInstructorID.setText("");
-            lblStudentID.setText("");
+
             loadTableData();
             loadNextId();
 
@@ -136,22 +117,41 @@ public class CourseController implements Initializable {
         }
     }
 
-    private void loadNextId() throws Exception {
-        String lastId = String.valueOf(courseBO.getNextIdCourse());
-        int newIdNum = Integer.parseInt(lastId.replace("C", "")) + 1;
-        String nextId = String.format("C%03d", newIdNum);
-        lblCourseID.setText(nextId);
+    private void loadNextId() {
+        try {
+            Long nextId = courseBO.getNextIdCourse();
+            if (nextId == null) {
+                nextId = 1L; // Start with 1 if no courses exist
+            }
+            String nextIdStr = String.format("C%03d", nextId);
+            // Check if lblCourseID is not null before setting text
+            if (lblCourseID != null) {
+                lblCourseID.setText(nextIdStr);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Set a default value if there's an error
+            if (lblCourseID != null) {
+                lblCourseID.setText("C001");
+            }
+        }
     }
 
     @FXML
     public void saveOnAction(ActionEvent actionEvent) {
         if (!validateInput()) return;
+
+        // Check if lblCourseID is not null and has text
+        if (lblCourseID == null || lblCourseID.getText() == null || lblCourseID.getText().trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Course ID is not set!").show();
+            return;
+        }
+
         CourseDTO dto = new CourseDTO(
                 lblCourseID.getText(),
                 txtCourseName.getText(),
                 txtTimePeriod.getText(),
                 txtCourseFee.getText()
-
         );
         try {
             boolean saved = courseBO.saveCourse(dto);
@@ -163,19 +163,25 @@ public class CourseController implements Initializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Oops! Course could not be saved!").show();
+            new Alert(Alert.AlertType.ERROR, "Oops! Course could not be saved! " + e.getMessage()).show();
         }
     }
 
     @FXML
     public void updateOnAction(ActionEvent actionEvent) {
         if (!validateInput()) return;
+
+        // Check if lblCourseID is not null and has text
+        if (lblCourseID == null || lblCourseID.getText() == null || lblCourseID.getText().trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "No course selected for update!").show();
+            return;
+        }
+
         CourseDTO dto = new CourseDTO(
                 lblCourseID.getText(),
                 txtCourseName.getText(),
                 txtTimePeriod.getText(),
                 txtCourseFee.getText()
-
         );
         try {
             boolean updated = courseBO.updateCourse(dto);
@@ -187,12 +193,18 @@ public class CourseController implements Initializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Oops! Course could not be updated!").show();
+            new Alert(Alert.AlertType.ERROR, "Oops! Course could not be updated! " + e.getMessage()).show();
         }
     }
 
     @FXML
     public void deleteOnAction(ActionEvent actionEvent) {
+        // Check if lblCourseID is not null and has text
+        if (lblCourseID == null || lblCourseID.getText() == null || lblCourseID.getText().trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "No course selected for deletion!").show();
+            return;
+        }
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                 "Are you sure you want to delete this course?",
                 ButtonType.YES, ButtonType.NO);
@@ -209,7 +221,7 @@ public class CourseController implements Initializable {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR, "Oops! Course could not be deleted!").show();
+                new Alert(Alert.AlertType.ERROR, "Oops! Course could not be deleted! " + e.getMessage()).show();
             }
         }
     }
@@ -223,11 +235,10 @@ public class CourseController implements Initializable {
     public void onClickTable(MouseEvent mouseEvent) {
         CourseTM selected = tblCourse.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            lblCourseID.setText(String.valueOf(selected.getCourseId()));
+            lblCourseID.setText(selected.getCourseId());
             txtCourseName.setText(selected.getCourseName());
             txtTimePeriod.setText(selected.getTimePeriod());
             txtCourseFee.setText(selected.getCourseFee());
-
 
             btnSave.setDisable(true);
             btnUpdate.setDisable(false);

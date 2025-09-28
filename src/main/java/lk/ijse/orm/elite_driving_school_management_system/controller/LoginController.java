@@ -18,8 +18,6 @@ import org.hibernate.query.Query;
 
 public class LoginController {
 
-    public TextField txtEmail;
-    public TextField txtPasswords;
     @FXML
     private Button btnLogin;
 

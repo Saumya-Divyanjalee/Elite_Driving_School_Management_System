@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 
 public class StudentBOImpl implements StudentBO {
 
- StudentDAO studentDAO =(StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STUDENT);
+    StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STUDENT);
+
     @Override
     public boolean saveStudent(StudentDTO dto) throws Exception {
         Student student = new Student(
@@ -29,6 +30,11 @@ public class StudentBOImpl implements StudentBO {
 
     @Override
     public boolean updateStudent(StudentDTO dto) throws Exception {
+        // Validate input
+        if (dto == null || dto.getStudentID() <= 0) {
+            return false;
+        }
+
         Student student = new Student(
                 dto.getStudentID(),
                 dto.getStudentName(),
@@ -43,32 +49,60 @@ public class StudentBOImpl implements StudentBO {
 
     @Override
     public boolean deleteStudent(String id) throws Exception {
-        return studentDAO.delete(id);
+        // Handle null or empty ID
+        if (id == null || id.trim().isEmpty()) {
+            return false;
+        }
+
+        try {
+            Long studentId = Long.parseLong(id.trim());
+            return studentDAO.delete(studentId);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public List<StudentDTO> findAll() throws Exception {
-        return studentDAO.findAll().stream().map(student ->
-                new StudentDTO(
-                        student.getStudentID(),
-                        student.getStudentName(),
-                        student.getStudentEmail(),
-                        student.getStudentPhone(),
-                        student.getStudentAddress(),
-                        student.getRegisterFee(),
-                        student.getRegisterDate()
-                )).collect(Collectors.toList());
-
+        try {
+            return studentDAO.findAll().stream().map(student ->
+                    new StudentDTO(
+                            student.getStudentID(),
+                            student.getStudentName(),
+                            student.getStudentEmail(),
+                            student.getStudentPhone(),
+                            student.getStudentAddress(),
+                            student.getRegisterFee(),
+                            student.getRegisterDate()
+                    )).collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>(); // Return empty list instead of throwing exception
+        }
     }
 
     @Override
     public ArrayList<StudentDTO> getAllStudent() throws SQLException, Exception {
-        ArrayList<Student> students = (ArrayList<Student>) studentDAO.findAll();
+        try {
+            ArrayList<Student> students = (ArrayList<Student>) studentDAO.findAll();
 
-        ArrayList<StudentDTO> studentDTOS = new ArrayList<>();
-        for (Student s : students) {
-            studentDTOS.add(new StudentDTO(s.getStudentID(),s.getStudentName(),s.getStudentEmail(),s.getStudentPhone(),s.getStudentAddress(),s.getRegisterFee(),s.getRegisterDate()));
+            ArrayList<StudentDTO> studentDTOS = new ArrayList<>();
+            for (Student s : students) {
+                studentDTOS.add(new StudentDTO(
+                        s.getStudentID(),
+                        s.getStudentName(),
+                        s.getStudentEmail(),
+                        s.getStudentPhone(),
+                        s.getStudentAddress(),
+                        s.getRegisterFee(),
+                        s.getRegisterDate()
+                ));
+            }
+            return studentDTOS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>(); // Return empty list instead of throwing exception
         }
-        return studentDTOS;
     }
 }

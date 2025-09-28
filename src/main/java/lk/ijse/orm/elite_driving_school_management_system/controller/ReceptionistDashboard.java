@@ -36,14 +36,15 @@ public class ReceptionistDashboard  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle  resources) {
-        navigateTo("/lk.ijse.orm.elite_driving_school_management_system.resources/view/StudentDashboard.fxml");
-
+        // Don't load any initial page, let the user select what they want to view
+        // The dashboard should start empty and load pages on demand
     }
 
     public void navigateTo(String x){
         try{
             ancMainContainer.getChildren().clear();
-            AnchorPane pane = FXMLLoader.load(getClass().getResource(x));
+            // Fix the path by adding the leading slash and using the correct format
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/" + x));
 
             if(pane instanceof Region){
                 Region region = (Region)pane;
@@ -53,33 +54,30 @@ public class ReceptionistDashboard  implements Initializable {
             ancMainContainer.getChildren().add(pane);
 
         }catch(Exception e){
-            new Alert(Alert.AlertType.ERROR,"Oops! Page Not Found").show();
+            new Alert(Alert.AlertType.ERROR,"Oops! Page Not Found: " + x).show();
             e.printStackTrace();
         }
 
     }
+
     @FXML
     void lessonOnAction(ActionEvent event) {
-        navigateTo("view/Lesson.fxml");
-
+        navigateTo("Lesson.fxml");
     }
 
     @FXML
     void logoutOnAction(ActionEvent event) {
-        navigateTo("view/Logout.fxml");
-
+        navigateTo("Logout.fxml");
     }
 
     @FXML
     void paymentOnAction(ActionEvent event) {
-        navigateTo("view/Payment.fxml");
-
+        navigateTo("Payment.fxml");
     }
 
     @FXML
     void studentOnAction(ActionEvent event) {
-        navigateTo("view/Student.fxml");
-
+        navigateTo("Student.fxml");
     }
 
 }

@@ -4,7 +4,6 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordEncryptor {
 
-
     // Hash plain password with bcrypt
     public static String hashPassword(String plainPassword) {
         if (plainPassword == null || plainPassword.trim().isEmpty()) {
@@ -15,7 +14,16 @@ public class PasswordEncryptor {
 
     // Verify input password against stored hash
     public static boolean verifyPassword(String plainPassword, String hashedPassword) {
-        if (plainPassword == null || hashedPassword == null) return false;
-        return BCrypt.checkpw(plainPassword, hashedPassword);
+        if (plainPassword == null || hashedPassword == null || hashedPassword.isEmpty()) {
+            return false;
+        }
+
+        try {
+            return BCrypt.checkpw(plainPassword, hashedPassword);
+        } catch (Exception e) {
+            // Handle invalid salt version or other BCrypt errors
+            System.err.println("BCrypt verification error: " + e.getMessage());
+            return false;
+        }
     }
 }

@@ -61,7 +61,8 @@
                     <TextField fx:id="txtName" promptText="Car" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                     <Label prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Start Time : " textFill="black" GridPane.rowIndex="2" />
-                    <TextField fx:id="txtstarttime" promptText="08.00a.m" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <!-- Replaced TextField with ComboBox for time selection -->
+                    <ComboBox fx:id="cmbStartTime" prefHeight="26.0" prefWidth="217.0" promptText="Select Start Time" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     <Label text="Instructor ID :" GridPane.columnIndex="2">
                         <font>
                             <Font name="System Bold" size="12.0" />
@@ -70,18 +71,19 @@
                     <Label style="-fx-font-weight: bold;" text="Student ID : " GridPane.columnIndex="2" GridPane.rowIndex="1" />
                     <Label style="-fx-font-weight: bold;" text=" " GridPane.columnIndex="2" GridPane.rowIndex="2" />
                     <Label layoutX="59.0" layoutY="78.0" prefHeight="17.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="End Time :" textFill="black" GridPane.rowIndex="3" />
-                    <TextField fx:id="txtendtime" promptText="10.30a.m" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <!-- Replaced TextField with ComboBox for time selection -->
+                    <ComboBox fx:id="cmbEndTime" prefHeight="26.0" prefWidth="217.0" promptText="Select End Time" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     <Label style="-fx-font-weight: bold;" text="Course ID : " GridPane.columnIndex="2" GridPane.rowIndex="2" />
-               <Label text="Date :" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-               </Label>
-               <DatePicker fx:id="datepicker" prefHeight="26.0" prefWidth="217.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-               <TextField fx:id="txtLesson" GridPane.columnIndex="1" />
-               <ComboBox fx:id="cmbInstructor" prefWidth="150.0" GridPane.columnIndex="3" />
-               <ComboBox fx:id="cmbStudent" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-               <ComboBox fx:id="cmbCourse" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                    <Label text="Date :" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                        <font>
+                            <Font name="System Bold" size="12.0" />
+                        </font>
+                    </Label>
+                    <DatePicker fx:id="datepicker" prefHeight="26.0" prefWidth="217.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                    <TextField fx:id="txtLesson" GridPane.columnIndex="1" />
+                    <ComboBox fx:id="cmbInstructor" prefWidth="150.0" GridPane.columnIndex="3" />
+                    <ComboBox fx:id="cmbStudent" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    <ComboBox fx:id="cmbCourse" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                 </children>
             </GridPane>
 
@@ -110,7 +112,7 @@
                     <TableColumn fx:id="colName" prefWidth="227.9999771118164" text="Name" />
                     <TableColumn fx:id="colStartTime" prefWidth="134.39990234375" text="Start Time" />
                     <TableColumn fx:id="colEndTime" prefWidth="141.60003662109375" text="End Time" />
-               <TableColumn fx:id="colDate" prefWidth="172.79998779296875" text="Date" />
+                    <TableColumn fx:id="colDate" prefWidth="172.79998779296875" text="Date" />
                     <TableColumn fx:id="colInstructorID" prefWidth="125.60009765625" text="Instructor ID" />
                     <TableColumn fx:id="colStudentID" prefWidth="99.2000732421875" text="Student ID" />
                     <TableColumn fx:id="colCourseID" prefWidth="491.199951171875" text="Course ID" />

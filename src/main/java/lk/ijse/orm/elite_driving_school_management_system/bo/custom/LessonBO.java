@@ -20,7 +20,7 @@ public interface LessonBO extends SuperBO {
      List<String> getAllCourseIds() throws Exception;
      List<String> getAllStudentIds() throws Exception;
 
-    ArrayList<LessonDTO> getAllLesson() throws Exception;
+     ArrayList<LessonDTO> getAllLesson() throws Exception;
 
 
 }

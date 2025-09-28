@@ -14,7 +14,7 @@ public class RegexUtil {
     private static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,20}$";
     private static final String FEE_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";
     private static final String DATE_REGEX = "^\\d{4}-\\d{2}-\\d{2}$";   // yyyy-MM-dd
-    private static final String TIME_REGEX = "^([01]?[0-9]|2[0-3]):([0-5]\\d)$"; // HH:mm
+    private static final String TIME_REGEX = "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"; // HH:mm or H:mm
     private static final String DURATION_REGEX = "^[1-9]\\d*\\s+months?$";
 
     // ----- Required Field Check -----
@@ -48,8 +48,6 @@ public class RegexUtil {
     public static boolean isValidFee(String fee) {
         return fee != null && Pattern.matches(FEE_REGEX, fee);
     }
-
-
 
     public static boolean isValidTime(String time) {
         return time != null && Pattern.matches(TIME_REGEX, time);

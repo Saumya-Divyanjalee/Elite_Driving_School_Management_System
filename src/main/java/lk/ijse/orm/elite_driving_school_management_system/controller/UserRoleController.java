@@ -90,14 +90,15 @@ public class UserRoleController implements Initializable {
 
     @FXML
     void onClickTable(MouseEvent event) {
-        UserTM userTM = (UserTM) tblUser.getSelectionModel().getSelectedItem();
+        UserTM userTM = tblUser.getSelectionModel().getSelectedItem();
         if (userTM != null) {
             txtUserId.setText(String.valueOf(userTM.getUserId()));
             txtUserName.setText(userTM.getUsername());
             txtMobile.setText(userTM.getMobile());
             txtEmail.setText(userTM.getEmail());
             txtPassword.setText(userTM.getPassword());
-            cmbRole.getSelectionModel().select(Integer.parseInt(userTM.getRole()));
+            // Set the role in the combo box correctly
+            cmbRole.getSelectionModel().select(userTM.getRole());
         }
 
     }
@@ -111,6 +112,14 @@ public class UserRoleController implements Initializable {
     @FXML
     void saveOnAction(ActionEvent event) {
         try {
+            // Validate input
+            if (txtUserName.getText().trim().isEmpty() ||
+                    txtPassword.getText().trim().isEmpty() ||
+                    cmbRole.getSelectionModel().getSelectedItem() == null) {
+                new Alert(Alert.AlertType.WARNING, "Please fill in all required fields").show();
+                return;
+            }
+
             UserDTO userDTO = new UserDTO(
                     txtUserName.getText(),
                     txtMobile.getText(),
@@ -120,13 +129,15 @@ public class UserRoleController implements Initializable {
             );
 
             if(userBO.saveUser(userDTO)){
-                new Alert(Alert.AlertType.INFORMATION,"Save User...").show();
+                new Alert(Alert.AlertType.INFORMATION,"User saved successfully!").show();
                 loadTableData();
                 resetPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to save user!").show();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Something went wrong...").show();
+            new Alert(Alert.AlertType.ERROR, "Error saving user: " + e.getMessage()).show();
         }
 
     }
@@ -138,11 +149,25 @@ public class UserRoleController implements Initializable {
         txtMobile.clear();
         txtPassword.clear();
         cmbRole.getSelectionModel().clearSelection();
+
+        // Reset button states
+        btnSave.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
     }
 
     @FXML
     void updateOnAction(ActionEvent event) {
         try {
+            // Validate input
+            if (txtUserId.getText().trim().isEmpty() ||
+                    txtUserName.getText().trim().isEmpty() ||
+                    txtPassword.getText().trim().isEmpty() ||
+                    cmbRole.getSelectionModel().getSelectedItem() == null) {
+                new Alert(Alert.AlertType.WARNING, "Please select a user and fill in all required fields").show();
+                return;
+            }
+
             long id = Long.parseLong(txtUserId.getText());
             UserDTO userDTO = new UserDTO(
                     id,
@@ -150,21 +175,22 @@ public class UserRoleController implements Initializable {
                     txtMobile.getText(),
                     txtEmail.getText(),
                     txtPassword.getText(),
-                    (String) cmbRole.getSelectionModel().getSelectedItem()
-
+                    cmbRole.getSelectionModel().getSelectedItem()
             );
 
             if(userBO.updateUser(userDTO)){
-                new Alert(Alert.AlertType.INFORMATION,"Update User...").show();
+                new Alert(Alert.AlertType.INFORMATION,"User updated successfully!").show();
                 loadTableData();
                 resetPage();
-
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update user!").show();
             }
-        }catch (Exception e){
-            new Alert(Alert.AlertType.ERROR, "Something went wrong...").show();
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid user ID format!").show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error updating user: " + e.getMessage()).show();
         }
-
-
     }
 
     @Override
@@ -176,8 +202,11 @@ public class UserRoleController implements Initializable {
         colRole.setCellValueFactory(new PropertyValueFactory<>("role"));
         colPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
 
+        // Initialize button states
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
 
-        cmbRole.setItems(FXCollections.observableArrayList("ADMIN", "RECEPTIONIST").sorted());
+        cmbRole.setItems(FXCollections.observableArrayList("ADMIN", "RECEPTIONIST"));
 
         loadTableData();
     }
@@ -198,8 +227,9 @@ public class UserRoleController implements Initializable {
             }
             tblUser.setItems(listTM);
 
-        }catch (Exception e){
-            new Alert(Alert.AlertType.ERROR, "Error Loading Users....", ButtonType.OK).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error loading users: " + e.getMessage(), ButtonType.OK).show();
         }
     }
 }

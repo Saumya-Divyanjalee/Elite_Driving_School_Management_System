@@ -23,8 +23,8 @@ public class PaymentTM {
     private String userId;
 
 
-    public PaymentTM(long paymentId, String amount, String description, Date date, String time, String studentId, String courseId, String userId) {
-        this.paymentId = paymentId;
+    public PaymentTM(String paymentId, String amount, String description, Date date, String time, String studentId, String courseId, String userId) {
+        this.paymentId = Long.parseLong(paymentId);
         this.amount = Double.parseDouble(amount);
         this.description = description;
         this.date = date;

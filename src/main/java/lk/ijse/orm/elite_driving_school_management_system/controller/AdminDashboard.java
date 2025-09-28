@@ -47,7 +47,7 @@ public class AdminDashboard implements Initializable {
         }
     }
     public void userOnAction(ActionEvent actionEvent) {
-        navigateTo("/view/User.fxml");
+        navigateTo("/view/User-Role.fxml");
     }
     public void instructorOnAction(ActionEvent actionEvent) {
         navigateTo("/view/Instructor.fxml");
