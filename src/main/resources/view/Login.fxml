@@ -1,62 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="468.0" prefWidth="657.0" style="-fx-background-color: #192a56;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm.elite_driving_school_management_system.controller.LoginController">
-   <children>
-      <AnchorPane layoutX="403.0" prefHeight="468.0" prefWidth="282.0" style="-fx-background-color: #0984e3;">
-         <children>
-            <ComboBox fx:id="cmbUser" layoutX="47.0" layoutY="156.0" prefWidth="180.0" promptText="ADMIN/RECEPTIONIST" visibleRowCount="3" />
-            <TextField fx:id="txtUserName" layoutX="47.0" layoutY="221.0" prefHeight="26.0" prefWidth="180.0" promptText="user_name" />
-            <PasswordField fx:id="txtPassword" layoutX="48.0" layoutY="351.0" prefHeight="26.0" prefWidth="186.0" promptText="password" />
-            <Label layoutX="58.0" layoutY="51.0" text="Welcome Back" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="47.0" layoutY="126.0" prefHeight="18.0" prefWidth="146.0" text="Please choose your role" textFill="WHITE" />
-            <Label layoutX="47.0" layoutY="196.0" text="User Name" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="47.0" layoutY="323.0" text="Password" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnLogin" layoutX="80.0" layoutY="395.0" mnemonicParsing="false" onAction="#loginOnAction" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #192a56;" text="Login" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font></Button>
-            <ImageView fitHeight="35.0" fitWidth="44.0" layoutX="115.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/logo.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="13.0" layoutY="18.0" prefHeight="436.0" prefWidth="370.0" style="-fx-background-color: #f5f6fa;">
-         <children>
-            <ImageView fitHeight="373.0" fitWidth="337.0" layoutX="17.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../lk/ijse/orm/elite_driving_school_management_system/undraw_electric-car_vlgq.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="17.0" layoutY="25.0" text="Elite Driving School System" textFill="#1c0a8c">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </children>
+<AnchorPane
+        prefHeight="700.0"
+        prefWidth="1100.0"
+        style="-fx-background-color: #0a0e1a;"
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="lk.ijse.orm.elite_driving_school_management_system.controller.LoginController">
+
+   <!-- LEFT PANEL - Branding -->
+   <AnchorPane
+           layoutX="0" layoutY="0"
+           prefWidth="580" prefHeight="700"
+           style="-fx-background-color: linear-gradient(to bottom right, #0d47a1, #1565c0, #0a2472);">
+
+      <!-- Decorative circles -->
+      <AnchorPane
+              layoutX="-80" layoutY="-80"
+              prefWidth="300" prefHeight="300"
+              style="-fx-background-color: rgba(255,255,255,0.03); -fx-background-radius: 150;" />
+      <AnchorPane
+              layoutX="350" layoutY="450"
+              prefWidth="250" prefHeight="250"
+              style="-fx-background-color: rgba(255,255,255,0.04); -fx-background-radius: 125;" />
+      <AnchorPane
+              layoutX="100" layoutY="500"
+              prefWidth="150" prefHeight="150"
+              style="-fx-background-color: rgba(100,181,246,0.08); -fx-background-radius: 75;" />
+
+      <!-- Logo + School name -->
+      <HBox layoutX="50" layoutY="60" spacing="15" alignment="CENTER_LEFT">
+         <ImageView fitHeight="55" fitWidth="55" pickOnBounds="true" preserveRatio="true">
+            <image><Image url="@../assets/logo.png" /></image>
+         </ImageView>
+         <VBox spacing="2">
+            <Label text="ELITE" textFill="WHITE" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-letter-spacing: 6px;" />
+            <Label text="DRIVING SCHOOL" textFill="#90caf9" style="-fx-font-size: 11px; -fx-letter-spacing: 4px;" />
+         </VBox>
+      </HBox>
+
+      <!-- Main illustration / car image -->
+      <ImageView
+              layoutX="50" layoutY="180"
+              fitHeight="300" fitWidth="480"
+              pickOnBounds="true" preserveRatio="true">
+         <image><Image url="@../lk/ijse/orm/elite_driving_school_management_system/undraw_electric-car_vlgq.png" /></image>
+      </ImageView>
+
+      <!-- Tagline -->
+      <VBox layoutX="50" layoutY="520" spacing="10">
+         <Label text="Drive Your Future" textFill="WHITE"
+                style="-fx-font-size: 30px; -fx-font-weight: bold;" />
+         <Label text="Professional driving education management system"
+                textFill="#90caf9" style="-fx-font-size: 14px;" />
+      </VBox>
+
+      <!-- Bottom accent bar -->
+      <AnchorPane
+              layoutX="0" layoutY="690"
+              prefWidth="580" prefHeight="10"
+              style="-fx-background-color: linear-gradient(to right, #42a5f5, #1e88e5, #1565c0);" />
+   </AnchorPane>
+
+   <!-- RIGHT PANEL - Login Form -->
+   <VBox
+           layoutX="580" layoutY="0"
+           prefWidth="520" prefHeight="700"
+           alignment="CENTER"
+           spacing="0"
+           style="-fx-background-color: #0f1629; -fx-padding: 60 60 60 60;">
+
+      <!-- Header -->
+      <VBox spacing="8" alignment="CENTER">
+         <Label text="Welcome Back" textFill="WHITE"
+                style="-fx-font-size: 32px; -fx-font-weight: bold;" />
+         <Label text="Sign in to your account to continue"
+                textFill="#607d8b" style="-fx-font-size: 13px;" />
+      </VBox>
+
+      <!-- Divider -->
+      <AnchorPane prefHeight="40" />
+
+      <!-- Role Label -->
+      <Label text="SELECT ROLE" textFill="#42a5f5"
+             style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-letter-spacing: 2px;">
+         <VBox.margin><Insets bottom="6" /></VBox.margin>
+      </Label>
+
+      <!-- Role ComboBox -->
+      <ComboBox fx:id="cmbUser"
+                prefWidth="400" prefHeight="48"
+                promptText="Choose your role..."
+                style="-fx-background-color: #1a2035; -fx-border-color: #263859; -fx-border-radius: 8; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-prompt-text-fill: #455a64;">
+         <VBox.margin><Insets bottom="20" /></VBox.margin>
+      </ComboBox>
+
+      <!-- Username Label -->
+      <Label text="USERNAME OR EMAIL" textFill="#42a5f5"
+             style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-letter-spacing: 2px;">
+         <VBox.margin><Insets bottom="6" /></VBox.margin>
+      </Label>
+
+      <!-- Username Field -->
+      <TextField fx:id="txtUserName"
+                 prefWidth="400" prefHeight="48"
+                 promptText="Enter your username or email"
+                 style="-fx-background-color: #1a2035; -fx-border-color: #263859; -fx-border-radius: 8; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-prompt-text-fill: #455a64; -fx-padding: 0 16;">
+         <VBox.margin><Insets bottom="20" /></VBox.margin>
+      </TextField>
+
+      <!-- Password Label -->
+      <Label text="PASSWORD" textFill="#42a5f5"
+             style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-letter-spacing: 2px;">
+         <VBox.margin><Insets bottom="6" /></VBox.margin>
+      </Label>
+
+      <!-- Password Field -->
+      <PasswordField fx:id="txtPassword"
+                     prefWidth="400" prefHeight="48"
+                     promptText="Enter your password"
+                     style="-fx-background-color: #1a2035; -fx-border-color: #263859; -fx-border-radius: 8; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-prompt-text-fill: #455a64; -fx-padding: 0 16;">
+         <VBox.margin><Insets bottom="35" /></VBox.margin>
+      </PasswordField>
+
+      <!-- Login Button -->
+      <Button fx:id="btnLogin"
+              text="SIGN IN"
+              prefWidth="400" prefHeight="50"
+              onAction="#loginOnAction"
+              style="-fx-background-color: linear-gradient(to right, #1565c0, #1e88e5); -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-letter-spacing: 2px;">
+         <VBox.margin><Insets bottom="30" /></VBox.margin>
+      </Button>
+
+      <!-- Footer -->
+      <Label text="Elite Driving School Management System v1.0"
+             textFill="#263859" style="-fx-font-size: 11px;" />
+   </VBox>
 </AnchorPane>

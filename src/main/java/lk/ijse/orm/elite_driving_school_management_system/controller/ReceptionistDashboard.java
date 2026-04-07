@@ -7,19 +7,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ReceptionistDashboard  implements Initializable {
-
+public class ReceptionistDashboard implements Initializable {
 
     public AnchorPane ancMainContainer;
-    @FXML
-    private AnchorPane ancpanal;
 
     @FXML
     private Button lessonId;
@@ -33,51 +29,58 @@ public class ReceptionistDashboard  implements Initializable {
     @FXML
     private Button studentId;
 
-
     @Override
-    public void initialize(URL location, ResourceBundle  resources) {
-        // Don't load any initial page, let the user select what they want to view
-        // The dashboard should start empty and load pages on demand
+    public void initialize(URL location, ResourceBundle resources) {
+        //   Load Student page as the default landing page after receptionist login
+        navigateTo("/view/Student.fxml");
     }
 
-    public void navigateTo(String x){
-        try{
-            ancMainContainer.getChildren().clear();
-            // Fix the path by adding the leading slash and using the correct format
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/" + x));
+    //   Accepts full path now (consistent with AdminDashboard)
+    private void navigateTo(String fxmlPath) {
+        try {
+            URL resource = getClass().getResource(fxmlPath);
+            if (resource == null) {
+                new Alert(Alert.AlertType.ERROR,
+                        "Page not found: " + fxmlPath + "\nCheck that the file exists in /resources/view/").showAndWait();
+                return;
+            }
 
-            if(pane instanceof Region){
-                Region region = (Region)pane;
+            FXMLLoader loader = new FXMLLoader(resource);
+            Parent pane = loader.load();
+
+            if (pane instanceof Region) {
+                Region region = (Region) pane;
                 region.prefWidthProperty().bind(ancMainContainer.widthProperty());
                 region.prefHeightProperty().bind(ancMainContainer.heightProperty());
             }
+
+            ancMainContainer.getChildren().clear();
             ancMainContainer.getChildren().add(pane);
 
-        }catch(Exception e){
-            new Alert(Alert.AlertType.ERROR,"Oops! Page Not Found: " + x).show();
+        } catch (Exception e) {
             e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,
+                    "Failed to load page: " + fxmlPath + "\nError: " + e.getMessage()).showAndWait();
         }
-
     }
 
     @FXML
     void lessonOnAction(ActionEvent event) {
-        navigateTo("Lesson.fxml");
+        navigateTo("/view/Lesson.fxml");
     }
 
     @FXML
     void logoutOnAction(ActionEvent event) {
-        navigateTo("Logout.fxml");
+        navigateTo("/view/Logout.fxml");
     }
 
     @FXML
     void paymentOnAction(ActionEvent event) {
-        navigateTo("Payment.fxml");
+        navigateTo("/view/Payment.fxml");
     }
 
     @FXML
     void studentOnAction(ActionEvent event) {
-        navigateTo("Student.fxml");
+        navigateTo("/view/Student.fxml");
     }
-
 }

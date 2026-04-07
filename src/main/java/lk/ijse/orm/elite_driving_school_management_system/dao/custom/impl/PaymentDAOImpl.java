@@ -2,63 +2,85 @@ package lk.ijse.orm.elite_driving_school_management_system.dao.custom.impl;
 
 import lk.ijse.orm.elite_driving_school_management_system.config.FactoryConfiguration;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.PaymentDAO;
-import lk.ijse.orm.elite_driving_school_management_system.dao.custom.QueryDAO;
 import lk.ijse.orm.elite_driving_school_management_system.entity.Payment;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public class PaymentDAOImpl implements PaymentDAO {
 
+    private final FactoryConfiguration fc = FactoryConfiguration.getInstance();
 
-    private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
-
+    //   rollback on failure prevents lock timeout
     @Override
-    public boolean save(Payment entity) {
-        try (Session session = factoryConfiguration.getSession()) {
-            Transaction tx = session.beginTransaction();
+    public boolean save(Payment entity) throws Exception {
+        Transaction tx = null;
+        try (Session session = fc.getSession()) {
+            tx = session.beginTransaction();
             session.persist(entity);
             tx.commit();
             return true;
         } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                try { tx.rollback(); } catch (Exception rb) { rb.printStackTrace(); }
+            }
             e.printStackTrace();
-            return false;
+            throw e;
         }
     }
 
     @Override
     public boolean update(Payment entity) throws Exception {
-        Session session = factoryConfiguration.getSession();
-        Transaction tx = session.beginTransaction();
-        session.merge(entity);
-        tx.commit();
-        session.close();
-        return true;
+        Transaction tx = null;
+        try (Session session = fc.getSession()) {
+            tx = session.beginTransaction();
+            session.merge(entity);
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                try { tx.rollback(); } catch (Exception rb) { rb.printStackTrace(); }
+            }
+            e.printStackTrace();
+            throw e;
+        }
     }
 
+    //   String id — matches PaymentDAO interface
     @Override
     public boolean delete(String id) throws Exception {
-        try (Session session = factoryConfiguration.getSession()) {
-            Transaction tx = session.beginTransaction();
-            Payment payment = session.get(Payment.class, Long.parseLong(id));
-            if (payment != null) {
-                payment.setStudent(null);
-                payment.setCourse(null);
-                session.remove(payment);
-            }
+        Transaction tx = null;
+        try (Session session = fc.getSession()) {
+            tx = session.beginTransaction();
+            Payment p = session.get(Payment.class, Long.parseLong(id));
+            if (p != null) session.remove(p);
             tx.commit();
-            return payment != null;
+            return p != null;
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                try { tx.rollback(); } catch (Exception rb) { rb.printStackTrace(); }
+            }
+            e.printStackTrace();
+            throw e;
         }
     }
 
     @Override
     public List<Payment> findAll() throws Exception {
-        Session session = factoryConfiguration.getSession();
-        List<Payment> list = session.createQuery("FROM Payment", Payment.class).list();
-        session.close();
-        return list;
+        try (Session session = fc.getSession()) {
+            return session.createQuery("FROM Payment", Payment.class).list();
+        }
+    }
+
+    //   NEW: for auto-generating next payment ID in UI
+    @Override
+    public Long getLastPaymentId() throws Exception {
+        try (Session session = fc.getSession()) {
+            Long result = session.createQuery(
+                    "SELECT MAX(p.id) FROM Payment p", Long.class
+            ).uniqueResult();
+            return result != null ? result : 0L;
+        }
     }
 }

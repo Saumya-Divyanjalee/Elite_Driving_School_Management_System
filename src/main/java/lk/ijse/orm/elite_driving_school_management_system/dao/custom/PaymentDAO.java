@@ -5,4 +5,6 @@ import lk.ijse.orm.elite_driving_school_management_system.entity.Payment;
 
 public interface PaymentDAO extends CrudDAO<Payment, String> {
 
+    //   needed for auto-generating payment ID in the UI
+    Long getLastPaymentId() throws Exception;
 }

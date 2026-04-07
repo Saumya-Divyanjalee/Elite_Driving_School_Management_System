@@ -12,7 +12,6 @@ import lk.ijse.orm.elite_driving_school_management_system.bo.BOFactory;
 import lk.ijse.orm.elite_driving_school_management_system.bo.custom.CourseBO;
 import lk.ijse.orm.elite_driving_school_management_system.dto.CourseDTO;
 import lk.ijse.orm.elite_driving_school_management_system.tm.CourseTM;
-import lk.ijse.orm.elite_driving_school_management_system.util.RegexUtil;
 
 import java.net.URL;
 import java.util.List;
@@ -21,70 +20,55 @@ import java.util.ResourceBundle;
 
 public class CourseController implements Initializable {
 
-    @FXML
-    private TableColumn<CourseTM, String> colCourseID;
+    //  Table columns — only 4, matching CourseTM fields exactly
+    @FXML private TableColumn<CourseTM, String> colCourseID;
+    @FXML private TableColumn<CourseTM, String> colCourseName;
+    @FXML private TableColumn<CourseTM, String> colTimePeriod;
+    @FXML private TableColumn<CourseTM, String> colCourseFee;
+    @FXML private TableView<CourseTM> tblCourse;
 
-    @FXML
-    private TableColumn<CourseTM, String> colCourseName;
+    //  Form fields
+    @FXML private TextField txtCourseName;
+    @FXML private TextField txtTimePeriod;
+    @FXML private TextField txtCourseFee;
 
-    @FXML
-    private TableColumn<CourseTM, String> colTimePeriod;
+    //   lblCourseID is a Label (auto-generated, read-only) — was TextField before
+    @FXML private Label lblCourseID;
 
-    @FXML
-    private TableColumn<CourseTM, String> colCourseFee;
-
-    @FXML
-    private TableView<CourseTM> tblCourse;
-
-    @FXML
-    private TextField txtCourseName;
-
-    @FXML
-    private TextField txtTimePeriod;
-
-    @FXML
-    private TextField txtCourseFee;
-
-    @FXML
-    private Label lblCourseID;
-
-    @FXML
-    private Button btnSave;
-
-    @FXML
-    private Button btnUpdate;
-
-    @FXML
-    private Button btnDelete;
-
-    @FXML
-    private Button btnReset;
+    //  Buttons
+    @FXML private Button btnSave;
+    @FXML private Button btnUpdate;
+    @FXML private Button btnDelete;
+    @FXML private Button btnReset;
 
     private final CourseBO courseBO =
             (CourseBO) BOFactory.getInstance().getBO(BOFactory.BoTypes.COURSE);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //  Bind table columns to CourseTM property names
         colCourseID.setCellValueFactory(new PropertyValueFactory<>("courseId"));
         colCourseName.setCellValueFactory(new PropertyValueFactory<>("courseName"));
         colTimePeriod.setCellValueFactory(new PropertyValueFactory<>("timePeriod"));
         colCourseFee.setCellValueFactory(new PropertyValueFactory<>("courseFee"));
 
-        try {
-            loadTableData();
-            loadNextId();
-            resetPage();
-        } catch (Exception e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Something went wrong during initialization...").show();
-        }
+        //  Set initial button states
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+        btnSave.setDisable(false);
+
+        loadTableData();
+        loadNextId();
     }
 
+    //  LOAD TABLE
     private void loadTableData() {
         try {
             List<CourseDTO> courseList = courseBO.getAllCourse();
             ObservableList<CourseTM> obList = FXCollections.observableArrayList();
+
             for (CourseDTO dto : courseList) {
+                //   Only pass 4 args — CourseTM(courseId, courseName, timePeriod, courseFee)
                 obList.add(new CourseTM(
                         dto.getCourseId(),
                         dto.getCourseName(),
@@ -95,184 +79,195 @@ public class CourseController implements Initializable {
             tblCourse.setItems(obList);
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Failed to load course data!").show();
+            showAlert(Alert.AlertType.ERROR, "Failed to load course data: " + e.getMessage());
         }
     }
 
-    private void resetPage() {
-        try {
-            txtCourseName.clear();
-            txtTimePeriod.clear();
-            txtCourseFee.clear();
-
-            loadTableData();
-            loadNextId();
-
-            btnSave.setDisable(false);
-            btnUpdate.setDisable(true);
-            btnDelete.setDisable(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Oops! Something went wrong during reset!").show();
-        }
-    }
-
+    //  LOAD NEXT AUTO ID
     private void loadNextId() {
         try {
             Long nextId = courseBO.getNextIdCourse();
-            if (nextId == null) {
-                nextId = 1L; // Start with 1 if no courses exist
-            }
-            String nextIdStr = String.format("C%03d", nextId);
-            // Check if lblCourseID is not null before setting text
-            if (lblCourseID != null) {
-                lblCourseID.setText(nextIdStr);
-            }
+            if (nextId == null) nextId = 1L;
+            lblCourseID.setText(String.format("C%03d", nextId));
         } catch (Exception e) {
             e.printStackTrace();
-            // Set a default value if there's an error
-            if (lblCourseID != null) {
-                lblCourseID.setText("C001");
-            }
+            lblCourseID.setText("C001"); // safe fallback
         }
     }
 
+    //  SAVE
     @FXML
     public void saveOnAction(ActionEvent actionEvent) {
         if (!validateInput()) return;
 
-        // Check if lblCourseID is not null and has text
-        if (lblCourseID == null || lblCourseID.getText() == null || lblCourseID.getText().trim().isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Course ID is not set!").show();
-            return;
-        }
-
         CourseDTO dto = new CourseDTO(
                 lblCourseID.getText(),
-                txtCourseName.getText(),
-                txtTimePeriod.getText(),
-                txtCourseFee.getText()
+                txtCourseName.getText().trim(),
+                txtTimePeriod.getText().trim(),
+                txtCourseFee.getText().trim()
         );
+
         try {
-            boolean saved = courseBO.saveCourse(dto);
-            if (saved) {
+            if (courseBO.saveCourse(dto)) {
+                showAlert(Alert.AlertType.INFORMATION, "Course saved successfully!");
                 resetPage();
-                new Alert(Alert.AlertType.INFORMATION, "Course saved successfully!").show();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Course could not be saved!").show();
+                showAlert(Alert.AlertType.ERROR, " Failed to save course.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Oops! Course could not be saved! " + e.getMessage()).show();
+            showAlert(Alert.AlertType.ERROR, "Error saving course: " + e.getMessage());
         }
     }
 
+    //  UPDATE
     @FXML
     public void updateOnAction(ActionEvent actionEvent) {
         if (!validateInput()) return;
 
-        // Check if lblCourseID is not null and has text
-        if (lblCourseID == null || lblCourseID.getText() == null || lblCourseID.getText().trim().isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "No course selected for update!").show();
+        //  Guard: must have a course selected
+        if (lblCourseID.getText() == null || lblCourseID.getText().trim().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Please select a course from the table first.");
             return;
         }
 
         CourseDTO dto = new CourseDTO(
                 lblCourseID.getText(),
-                txtCourseName.getText(),
-                txtTimePeriod.getText(),
-                txtCourseFee.getText()
+                txtCourseName.getText().trim(),
+                txtTimePeriod.getText().trim(),
+                txtCourseFee.getText().trim()
         );
+
         try {
-            boolean updated = courseBO.updateCourse(dto);
-            if (updated) {
+            if (courseBO.updateCourse(dto)) {
+                showAlert(Alert.AlertType.INFORMATION, " Course updated successfully!");
                 resetPage();
-                new Alert(Alert.AlertType.INFORMATION, "Course updated successfully!").show();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Course could not be updated!").show();
+                showAlert(Alert.AlertType.ERROR, " Failed to update course.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Oops! Course could not be updated! " + e.getMessage()).show();
+            showAlert(Alert.AlertType.ERROR, "Error updating course: " + e.getMessage());
         }
     }
 
+    // DELETE
     @FXML
     public void deleteOnAction(ActionEvent actionEvent) {
-        // Check if lblCourseID is not null and has text
-        if (lblCourseID == null || lblCourseID.getText() == null || lblCourseID.getText().trim().isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "No course selected for deletion!").show();
+        if (lblCourseID.getText() == null || lblCourseID.getText().trim().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Please select a course from the table first.");
             return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-                "Are you sure you want to delete this course?",
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "Delete course " + lblCourseID.getText() + "?\nThis action cannot be undone.",
                 ButtonType.YES, ButtonType.NO);
-        Optional<ButtonType> result = alert.showAndWait();
+        confirm.setTitle("Confirm Delete");
+        confirm.setHeaderText(null);
+        Optional<ButtonType> result = confirm.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
             try {
-                boolean deleted = courseBO.deleteCourse(lblCourseID.getText());
-                if (deleted) {
+                if (courseBO.deleteCourse(lblCourseID.getText())) {
+                    showAlert(Alert.AlertType.INFORMATION, " Course deleted successfully!");
                     resetPage();
-                    new Alert(Alert.AlertType.INFORMATION, "Course deleted successfully!").show();
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "Course could not be deleted!").show();
+                    showAlert(Alert.AlertType.ERROR, " Failed to delete course.");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR, "Oops! Course could not be deleted! " + e.getMessage()).show();
+                showAlert(Alert.AlertType.ERROR, "Error deleting course: " + e.getMessage());
             }
         }
     }
 
+    //  RESET
     @FXML
     public void resetOnAction(ActionEvent actionEvent) {
         resetPage();
     }
 
+    // TABLE CLICK
     @FXML
     public void onClickTable(MouseEvent mouseEvent) {
         CourseTM selected = tblCourse.getSelectionModel().getSelectedItem();
         if (selected != null) {
+            // Populate form from selected row
             lblCourseID.setText(selected.getCourseId());
             txtCourseName.setText(selected.getCourseName());
             txtTimePeriod.setText(selected.getTimePeriod());
             txtCourseFee.setText(selected.getCourseFee());
 
+            //  Switch buttons: disable Save, enable Update/Delete
             btnSave.setDisable(true);
             btnUpdate.setDisable(false);
             btnDelete.setDisable(false);
         }
     }
 
+    //  HELPERS
+
+    private void resetPage() {
+        txtCourseName.clear();
+        txtTimePeriod.clear();
+        txtCourseFee.clear();
+        tblCourse.getSelectionModel().clearSelection();
+
+        //  Reload next auto ID and table data
+        loadNextId();
+        loadTableData();
+
+        //  Reset button states
+        btnSave.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+    }
+
     private boolean validateInput() {
-        try {
-            // Validate Course Name
-            RegexUtil.validateRequired(txtCourseName.getText(), "Course Name");
-            if (!RegexUtil.isValidName(txtCourseName.getText())) {
-                new Alert(Alert.AlertType.WARNING, "Course name must be 3-50 letters only.").show();
-                return false;
-            }
+        String name = txtCourseName.getText().trim();
+        String period = txtTimePeriod.getText().trim();
+        String fee = txtCourseFee.getText().trim();
 
-            // Validate Time Period
-            RegexUtil.validateRequired(txtTimePeriod.getText(), "Time Period");
-            if (!RegexUtil.isValidDuration(txtTimePeriod.getText())) {
-                new Alert(Alert.AlertType.WARNING, "Time period must be a number followed by 'month' or 'months'.").show();
-                return false;
-            }
-
-            // Validate Course Fee
-            RegexUtil.validateRequired(txtCourseFee.getText(), "Course Fee");
-            if (!RegexUtil.isValidFee(txtCourseFee.getText())) {
-                new Alert(Alert.AlertType.WARNING, "Course fee must be a valid number (up to 2 decimals).").show();
-                return false;
-            }
-
-            return true;
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        if (name.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Course Name is required.");
+            txtCourseName.requestFocus();
             return false;
         }
+        if (name.length() < 3 || name.length() > 50) {
+            showAlert(Alert.AlertType.WARNING, "Course Name must be 3–50 characters.");
+            txtCourseName.requestFocus();
+            return false;
+        }
+        if (period.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Time Period is required.");
+            txtTimePeriod.requestFocus();
+            return false;
+        }
+        if (fee.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Course Fee is required.");
+            txtCourseFee.requestFocus();
+            return false;
+        }
+        //  Validate fee is a valid number
+        try {
+            double feeVal = Double.parseDouble(fee);
+            if (feeVal < 0) {
+                showAlert(Alert.AlertType.WARNING, "Course Fee cannot be negative.");
+                txtCourseFee.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.WARNING, "Course Fee must be a valid number (e.g. 15000.00).");
+            txtCourseFee.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private void showAlert(Alert.AlertType type, String message) {
+        Alert alert = new Alert(type);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

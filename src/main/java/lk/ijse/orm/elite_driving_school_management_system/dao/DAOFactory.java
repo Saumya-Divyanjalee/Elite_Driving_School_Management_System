@@ -1,14 +1,17 @@
 package lk.ijse.orm.elite_driving_school_management_system.dao;
 
-import lk.ijse.orm.elite_driving_school_management_system.bo.custom.impl.InstructorBOImpl;
-import lk.ijse.orm.elite_driving_school_management_system.bo.custom.impl.LessonBOImpl;
 import lk.ijse.orm.elite_driving_school_management_system.dao.custom.impl.*;
 
-public class DAOFactory  {
+public class DAOFactory {
     private static DAOFactory daoFactory;
+
     private DAOFactory() {}
+
     public static DAOFactory getInstance() {
-        return (daoFactory == null) ? new DAOFactory() : daoFactory;
+        if (daoFactory == null) {
+            daoFactory = new DAOFactory(); //   was returning new instance without saving it
+        }
+        return daoFactory;
     }
 
     public enum DAOTypes {
@@ -20,7 +23,6 @@ public class DAOFactory  {
         QUERY,
         USER
     }
-
 
     public SuperDAO getDAO(DAOTypes daoType) {
         switch (daoType) {

@@ -14,67 +14,138 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="677.0" prefWidth="1188.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm.elite_driving_school_management_system.controller.UserRoleController">
-    <children>
-        <VBox layoutX="20.0" layoutY="20.0" prefHeight="641.0" prefWidth="1166.0" spacing="20">
-            <padding>
-                <Insets bottom="20" left="20" right="20" top="20" />
-            </padding>
+<AnchorPane
+        prefHeight="768.0"
+        prefWidth="1106.0"
+        style="-fx-background-color: #f0f4f8;"
+        xmlns="http://javafx.com/javafx/24.0.1"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="lk.ijse.orm.elite_driving_school_management_system.controller.UserRoleController">
 
-            <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: black;" text="User Role Management" textFill="#211884" />
+    <VBox spacing="0"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
-            <GridPane hgap="10" vgap="12">
-                <columnConstraints>
-                    <ColumnConstraints halignment="RIGHT" />
-                    <ColumnConstraints prefWidth="300.0" />
-               <ColumnConstraints maxWidth="294.39996337890625" minWidth="129.60004882812495" prefWidth="129.60004882812495" />
-               <ColumnConstraints maxWidth="471.199951171875" minWidth="305.60003662109375" prefWidth="471.199951171875" />
-                </columnConstraints>
+        <!-- HEADER -->
+        <HBox prefHeight="64" alignment="CENTER_LEFT"
+              style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 0 30;">
+            <VBox spacing="2">
+                <Label text="User Role Management" textFill="#0d47a1"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+                <Label text="Manage system users and their access roles"
+                       textFill="#90a4ae" style="-fx-font-size: 12px;" />
+            </VBox>
+        </HBox>
 
-                <Label prefHeight="17.0" prefWidth="67.0" style="-fx-text-fill: black; -fx-font-weight: bold;" text="User ID:" textFill="#181357" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <VBox spacing="20" VBox.vgrow="ALWAYS" style="-fx-padding: 24 30 24 30;">
 
-                <Label style="-fx-text-fill: black; -fx-font-weight: bold;" text="User Name:" GridPane.rowIndex="2" />
-                <TextField fx:id="txtUserName" promptText="John Doe" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <!-- FORM CARD -->
+            <VBox spacing="20"
+                  style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #e8eaf6; -fx-border-radius: 12; -fx-padding: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
 
-                <Label prefHeight="17.0" prefWidth="65.0" style="-fx-text-fill: black; -fx-font-weight: bold;" text="Mobile:" GridPane.rowIndex="3" />
-                <TextField fx:id="txtMobile" promptText="0700000000" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="User Information" textFill="#0d47a1"
+                       style="-fx-font-size: 15px; -fx-font-weight: bold;" />
 
-                <Label prefHeight="17.0" prefWidth="67.0" style="-fx-text-fill: black; -fx-font-weight: bold;" text="Email:" GridPane.rowIndex="4" />
-                <TextField fx:id="txtEmail" promptText="example@email.com" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <GridPane hgap="20" vgap="16">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="120" halignment="RIGHT" />
+                        <ColumnConstraints prefWidth="260" />
+                        <ColumnConstraints prefWidth="120" halignment="RIGHT" />
+                        <ColumnConstraints prefWidth="260" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints prefHeight="36" />
+                        <RowConstraints prefHeight="36" />
+                        <RowConstraints prefHeight="36" />
+                    </rowConstraints>
 
-                <Label prefHeight="17.0" prefWidth="67.0" style="-fx-text-fill: black; -fx-font-weight: bold;" text="Role:" GridPane.rowIndex="5" />
-            <Label style="-fx-font-weight: bold;" text="Password :" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField fx:id="txtUserId" GridPane.columnIndex="1" />
-            <TextField fx:id="txtPassword" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <ComboBox fx:id="cmbRole" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <!-- Row 0 -->
+                    <Label text="User ID:" textFill="#546e7a"
+                           style="-fx-font-weight: bold; -fx-font-size: 12px;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="txtUserId"
+                               style="-fx-background-color: #f5f5f5; -fx-border-color: #e0e0e0; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6 12;"
+                               GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <rowConstraints>
-                    <RowConstraints />
-                    <RowConstraints />
-                    <RowConstraints />
-                    <RowConstraints />
-                    <RowConstraints />
-               <RowConstraints />
-                </rowConstraints>
-            </GridPane>
+                    <Label text="Username:" textFill="#546e7a"
+                           style="-fx-font-weight: bold; -fx-font-size: 12px;"
+                           GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                    <TextField fx:id="txtUserName" promptText="John Doe"
+                               style="-fx-background-color: #fafafa; -fx-border-color: #e0e0e0; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6 12;"
+                               GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-            <HBox alignment="CENTER" spacing="15">
-                <Button fx:id="btnSave" onAction="#saveOnAction" prefWidth="100" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" text="Save" />
-                <Button fx:id="btnUpdate" onAction="#updateOnAction" prefWidth="100" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;" text="Update" />
-                <Button fx:id="btnDelete" onAction="#deleteOnAction" prefWidth="100" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" text="Delete" />
-                <Button fx:id="btnReset" onAction="#resetOnAction" prefWidth="100" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold;" text="Reset" />
-            </HBox>
+                    <!-- Row 1 -->
+                    <Label text="Mobile:" textFill="#546e7a"
+                           style="-fx-font-weight: bold; -fx-font-size: 12px;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="txtMobile" promptText="07XXXXXXXX"
+                               style="-fx-background-color: #fafafa; -fx-border-color: #e0e0e0; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6 12;"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-            <TableView fx:id="tblUser" onMouseClicked="#onClickTable" prefHeight="408.0" prefWidth="1126.0">
-                <columns>
-                    <TableColumn fx:id="colUserId" prefWidth="127.33" style="-fx-font-weight: bold; -fx-text-fill: black;" text="User ID" />
-                    <TableColumn fx:id="colUserName" prefWidth="294.67" style="-fx-font-weight: bold; -fx-text-fill: black;" text="User Name" />
-                    <TableColumn fx:id="colMobile" prefWidth="190.0" style="-fx-font-weight: bold; -fx-text-fill: black;" text="Mobile" />
-                    <TableColumn fx:id="colEmail" prefWidth="182.0" style="-fx-font-weight: bold; -fx-text-fill: black;" text="Email" />
-                    <TableColumn fx:id="colRole" prefWidth="175.33" style="-fx-font-weight: bold; -fx-text-fill: black;" text="Role" />
-               <TableColumn fx:id="colPassword" prefWidth="190.0" style="-fx-font-weight: bold; -fx-text-fill: black;" text="Password" />
-                </columns>
-            </TableView>
+                    <Label text="Email:" textFill="#546e7a"
+                           style="-fx-font-weight: bold; -fx-font-size: 12px;"
+                           GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    <TextField fx:id="txtEmail" promptText="example@email.com"
+                               style="-fx-background-color: #fafafa; -fx-border-color: #e0e0e0; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6 12;"
+                               GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                    <!-- Row 2 -->
+                    <Label text="Password:" textFill="#546e7a"
+                           style="-fx-font-weight: bold; -fx-font-size: 12px;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextField fx:id="txtPassword" promptText="••••••••"
+                               style="-fx-background-color: #fafafa; -fx-border-color: #e0e0e0; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6 12;"
+                               GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="Role:" textFill="#546e7a"
+                           style="-fx-font-weight: bold; -fx-font-size: 12px;"
+                           GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                    <ComboBox fx:id="cmbRole" prefWidth="260" prefHeight="36"
+                              style="-fx-background-color: #fafafa; -fx-border-color: #e0e0e0; -fx-border-radius: 6; -fx-background-radius: 6;"
+                              GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                </GridPane>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Button fx:id="btnSave" text="💾  Save"
+                            prefWidth="130" prefHeight="38"
+                            onAction="#saveOnAction"
+                            style="-fx-background-color: #1b5e20; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 8; -fx-cursor: hand;" />
+                    <Button fx:id="btnUpdate" text="✏️  Update"
+                            prefWidth="130" prefHeight="38"
+                            onAction="#updateOnAction"
+                            style="-fx-background-color: #0d47a1; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 8; -fx-cursor: hand;" />
+                    <Button fx:id="btnDelete" text="🗑  Delete"
+                            prefWidth="130" prefHeight="38"
+                            onAction="#deleteOnAction"
+                            style="-fx-background-color: #b71c1c; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 8; -fx-cursor: hand;" />
+                    <Button fx:id="btnReset" text="↺  Reset"
+                            prefWidth="130" prefHeight="38"
+                            onAction="#resetOnAction"
+                            style="-fx-background-color: #546e7a; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 8; -fx-cursor: hand;" />
+                </HBox>
+            </VBox>
+
+            <!-- TABLE CARD -->
+            <VBox spacing="12" VBox.vgrow="ALWAYS"
+                  style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #e8eaf6; -fx-border-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
+
+                <Label text="All Users" textFill="#0d47a1"
+                       style="-fx-font-size: 15px; -fx-font-weight: bold;" />
+
+                <TableView fx:id="tblUser"
+                           onMouseClicked="#onClickTable"
+                           VBox.vgrow="ALWAYS"
+                           style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 8;">
+                    <columns>
+                        <TableColumn fx:id="colUserId" prefWidth="90" text="User ID" />
+                        <TableColumn fx:id="colUserName" prefWidth="180" text="Username" />
+                        <TableColumn fx:id="colMobile" prefWidth="130" text="Mobile" />
+                        <TableColumn fx:id="colEmail" prefWidth="220" text="Email" />
+                        <TableColumn fx:id="colRole" prefWidth="130" text="Role" />
+                        <TableColumn fx:id="colPassword" prefWidth="200" text="Password (Hashed)" />
+                    </columns>
+                </TableView>
+            </VBox>
         </VBox>
-    </children>
+    </VBox>
 </AnchorPane>
