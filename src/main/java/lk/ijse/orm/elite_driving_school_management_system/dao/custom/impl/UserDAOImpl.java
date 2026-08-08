@@ -9,45 +9,75 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
+
     @Override
     public boolean save(User entity) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        session.persist(entity);
-        transaction.commit();
-        session.close();
-        return true;
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.persist(entity);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();   // release the lock on failure
+            }
+            throw e;                      // let BO layer show a proper message (e.g. duplicate username)
+        } finally {
+            session.close();              // ALWAYS close, success or failure
+        }
     }
 
     @Override
     public boolean update(User entity) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(entity);
-        transaction.commit();
-        session.close();
-        return true;
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.merge(entity);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public boolean delete(Long id) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        User user = session.get(User.class, id);
-        if (user != null) {
-            session.remove(user);
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            User user = session.get(User.class, id);
+            if (user != null) {
+                session.remove(user);
+            }
+            transaction.commit();
+            return user != null;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
         }
-        transaction.commit();
-        session.close();
-        return user != null;
     }
 
     @Override
     public List<User> findAll() throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
-        List<User> list = session.createQuery("from User", User.class).list();
-        session.close();
-        return list;
+        try {
+            return session.createQuery("from User", User.class).list();
+        } finally {
+            session.close();
+        }
     }
 
     @Override

@@ -7,7 +7,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AppInitializer extends Application {
-
+// admin
+// admin123
+// 0000
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/Login.fxml"));
